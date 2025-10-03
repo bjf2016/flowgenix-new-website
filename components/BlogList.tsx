@@ -1,0 +1,72 @@
+import Link from 'next/link';
+import { Calendar, ArrowRight } from 'lucide-react';
+import type { Post } from '@/lib/sanity';
+
+interface BlogListProps {
+  posts: Post[];
+}
+
+export function BlogList({ posts }: BlogListProps) {
+  return (
+    <section className="container mx-auto max-w-7xl px-6">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Latest insights
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          Learn how AI is transforming businesses like yours
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {posts.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/blog/${post.slug}`}
+            className="group rounded-2xl bg-white p-6 shadow-md border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          >
+            {post.category && (
+              <span className="inline-block px-3 py-1 rounded-full bg-[#009CE3]/10 text-xs font-medium text-[#009CE3] mb-4">
+                {post.category}
+              </span>
+            )}
+
+            <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#009CE3] transition-colors line-clamp-2">
+              {post.title}
+            </h3>
+
+            <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
+              {post.excerpt}
+            </p>
+
+            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <Calendar className="w-4 h-4" />
+                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
+              </div>
+
+              <div className="flex items-center gap-1 text-sm font-semibold text-[#009CE3] group-hover:gap-2 transition-all">
+                Read more
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="text-center mt-10">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 text-[#009CE3] font-semibold hover:gap-3 transition-all"
+        >
+          View all articles
+          <ArrowRight className="w-5 h-5" />
+        </Link>
+      </div>
+    </section>
+  );
+}
