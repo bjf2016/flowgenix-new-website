@@ -1,28 +1,33 @@
 import { NextResponse } from "next/server";
 
+type Hit = { ts: number; hits: number };
+
+const lastHits = new Map<string, Hit>();
+const WINDOW_MS = 10_000;
+const MAX_HITS = 5;
+
 function getIp(req: Request) {
   const fwd = req.headers.get("x-forwarded-for");
   return fwd?.split(",")[0]?.trim() || "unknown";
 }
 
-const lastHit = new Map<string, number>();
-const WINDOW_MS = 10_000;
-const MAX_HITS = 5;
-
 export async function POST(req: Request) {
   try {
     const ip = getIp(req);
     const now = Date.now();
-    const prev = lastHit.get(ip) ?? 0;
-    const hits = prev && now - prev < WINDOW_MS ? (prev as any)._hits + 1 : 1;
 
-    if (hits > MAX_HITS) {
-      return NextResponse.json({ ok: false, reason: "rate_limited" }, { status: 429 });
+    const prev = lastHits.get(ip);
+    if (!prev || now - prev.ts > WINDOW_MS) {
+      lastHits.set(ip, { ts: now, hits: 1 });
+    } else {
+      const updated = { ts: prev.ts, hits: prev.hits + 1 };
+      lastHits.set(ip, updated);
+      if (updated.hits > MAX_HITS) {
+        return NextResponse.json({ ok: false, reason: "rate_limited" }, { status: 429 });
+      }
     }
 
     const body = await req.json();
-
-    (lastHit as any).set(ip, Object.assign(now, { _hits: hits }));
 
     const target = process.env.N8N_WEBHOOK_URL;
     if (target) {
