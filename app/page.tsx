@@ -1,5 +1,3 @@
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import Hero from '@/components/Hero';
 import TrustMarquee from '@/components/TrustMarquee';
 import PromoBand from '@/components/PromoBand';
@@ -17,9 +15,7 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
-
-      <main className="space-y-20 pb-20">
+      <div className="space-y-20 pb-20">
         <Hero
           eyebrow="Trusted by SMBs"
           title="B2B AI Consulting, built for real results"
@@ -99,9 +95,7 @@ export default async function Home() {
             href: "/demo/dentist-intake-bot"
           }}
         />
-      </main>
-
-      <Footer />
+      </div>
 
       <ChatbotLauncher />
     </>
