@@ -1,13 +1,22 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'FlowGenixAI - AI that answers, qualifies, and books',
-  description: 'AI-powered voice and chat solutions for Dentists and Local Services. Automated intake, qualification, and booking without exposing your calendar.',
-  keywords: ['AI voice bot', 'dental intake automation', 'local services', 'HVAC automation', 'restaurant booking'],
+  description:
+    'AI-powered voice and chat solutions for Dentists and Local Services. Automated intake, qualification, and booking without exposing your calendar.',
+  keywords: [
+    'AI voice bot',
+    'dental intake automation',
+    'local services',
+    'HVAC automation',
+    'restaurant booking',
+  ],
 };
 
 export default function RootLayout({
@@ -20,7 +29,21 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/brand/favicon.png" type="image/png" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body
+        className={[
+          inter.className,
+          'min-h-screen bg-white text-black antialiased',
+        ].join(' ')}
+      >
+        {/* Global header for all pages */}
+        <Header />
+
+        {/* Page content */}
+        <main className="min-h-[60vh]">{children}</main>
+
+        {/* Global footer for all pages */}
+        <Footer />
+      </body>
     </html>
   );
 }
