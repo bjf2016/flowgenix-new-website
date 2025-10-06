@@ -69,22 +69,22 @@ export function Footer() {
         <div>
             <h3 className="font-semibold text-[#009CE3] mb-4">Get in Touch</h3>
             <ul className="space-y-2">
-          <p class="text-gray-300">
-            <span class="font-medium">Email:</span>
-            <a href="mailto:info@flowgenixai.com" class="text-primary-400 hover:text-primary-300 transition-colors duration-300">
+                <p class="text-gray-300">
+                  <span class="font-medium">Email:</span>
+                    <a href="mailto:info@flowgenixai.com" class="text-primary-400 hover:text-primary-300 transition-colors duration-300">
               info@flowgenixai.com
-            </a>
-          </p>
-          <p class="text-gray-300">
-            <span class="font-medium">Phone:</span>
-            <a href="tel:+19259663520" class="text-primary-400 hover:text-primary-300 transition-colors duration-300">
+                    </a>
+                </p>
+                <p class="text-gray-300">
+                  <span class="font-medium">Phone:</span>
+                    <a href="tel:+19259663520" class="text-primary-400 hover:text-primary-300 transition-colors duration-300">
               (925) 966-3520
-            </a>
-          </p>
-          <p class="text-gray-300">
-            <span class="font-medium">Location:</span>
+                    </a>
+                </p>
+                <p class="text-gray-300">
+                  <span class="font-medium">Location:</span>
             Available Nationwide
-          </p>
+                </p>
           </div>
         </div>
 
