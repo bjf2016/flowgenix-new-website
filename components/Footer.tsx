@@ -35,7 +35,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Company</h3>
+            <h3 className="font-semibold text-[#009CE3] mb-4">Company</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
@@ -56,7 +56,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Legal</h3>
+            <h3 className="font-semibold text-[#009CE3] mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/privacy" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
