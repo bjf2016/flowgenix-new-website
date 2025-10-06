@@ -17,7 +17,7 @@ export function Footer() {
             <h3 className="font-semibold text-gray-900 mb-4">Product</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/personas/dentists" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
+                <Link href="/personas/dentists" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   For Dentists
                 </Link>
               </li>
