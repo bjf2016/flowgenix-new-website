@@ -9,7 +9,7 @@ export function Footer() {
           <div className="col-span-1">
             <Logo variant="light" />
             <p className="mt-4 text-sm text-gray-600">
-              AI that answers, qualifies, and books for dentists and local services.
+              Transforming businesses through intelligent automation and AI-powered solutions.
             </p>
           </div>
 
