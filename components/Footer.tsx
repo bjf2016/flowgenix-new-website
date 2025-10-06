@@ -52,12 +52,6 @@ export function Footer() {
                   Contact
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-[#009CE3] mb-4">Legal</h3>
-            <ul className="space-y-2">
               <li>
                 <Link href="/privacy" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   Privacy
@@ -70,8 +64,16 @@ export function Footer() {
               </li>
             </ul>
           </div>
+
+
+        <div>
+            <h3 className="font-semibold text-[#009CE3] mb-4">Get in Touch</h3>
+            <ul className="space-y-2">
+              <li> Email: info@flowgenixai.com </li>
+              <li> Phone: (925) 966-3520</li>
+            </ul>
+          </div>
         </div>
-        
 
         <div className="mt-12 pt-8 border-t border-gray-200">
           <p className="text-center text-sm text-gray-600">
