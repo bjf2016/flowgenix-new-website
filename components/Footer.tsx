@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="border-t bg-[#1F2528]">
       <div className="container mx-auto max-w-7xl px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div className="col-span-1">
             <Logo variant="light" />
             <p className="mt-4 text-sm text-white">
@@ -71,7 +71,14 @@ export function Footer() {
             </ul>
           </div>
         </div>
-
+        <div>
+            <h3 className="font-semibold text-[#009CE3] mb-4">Get in Touch</h3>
+            <ul className="space-y-2">
+              <li> Email: info@flowgenixai.com </li>
+              <li> Phone: (925) 966-3520</li>
+            </ul>
+          </div>
+        </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
           <p className="text-center text-sm text-gray-600">
