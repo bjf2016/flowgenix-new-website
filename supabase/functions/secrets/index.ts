@@ -116,8 +116,6 @@ Deno.serve(async (req: Request) => {
           key,
           value,
           description,
-          created_by: user.id,
-          updated_by: user.id,
         })
         .select()
         .single();
@@ -156,7 +154,6 @@ Deno.serve(async (req: Request) => {
       }
 
       const updateData: any = {
-        updated_by: user.id,
         updated_at: new Date().toISOString(),
       };
 
