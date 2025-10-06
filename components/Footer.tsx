@@ -38,17 +38,17 @@ export function Footer() {
             <h3 className="font-semibold text-[#009CE3] mb-4">Company</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
+                <Link href="/about" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
+                <Link href="/blog" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
+                <Link href="/contact" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   Contact
                 </Link>
               </li>
@@ -59,12 +59,12 @@ export function Footer() {
             <h3 className="font-semibold text-[#009CE3] mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/privacy" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
+                <Link href="/privacy" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   Privacy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
+                <Link href="/terms" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   Terms
                 </Link>
               </li>
