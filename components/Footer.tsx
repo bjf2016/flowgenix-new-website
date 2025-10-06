@@ -70,8 +70,8 @@ export function Footer() {
             <h3 className="font-semibold text-[#009CE3] mb-4">Get in Touch</h3>
             <div className="space-y-2">
                 <p class="text-gray-300">
-                  <span class="font-medium">Email:</span>
-                    <a href="mailto:info@flowgenixai.com" class="text-sm text-white hover:text-[#009CE3] transition-colors">
+                  <span class="text-sm text-white">Email:</span>
+                    <a href="mailto:info@flowgenixai.com" class="text-sm text-[#009CE3]">
               info@flowgenixai.com
                     </a>
                 </p>
