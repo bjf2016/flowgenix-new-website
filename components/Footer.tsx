@@ -71,7 +71,7 @@ export function Footer() {
             <div className="space-y-2">
                 <p class="text-gray-300">
                   <span class="font-medium">Email:</span>
-                    <a href="mailto:info@flowgenixai.com" class="text-primary-400 hover:text-primary-300 transition-colors duration-300">
+                    <a href="mailto:info@flowgenixai.com" class="text-sm text-white hover:text-[#009CE3] transition-colors">
               info@flowgenixai.com
                     </a>
                 </p>
