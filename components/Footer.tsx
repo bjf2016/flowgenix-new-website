@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1">
             <Logo variant="light" />
-            <p className="mt-4 text-sm text-gray-600">
+            <p className="mt-4 text-sm text-white">
               Transforming businesses through intelligent automation and AI-powered solutions.
             </p>
           </div>
