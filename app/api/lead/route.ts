@@ -4,6 +4,9 @@ import { createSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { getSecret } from "@/lib/secrets";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic"; 
+export const revalidate = 0;   
+
 
 const LeadSchema = z.object({
   tenant: z.string().min(1).optional(),
