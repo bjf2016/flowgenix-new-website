@@ -84,7 +84,7 @@ export function Footer() {
               </li>
               <li>
                 <span className="text-white/80">Location: </span>
-                Available Nationwide
+                <span className="text-[#009CE3]">Available Nationwide </span>
               </li>
             </ul>
           </div>
