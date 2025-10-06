@@ -82,7 +82,7 @@ export function Footer() {
                     </a>
                 </p>
                 <p class="text-gray-300">
-                  <span class="font-medium">Location:</span>
+                  <span class="text-sm text-white">Location:</span>
             Available Nationwide
                 </p>
           </div>
