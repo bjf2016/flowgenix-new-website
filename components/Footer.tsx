@@ -69,7 +69,7 @@ export function Footer() {
         <div>
             <h3 className="font-semibold text-[#009CE3] mb-4">Get in Touch</h3>
             <ul className="space-y-2">
-              <li className="text-sm text-white"> Email: info@flowgenixai.com </li>
+              <li className="text-sm text-white"> Email: <className="text-sm text-[#009CE3]"> info@flowgenixai.com </li>
               <li> Phone: (925) 966-3520</li>
             </ul>
           </div>
