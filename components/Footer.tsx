@@ -66,25 +66,27 @@ export function Footer() {
           </div>
 
 
-        <div>
-            <h3 className="font-semibold text-[#009CE3] mb-4">Get in Touch</h3>
-            <div className="space-y-2">
-                <p class="text-gray-300">
-                  <span class="text-sm text-white">Email:</span>
-                    <a href="mailto:info@flowgenixai.com" class="text-sm text-[#009CE3]">
-              info@flowgenixai.com
-                    </a>
-                </p>
-                <p class="text-gray-300">
-                  <span class="text-sm text-white">Phone:</span>
-                    <a href="tel:+19259663520" class="text-sm text-[#009CE3]">
-              (925) 966-3520
-                    </a>
-                </p>
-                <p class="text-gray-300">
-                  <span class="text-sm text-white">Location:</span>
-            Available Nationwide
-                </p>
+          {/* Get in Touch */}
+          <div>
+            <h3 className="mb-4 font-semibold text-[#009CE3]">Get in Touch</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <span className="text-white/80">Email: </span>
+                <a href="mailto:info@flowgenixai.com" className="text-[#009CE3]">
+                  info@flowgenixai.com
+                </a>
+              </li>
+              <li>
+                <span className="text-white/80">Phone: </span>
+                <a href="tel:+19259663520" className="text-[#009CE3]">
+                  (925) 966-3520
+                </a>
+              </li>
+              <li>
+                <span className="text-white/80">Location: </span>
+                Available Nationwide
+              </li>
+            </ul>
           </div>
         </div>
 
