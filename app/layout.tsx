@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import ChatbotLauncher from '@/components/ChatbotLauncher';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -43,6 +44,8 @@ export default function RootLayout({
 
         {/* Global footer for all pages */}
         <Footer />
+
+        <ChatbotLauncher />
       </body>
     </html>
   );
