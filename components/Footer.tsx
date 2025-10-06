@@ -71,14 +71,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div>
-            <h3 className="font-semibold text-[#009CE3] mb-4">Get in Touch</h3>
-            <ul className="space-y-2">
-              <li> Email: info@flowgenixai.com </li>
-              <li> Phone: (925) 966-3520</li>
-            </ul>
-          </div>
-        </div>
+
 
         <div className="mt-12 pt-8 border-t border-gray-200">
           <p className="text-center text-sm text-gray-600">
