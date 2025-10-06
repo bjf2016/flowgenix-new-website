@@ -22,12 +22,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/personas/local-services" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
+                <Link href="/personas/local-services" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   For Local Services
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-sm text-gray-600 hover:text-[#009CE3] transition-colors">
+                <Link href="/services" className="text-sm text-white hover:text-[#009CE3] transition-colors">
                   Services
                 </Link>
               </li>
