@@ -1,14 +1,3 @@
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
-// TEMP: dev override (remove later). Ensures ADMIN_TOKEN exists in Bolt dev.
-if (!process.env.ADMIN_TOKEN && process.env.NODE_ENV !== "production") {
-  process.env.ADMIN_TOKEN = "flowgenix_admin_2025_secret";
-}
-
-
-
-
 // app/api/secrets/route.ts
 import { NextRequest } from "next/server";
 import { getSecret, setSecret, listSecrets } from "@/lib/secrets";
@@ -16,6 +5,11 @@ import { getSecret, setSecret, listSecrets } from "@/lib/secrets";
 // Ensure we have access to process.env.* (avoid edge runtime surprises)
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+// TEMP: dev override (remove later). Ensures ADMIN_TOKEN exists in Bolt dev.
+if (!process.env.ADMIN_TOKEN && process.env.NODE_ENV !== "production") {
+  process.env.ADMIN_TOKEN = "flowgenix_admin_2025_secret";
+}
 
 function checkAuth(req: NextRequest): boolean {
   // Be tolerant to header case and whitespace
