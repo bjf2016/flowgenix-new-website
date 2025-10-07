@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { openChat } from '@/lib/handoff';
+import ChatbotLauncher from "@/components/ChatbotLauncher";
+
 
 export function Header() {
   return (
@@ -27,12 +29,10 @@ export function Header() {
           </Link>
         </nav>
 
-        <button
-          onClick={openChat}
-          className="rounded-full bg-[#009CE3] px-6 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-[#0088cc] hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
-        >
-          Talk to our AI
-        </button>
+        {/* Chat trigger */}
+        <ChatbotLauncher variant="button" />
+
+
       </div>
     </header>
   );
