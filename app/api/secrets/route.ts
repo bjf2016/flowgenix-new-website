@@ -7,9 +7,9 @@ export const dynamic = "force-dynamic";
 
 // TEMP DEV OVERRIDE — remove later if desired
 // Ensures ADMIN_TOKEN exists in local dev even if Bolt dev doesn't inject secrets.
-if (!process.env.ADMIN_TOKEN && process.env.NODE_ENV !== "production") {
-  process.env.ADMIN_TOKEN = "flowgenix_admin_2025_secret";
-}
+// if (!process.env.ADMIN_TOKEN && process.env.NODE_ENV !== "production") {
+//  process.env.ADMIN_TOKEN = "flowgenix_admin_2025_secret";
+// }
 
 function checkAuth(req: NextRequest): boolean {
   // tolerant header parsing (case + whitespace)
