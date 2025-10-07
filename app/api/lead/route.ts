@@ -21,26 +21,25 @@ const LeadSchema = z.object({
 type LeadInput = z.infer<typeof LeadSchema>;
 
 async function forwardToN8N(payload: any) {
-  const url = await getSecret("N8N_WEBHOOK_URL");
-  if (!url) return { forwarded: false };
+  const url = (await getSecret("N8N_WEBHOOK_URL")) ?? process.env.N8N_WEBHOOK_URL;
+  if (!url) return { forwarded: false, error: "missing_webhook_url" };
 
-  const attempts = 3;
-  for (let i = 1; i <= attempts; i++) {
-    try {
-      const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), 10_000);
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
-        signal: ctrl.signal,
-      });
-      clearTimeout(t);
-      if (res.ok) return { forwarded: true, status: res.status };
-    } catch {}
-    await new Promise(r => setTimeout(r, 400 * i));
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      return { forwarded: true };
+    }
+
+    return { forwarded: false };
+  } catch (error) {
+    console.error("[forwardToN8N] Error:", error);
+    return { forwarded: false };
   }
-  return { forwarded: false };
 }
 
 export async function POST(req: NextRequest) {
@@ -92,6 +91,15 @@ export async function POST(req: NextRequest) {
     }
 
     const forwardResult = await forwardToN8N({ ...payload, dbId });
+
+    if (forwardResult.error) {
+      return Response.json({
+        ok: false,
+        forwarded: false,
+        error: forwardResult.error
+      });
+    }
+
     return Response.json({ ok: true, id: dbId, forwarded: forwardResult.forwarded });
   } catch (err: any) {
     console.error("[/api/lead] error:", err);

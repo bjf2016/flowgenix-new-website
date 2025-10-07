@@ -1,304 +1,197 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Trash2, Eye, EyeOff, Plus, RefreshCw } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useState } from 'react';
 
-interface Secret {
-  id: string;
+interface SecretItem {
   key: string;
-  value?: string;
-  description: string;
-  created_at: string;
-  updated_at: string;
+  updated_at?: string;
 }
 
 export default function SecretsManagementPage() {
-  const [secrets, setSecrets] = useState<Secret[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState('');
+  const [key, setKey] = useState('');
+  const [value, setValue] = useState('');
+  const [secrets, setSecrets] = useState<SecretItem[]>([]);
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [visibleValues, setVisibleValues] = useState<Set<string>>(new Set());
 
-  const [newSecret, setNewSecret] = useState({
-    key: '',
-    value: '',
-    description: '',
-  });
+  const handleSave = async () => {
+    setMessage('');
+    setError('');
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  const fetchSecrets = async () => {
-    try {
-      setLoading(true);
-      setError('');
-
-      const response = await fetch(`${supabaseUrl}/functions/v1/secrets`, {
-        headers: {
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch secrets');
-      }
-
-      const result = await response.json();
-      setSecrets(result.data || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load secrets');
-    } finally {
-      setLoading(false);
+    if (!token.trim()) {
+      setError('Token is required');
+      return;
     }
-  };
 
-  const fetchSecretValue = async (key: string) => {
-    try {
-      const response = await fetch(`${supabaseUrl}/functions/v1/secrets?key=${key}`, {
-        headers: {
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch secret value');
-      }
-
-      const result = await response.json();
-      return result.data?.value;
-    } catch (err) {
-      console.error('Error fetching secret value:', err);
-      return null;
-    }
-  };
-
-  const toggleValueVisibility = async (key: string) => {
-    if (visibleValues.has(key)) {
-      setVisibleValues(prev => {
-        const next = new Set(prev);
-        next.delete(key);
-        return next;
-      });
-
-      setSecrets(prev => prev.map(s =>
-        s.key === key ? { ...s, value: undefined } : s
-      ));
-    } else {
-      const value = await fetchSecretValue(key);
-      if (value) {
-        setSecrets(prev => prev.map(s =>
-          s.key === key ? { ...s, value } : s
-        ));
-        setVisibleValues(prev => new Set(prev).add(key));
-      }
-    }
-  };
-
-  const createSecret = async () => {
-    try {
-      setError('');
-      setSuccess('');
-
-      if (!newSecret.key || !newSecret.value) {
-        setError('Key and value are required');
-        return;
-      }
-
-      const response = await fetch(`${supabaseUrl}/functions/v1/secrets`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newSecret),
-      });
-
-      if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || 'Failed to create secret');
-      }
-
-      setSuccess('Secret created successfully');
-      setNewSecret({ key: '', value: '', description: '' });
-      await fetchSecrets();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create secret');
-    }
-  };
-
-  const deleteSecret = async (key: string) => {
-    if (!confirm(`Are you sure you want to delete the secret "${key}"?`)) {
+    if (!key.trim() || !value.trim()) {
+      setError('Key and value are required');
       return;
     }
 
     try {
-      setError('');
-      setSuccess('');
-
-      const response = await fetch(`${supabaseUrl}/functions/v1/secrets?key=${key}`, {
-        method: 'DELETE',
+      const response = await fetch('/api/secrets', {
+        method: 'POST',
         headers: {
-          'Authorization': `Bearer ${supabaseAnonKey}`,
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ key, value }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setError(result.error || 'Failed to save secret');
+        return;
+      }
+
+      setMessage('Secret saved successfully');
+      setKey('');
+      setValue('');
+    } catch (err) {
+      setError('Network error: ' + (err instanceof Error ? err.message : 'Unknown error'));
+    }
+  };
+
+  const handleReload = async () => {
+    setMessage('');
+    setError('');
+
+    if (!token.trim()) {
+      setError('Token is required');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/secrets', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to delete secret');
+        setError(result.error || 'Failed to load secrets');
+        return;
       }
 
-      setSuccess('Secret deleted successfully');
-      await fetchSecrets();
+      setSecrets(result.items || []);
+      setMessage('Secrets loaded successfully');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete secret');
+      setError('Network error: ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   };
 
-  useEffect(() => {
-    fetchSecrets();
-  }, []);
-
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Secrets Management</h1>
-          <p className="text-gray-600">Manage your application secrets securely</p>
+    <div style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto', fontFamily: 'sans-serif' }}>
+      <h1>Secrets Management</h1>
+      <p style={{ color: '#666', marginBottom: '2rem' }}>
+        Manage application secrets. Token is not stored (session-only).
+      </p>
+
+      {message && (
+        <div style={{ padding: '1rem', marginBottom: '1rem', backgroundColor: '#d4edda', border: '1px solid #c3e6cb', borderRadius: '4px', color: '#155724' }}>
+          {message}
         </div>
+      )}
 
-        {error && (
-          <Alert variant="destructive" className="mb-6">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
+      {error && (
+        <div style={{ padding: '1rem', marginBottom: '1rem', backgroundColor: '#f8d7da', border: '1px solid #f5c6cb', borderRadius: '4px', color: '#721c24' }}>
+          {error}
+        </div>
+      )}
+
+      <div style={{ marginBottom: '1.5rem' }}>
+        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+          Admin Token:
+        </label>
+        <input
+          type="password"
+          value={token}
+          onChange={(e) => setToken(e.target.value)}
+          placeholder="Enter admin token"
+          style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }}
+        />
+      </div>
+
+      <div style={{ marginBottom: '1.5rem' }}>
+        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+          Key:
+        </label>
+        <input
+          type="text"
+          value={key}
+          onChange={(e) => setKey(e.target.value)}
+          placeholder="e.g., N8N_WEBHOOK_URL"
+          style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }}
+        />
+      </div>
+
+      <div style={{ marginBottom: '1.5rem' }}>
+        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+          Value:
+        </label>
+        <input
+          type="password"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Enter secret value"
+          style={{ width: '100%', padding: '0.5rem', border: '1px solid #ccc', borderRadius: '4px' }}
+        />
+      </div>
+
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem' }}>
+        <button
+          onClick={handleSave}
+          style={{ padding: '0.5rem 1rem', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+        >
+          Save
+        </button>
+        <button
+          onClick={handleReload}
+          style={{ padding: '0.5rem 1rem', backgroundColor: '#6c757d', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+        >
+          Reload
+        </button>
+      </div>
+
+      <div>
+        <h2>Stored Secrets</h2>
+        {secrets.length === 0 ? (
+          <p style={{ color: '#666' }}>No secrets loaded. Click "Reload" to fetch.</p>
+        ) : (
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'left', padding: '0.5rem', borderBottom: '2px solid #dee2e6' }}>Key</th>
+                <th style={{ textAlign: 'left', padding: '0.5rem', borderBottom: '2px solid #dee2e6' }}>Updated At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {secrets.map((secret) => (
+                <tr key={secret.key}>
+                  <td style={{ padding: '0.5rem', borderBottom: '1px solid #dee2e6' }}>{secret.key}</td>
+                  <td style={{ padding: '0.5rem', borderBottom: '1px solid #dee2e6' }}>
+                    {secret.updated_at ? new Date(secret.updated_at).toLocaleString() : 'N/A'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
+      </div>
 
-        {success && (
-          <Alert className="mb-6 border-green-500 bg-green-50 text-green-900">
-            <AlertDescription>{success}</AlertDescription>
-          </Alert>
-        )}
-
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>Add New Secret</CardTitle>
-            <CardDescription>Create a new secret key-value pair</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="key">Key</Label>
-                  <Input
-                    id="key"
-                    placeholder="SECRET_KEY"
-                    value={newSecret.key}
-                    onChange={(e) => setNewSecret({ ...newSecret, key: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="value">Value</Label>
-                  <Input
-                    id="value"
-                    type="password"
-                    placeholder="secret-value"
-                    value={newSecret.value}
-                    onChange={(e) => setNewSecret({ ...newSecret, value: e.target.value })}
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="description">Description (optional)</Label>
-                <Input
-                  id="description"
-                  placeholder="Description of what this secret is used for"
-                  value={newSecret.description}
-                  onChange={(e) => setNewSecret({ ...newSecret, description: e.target.value })}
-                />
-              </div>
-              <div className="flex gap-2">
-                <Button onClick={createSecret}>
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Secret
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Existing Secrets</CardTitle>
-                <CardDescription>View and manage your secrets</CardDescription>
-              </div>
-              <Button variant="outline" size="sm" onClick={fetchSecrets}>
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Refresh
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div className="text-center py-8 text-gray-500">Loading secrets...</div>
-            ) : secrets.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">No secrets found</div>
-            ) : (
-              <div className="space-y-4">
-                {secrets.map((secret) => (
-                  <div
-                    key={secret.id}
-                    className="flex items-start gap-4 p-4 border rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-mono font-semibold text-sm">{secret.key}</h3>
-                      </div>
-                      {secret.description && (
-                        <p className="text-sm text-gray-600 mb-2">{secret.description}</p>
-                      )}
-                      {visibleValues.has(secret.key) && secret.value && (
-                        <div className="mt-2 p-2 bg-gray-100 rounded font-mono text-sm break-all">
-                          {secret.value}
-                        </div>
-                      )}
-                      <p className="text-xs text-gray-400 mt-2">
-                        Updated: {new Date(secret.updated_at).toLocaleString()}
-                      </p>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => toggleValueVisibility(secret.key)}
-                      >
-                        {visibleValues.has(secret.key) ? (
-                          <EyeOff className="w-4 h-4" />
-                        ) : (
-                          <Eye className="w-4 h-4" />
-                        )}
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => deleteSecret(secret.key)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+      <div style={{ marginTop: '2rem', padding: '1rem', backgroundColor: '#e7f3ff', border: '1px solid #b3d9ff', borderRadius: '4px' }}>
+        <h3 style={{ marginTop: 0 }}>Usage Notes:</h3>
+        <ul style={{ marginBottom: 0 }}>
+          <li>Set <code>N8N_WEBHOOK_URL</code> here to enable webhook forwarding</li>
+          <li>Expected <code>/api/lead</code> response: <code>{`{ ok: true, forwarded: true }`}</code></li>
+          <li>All keys are normalized to UPPERCASE</li>
+        </ul>
       </div>
     </div>
   );

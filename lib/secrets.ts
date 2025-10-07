@@ -1,65 +1,73 @@
 import "server-only";
 
-const SECRETS_URL =
-  "https://fhsacxbpezzrjkkqiyhu.supabase.co/functions/v1/secrets";
+const SUPABASE_EDGE_SECRETS_URL = "https://fhsacxbpezzrjkkqiyhu.supabase.co/functions/v1/secrets";
 
-const CACHE_TTL_MS = 5 * 60 * 1000;
-
-interface CacheEntry {
-  value: string;
-  expiresAt: number;
+function normalizeKey(key: string): string {
+  return key.trim().toUpperCase();
 }
 
-const memoryCache = new Map<string, CacheEntry>();
+export async function getSecret(key: string): Promise<string | null> {
+  const normalizedKey = normalizeKey(key);
 
-function getCachedValue(key: string): string | undefined {
-  const entry = memoryCache.get(key);
-  if (!entry) return undefined;
-  if (Date.now() > entry.expiresAt) {
-    memoryCache.delete(key);
-    return undefined;
-  }
-  return entry.value;
-}
-
-function setCachedValue(key: string, value: string): void {
-  memoryCache.set(key, { value, expiresAt: Date.now() + CACHE_TTL_MS });
-}
-
-async function fetchSecretFromEdgeFunction(
-  key: string
-): Promise<string | undefined> {
-  try {
-    const url = `${SECRETS_URL}?key=${encodeURIComponent(key)}`;
-    const response = await fetch(url); // no auth needed in dev
-    if (!response.ok) return undefined;
-    const result = await response.json(); // { data: { value: "..." } }
-    return result.data?.value;
-  } catch (error) {
-    console.error(`Error fetching secret "${key}":`, error);
-    return undefined;
-  }
-}
-
-export async function getSecret(key: string): Promise<string | undefined> {
-  const envValue = process.env[key];
+  const envValue = process.env[normalizedKey];
   if (envValue !== undefined) return envValue;
 
-  const cachedValue = getCachedValue(key);
-  if (cachedValue !== undefined) return cachedValue;
+  try {
+    const response = await fetch(SUPABASE_EDGE_SECRETS_URL, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ op: "get", key: normalizedKey }),
+    });
 
-  const fetchedValue = await fetchSecretFromEdgeFunction(key);
-  if (fetchedValue !== undefined) {
-    setCachedValue(key, fetchedValue);
-    return fetchedValue;
+    if (!response.ok) return null;
+
+    const result = await response.json();
+    return result.value || null;
+  } catch (error) {
+    console.error(`Error fetching secret "${normalizedKey}":`, error);
+    return null;
   }
-  return undefined;
 }
 
-export async function getRequiredSecret(key: string): Promise<string> {
-  const value = await getSecret(key);
-  if (value === undefined) {
-    throw new Error(`Required secret "${key}" not found`);
+export async function setSecret(key: string, value: string): Promise<void> {
+  const normalizedKey = normalizeKey(key);
+
+  const response = await fetch(SUPABASE_EDGE_SECRETS_URL, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ op: "upsert", key: normalizedKey, value: value.trim() }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to set secret: ${response.statusText}`);
   }
-  return value;
+}
+
+export async function listSecrets(): Promise<Array<{ key: string; updated_at?: string }>> {
+  try {
+    const response = await fetch(SUPABASE_EDGE_SECRETS_URL, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ op: "list" }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to list secrets: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    return result.items || [];
+  } catch (error) {
+    console.error("Error listing secrets:", error);
+    return [];
+  }
 }
