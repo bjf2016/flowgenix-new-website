@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import ChatbotLauncher from '@/components/ChatbotLauncher';
+import { ChatProvider } from '@/components/ChatProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -36,16 +36,16 @@ export default function RootLayout({
           'min-h-screen bg-white text-black antialiased',
         ].join(' ')}
       >
-        {/* Global header for all pages */}
-        <Header />
+        <ChatProvider>
+          {/* Global header for all pages */}
+          <Header />
 
-        {/* Page content */}
-        <main className="min-h-[60vh]">{children}</main>
+          {/* Page content */}
+          <main className="min-h-[60vh]">{children}</main>
 
-        {/* Global footer for all pages */}
-        <Footer />
-
-        <ChatbotLauncher />
+          {/* Global footer for all pages */}
+          <Footer />
+        </ChatProvider>
       </body>
     </html>
   );
