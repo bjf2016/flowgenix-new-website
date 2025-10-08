@@ -43,7 +43,7 @@ export async function GET() {
     ok: true,
     ready: true,
     llmConfigured: hasKey,
-    provider: provider as "OPENAI" | "ANTHROPIC" | null,
+    provider: provider as "OPENAI" | "ANTHROPIC" | "OPENROUTER" | null,
     version: 2,
   });
 }
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ ok: false, error: "No valid messages provided" }, { status: 400 });
   }
 
-  const provider = ((await getSecret("LLM_PROVIDER")) ?? process.env.LLM_PROVIDER ?? null) as "OPENAI" | "ANTHROPIC" | null;
+  const provider = ((await getSecret("LLM_PROVIDER")) ?? process.env.LLM_PROVIDER ?? null) as "OPENAI" | "ANTHROPIC" | "OPENROUTER" | null;
   const apiKey = (await getSecret("LLM_API_KEY")) ?? process.env.LLM_API_KEY ?? null;
   const model = (await getSecret("LLM_MODEL")) ?? process.env.LLM_MODEL ?? null;
   const systemPrompt = (await getSecret("LLM_SYSTEM_PROMPT")) ?? process.env.LLM_SYSTEM_PROMPT ?? "You are FlowGenixAI's assistant focused on our services, pricing, lead intake, and booking.";
@@ -197,12 +197,71 @@ export async function POST(req: NextRequest) {
         usage,
         version: 2,
       });
+    } else if (provider === "OPENROUTER") {
+      const effectiveModel = model || "openrouter/auto";
+      const baseUrl = process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
+      const siteUrl = process.env.OPENROUTER_SITE_URL;
+      const appName = process.env.OPENROUTER_APP_NAME;
+
+      const userMessages = messages.filter(m => m.role !== "system");
+      const openRouterMessages = [
+        { role: "system", content: systemPrompt },
+        ...userMessages
+      ];
+
+      const headers: Record<string, string> = {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      };
+
+      if (siteUrl) headers["HTTP-Referer"] = siteUrl;
+      if (appName) headers["X-Title"] = appName;
+
+      const response = await fetch(`${baseUrl}/chat/completions`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          model: effectiveModel,
+          temperature: 0.3,
+          max_tokens: 400,
+          messages: openRouterMessages,
+        }),
+        signal: AbortSignal.timeout(8000),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => "Unknown error");
+        console.error("OpenRouter API error:", response.status, errorText);
+        return Response.json({
+          ok: true,
+          provider,
+          llmConfigured: true,
+          error: true,
+          status: response.status,
+          message: "I'm having trouble answering right now. Please try again.",
+          usage: null,
+          version: 2,
+        });
+      }
+
+      const data = await response.json();
+      const assistantMessage = data.choices?.[0]?.message?.content ?? "No response";
+      const usage = data.usage ?? null;
+
+      return Response.json({
+        ok: true,
+        provider,
+        llmConfigured: true,
+        message: assistantMessage,
+        usage,
+        version: 2,
+      });
     } else {
       return Response.json({
         ok: true,
         provider,
         llmConfigured: false,
-        message: "Invalid LLM_PROVIDER. Must be OPENAI or ANTHROPIC.",
+        message: "Invalid LLM_PROVIDER. Must be OPENAI, ANTHROPIC, or OPENROUTER.",
         usage: null,
         version: 2,
       });
