@@ -18,6 +18,15 @@ export default function ChatModal({ open, onClose }: { open: boolean; onClose: (
   const [voiceConsent, setVoiceConsent] = useState<null|boolean>(null);
   const boxRef = useRef<HTMLDivElement>(null);
 
+  const [showCallbackForm, setShowCallbackForm] = useState(false);
+  const [callbackPhone, setCallbackPhone] = useState("");
+  const [callbackTime, setCallbackTime] = useState<"now"|"5m"|"later-evening">("now");
+  const [callbackConsent, setCallbackConsent] = useState(false);
+  const [callbackSubmitting, setCallbackSubmitting] = useState(false);
+  const [callbackResult, setCallbackResult] = useState<{ success: boolean; message: string } | null>(null);
+
+  const callbackEnabled = process.env.NEXT_PUBLIC_CALLBACK_ENABLED === "1";
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -81,6 +90,70 @@ export default function ChatModal({ open, onClose }: { open: boolean; onClose: (
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       send();
+    }
+  }
+
+  async function requestCallback() {
+    if (!callbackPhone.trim() || !callbackConsent) return;
+
+    setCallbackSubmitting(true);
+    setCallbackResult(null);
+
+    const lastUserMsg = [...msgs].reverse().find(m => m.role === "user")?.content || "";
+
+    try {
+      const res = await fetch("/api/callback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tenant: "flowgenixai",
+          phone: callbackPhone.trim(),
+          bestTime: callbackTime,
+          intent: "callback",
+          context: {
+            source: "chat",
+            page: typeof window !== "undefined" ? window.location.pathname : "/",
+            lastUserMsg,
+          }
+        })
+      });
+
+      const json = await res.json();
+
+      if (json.ok && json.forwarded) {
+        setCallbackResult({
+          success: true,
+          message: "We'll call you shortly from our FlowGenixAI number."
+        });
+        setCallbackPhone("");
+        setCallbackConsent(false);
+        setCallbackTime("now");
+      } else if (json.ok && !json.forwarded) {
+        let friendlyReason = "Unable to process your request right now.";
+        if (json.reason === "missing_webhook") {
+          friendlyReason = "Callback service is not configured yet.";
+        } else if (json.reason?.startsWith("webhook_http_")) {
+          friendlyReason = "Our callback service is temporarily unavailable.";
+        } else if (json.reason === "egress_unavailable") {
+          friendlyReason = "Network issue connecting to callback service.";
+        }
+        setCallbackResult({
+          success: false,
+          message: friendlyReason
+        });
+      } else {
+        setCallbackResult({
+          success: false,
+          message: "Unable to request callback. Please try again."
+        });
+      }
+    } catch (err: any) {
+      setCallbackResult({
+        success: false,
+        message: "Unable to request callback. Please try again."
+      });
+    } finally {
+      setCallbackSubmitting(false);
     }
   }
 
@@ -151,16 +224,110 @@ export default function ChatModal({ open, onClose }: { open: boolean; onClose: (
                     className="w-full border rounded-md p-2 text-sm disabled:opacity-60 disabled:bg-gray-50"
                     rows={2}
                   />
-                  <div className="mt-2 flex justify-end">
+                  <div className="mt-2 flex justify-between items-center">
+                    {callbackEnabled && (
+                      <button
+                        onClick={() => setShowCallbackForm(!showCallbackForm)}
+                        className="text-sm text-[#009CE3] hover:underline"
+                      >
+                        {showCallbackForm ? "Hide callback form" : "Call me"}
+                      </button>
+                    )}
                     <button
                       onClick={send}
                       disabled={sending || !input.trim()}
-                      className="rounded-md bg-[#009CE3] text-white px-4 py-2 text-sm disabled:opacity-60"
+                      className="rounded-md bg-[#009CE3] text-white px-4 py-2 text-sm disabled:opacity-60 ml-auto"
                     >
                       {sending ? "Sending…" : "Send"}
                     </button>
                   </div>
                 </div>
+
+                {showCallbackForm && callbackEnabled && (
+                  <div className="mt-4 p-4 border rounded-lg bg-gray-50 space-y-3">
+                    <div className="font-medium text-sm">Request a callback</div>
+
+                    <div>
+                      <label className="block text-xs text-gray-600 mb-1">Phone number</label>
+                      <input
+                        type="tel"
+                        value={callbackPhone}
+                        onChange={(e) => setCallbackPhone(e.target.value)}
+                        placeholder="+1 555 123 4567"
+                        className="w-full border rounded-md p-2 text-sm"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs text-gray-600 mb-1">Best time to call</label>
+                      <div className="space-y-2">
+                        <label className="flex items-center text-sm">
+                          <input
+                            type="radio"
+                            name="bestTime"
+                            value="now"
+                            checked={callbackTime === "now"}
+                            onChange={() => setCallbackTime("now")}
+                            className="mr-2"
+                          />
+                          Now
+                        </label>
+                        <label className="flex items-center text-sm">
+                          <input
+                            type="radio"
+                            name="bestTime"
+                            value="5m"
+                            checked={callbackTime === "5m"}
+                            onChange={() => setCallbackTime("5m")}
+                            className="mr-2"
+                          />
+                          In 5 minutes
+                        </label>
+                        <label className="flex items-center text-sm">
+                          <input
+                            type="radio"
+                            name="bestTime"
+                            value="later-evening"
+                            checked={callbackTime === "later-evening"}
+                            onChange={() => setCallbackTime("later-evening")}
+                            className="mr-2"
+                          />
+                          Later today
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="flex items-start text-xs">
+                        <input
+                          type="checkbox"
+                          checked={callbackConsent}
+                          onChange={(e) => setCallbackConsent(e.target.checked)}
+                          className="mr-2 mt-0.5"
+                        />
+                        <span className="text-gray-700">
+                          I consent to receive a one-time automated call from FlowGenixAI.
+                        </span>
+                      </label>
+                    </div>
+
+                    {callbackResult && (
+                      <div className={`p-3 rounded-md text-sm ${callbackResult.success ? "bg-green-50 text-green-800" : "bg-yellow-50 text-yellow-800"}`}>
+                        {callbackResult.message}
+                      </div>
+                    )}
+
+                    <div className="flex justify-end">
+                      <button
+                        onClick={requestCallback}
+                        disabled={!callbackPhone.trim() || !callbackConsent || callbackSubmitting}
+                        className="rounded-md bg-[#009CE3] text-white px-4 py-2 text-sm disabled:opacity-60"
+                      >
+                        {callbackSubmitting ? "Requesting…" : "Request call"}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </>
             )}
 
