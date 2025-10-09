@@ -1,12 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-type Msg = { role: "system" | "user" | "assistant"; content: string };
+type Msg = {
+  role: "user" | "assistant";
+  content: string;
+  refused?: boolean;
+};
 
 export default function ChatModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [tab, setTab] = useState<"chat"|"voice">("chat");
   const [msgs, setMsgs] = useState<Msg[]>([
-    { role: "assistant", content: "Hi! Ask me anything. (LLM disabled for now — Step E will enable it.)" }
+    { role: "assistant", content: "Hi! How can I help with FlowGenixAI's services (voice/chat, intake, pricing, integrations)?" }
   ]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
@@ -27,28 +31,56 @@ export default function ChatModal({ open, onClose }: { open: boolean; onClose: (
   async function send() {
     const content = input.trim();
     if (!content || sending) return;
-    const next: Msg[] = [...msgs, { role: "user", content }];
+
+    const userMsg: Msg = { role: "user", content };
+    const next = [...msgs, userMsg];
     setMsgs(next);
     setInput("");
     setSending(true);
+
     try {
+      const apiMessages = next.map(m => ({ role: m.role, content: m.content }));
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next })
+        body: JSON.stringify({ messages: apiMessages })
       });
+
       const json = await res.json();
-      const reply = (json?.message?.content as string) ?? "OK.";
-      setMsgs(prev => [...prev, { role: "assistant", content: reply }]);
+
+      if (json.error) {
+        setMsgs(prev => [...prev, {
+          role: "assistant",
+          content: "I'm having trouble answering right now. Please try again."
+        }]);
+      } else if (json.refused) {
+        setMsgs(prev => [...prev, {
+          role: "assistant",
+          content: json.message || "I can help with FlowGenixAI's services (AI voice/chat for dentists and local services, intake, qualification, booking). What would you like to know?",
+          refused: true
+        }]);
+      } else {
+        setMsgs(prev => [...prev, {
+          role: "assistant",
+          content: json.message || "I'm here to help!"
+        }]);
+      }
     } catch (err: any) {
-      setMsgs(prev => [...prev, { role: "assistant", content: "Request failed. Try again." }]);
+      setMsgs(prev => [...prev, {
+        role: "assistant",
+        content: "I'm having trouble answering right now. Please try again."
+      }]);
     } finally {
       setSending(false);
     }
   }
 
   function onEnter(e: React.KeyboardEvent<HTMLTextAreaElement>) {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
   }
 
   if (!open) return null;
@@ -75,11 +107,25 @@ export default function ChatModal({ open, onClose }: { open: boolean; onClose: (
                 <div ref={boxRef} className="mt-3 h-[45vh] md:h-[50vh] overflow-y-auto space-y-3">
                   {msgs.map((m, i) => (
                     <div key={i} className={`text-sm leading-relaxed ${m.role==="user"?"text-right":""}`}>
+                      {m.role === "assistant" && m.refused && (
+                        <div className="mb-1">
+                          <span className="inline-block px-2 py-0.5 text-xs rounded-full bg-blue-100 text-blue-700">
+                            Staying on FlowGenixAI topics
+                          </span>
+                        </div>
+                      )}
                       <span className={`inline-block px-3 py-2 rounded-lg ${m.role==="user"?"bg-[#009CE3] text-white":"bg-gray-100 text-gray-900"}`}>
                         {m.content}
                       </span>
                     </div>
                   ))}
+                  {sending && (
+                    <div className="text-sm">
+                      <span className="inline-block px-3 py-2 rounded-lg bg-gray-100 text-gray-600">
+                        Thinking…
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-3">
                   <textarea
@@ -87,11 +133,16 @@ export default function ChatModal({ open, onClose }: { open: boolean; onClose: (
                     onChange={(e)=>setInput(e.target.value)}
                     onKeyDown={onEnter}
                     placeholder="Type a message…"
-                    className="w-full border rounded-md p-2 text-sm"
+                    disabled={sending}
+                    className="w-full border rounded-md p-2 text-sm disabled:opacity-60 disabled:bg-gray-50"
                     rows={2}
                   />
                   <div className="mt-2 flex justify-end">
-                    <button onClick={send} disabled={sending || !input.trim()} className="rounded-md bg-[#009CE3] text-white px-4 py-2 text-sm disabled:opacity-60">
+                    <button
+                      onClick={send}
+                      disabled={sending || !input.trim()}
+                      className="rounded-md bg-[#009CE3] text-white px-4 py-2 text-sm disabled:opacity-60"
+                    >
                       {sending ? "Sending…" : "Send"}
                     </button>
                   </div>
