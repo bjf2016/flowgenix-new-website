@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 type Msg = {
   role: "user" | "assistant";
@@ -115,7 +116,20 @@ export default function ChatModal({ open, onClose }: { open: boolean; onClose: (
                         </div>
                       )}
                       <span className={`inline-block px-3 py-2 rounded-lg ${m.role==="user"?"bg-[#009CE3] text-white":"bg-gray-100 text-gray-900"}`}>
-                        {m.content}
+                        {m.role === "user" ? (
+                          m.content
+                        ) : (
+                          <ReactMarkdown
+                            className="prose prose-sm max-w-none whitespace-pre-wrap break-words"
+                            components={{
+                              a: ({ node, ...props }) => (
+                                <a target="_blank" rel="noreferrer" {...props} />
+                              ),
+                            }}
+                          >
+                            {m.content}
+                          </ReactMarkdown>
+                        )}
                       </span>
                     </div>
                   ))}
