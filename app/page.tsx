@@ -28,10 +28,6 @@ export default async function Home() {
         portraitSrc="/brand/ben v4.png"
         trustLogos={["retell","n8n","sanity","vercel"]}
       />
-        <p className="text-xs text-gray-400">
-          SITE_URL: {process.env.NEXT_PUBLIC_SITE_URL}
-        </p>
-
       
       <TrustMarquee logos={["retell","n8n","sanity","vercel"]} />
 
