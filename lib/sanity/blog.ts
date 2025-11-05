@@ -12,6 +12,10 @@ export type PostListItem = {
   mainImage?: { asset?: { _id: string; url?: string }; alt?: string };
 };
 
+export type FullBlogPost = PostListItem & {
+  body?: any;
+};
+
 export async function fetchLatest(limit = 3): Promise<PostListItem[]> {
   const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } = process.env;
   if (!SANITY_PROJECT_ID || !SANITY_DATASET || !SANITY_API_VERSION) return [];
@@ -55,9 +59,17 @@ export async function fetchCategories(): Promise<CategoryRef[]> {
   }
 }
 
-export async function fetchPostBySlug(slug: string) {
+export async function fetchPostBySlug(slug: string): Promise<FullBlogPost | null> {
+  const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } = process.env;
+  if (!SANITY_PROJECT_ID || !SANITY_DATASET || !SANITY_API_VERSION) {
+    console.warn('[Sanity] Missing environment variables for fetchPostBySlug');
+    return null;
+  }
+
   try {
-    return await client.fetch(POST_BY_SLUG_QUERY, { slug });
+    const post = await client.fetch(POST_BY_SLUG_QUERY, { slug });
+    if (!post) return null;
+    return post as FullBlogPost;
   } catch (error) {
     console.error('[Sanity] Error fetching post by slug:', error);
     return null;
