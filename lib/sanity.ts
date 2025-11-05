@@ -1,9 +1,15 @@
+import { sanityClient } from './sanity/client';
+import { urlForImage } from './sanity/image';
+import { LATEST_POSTS_QUERY } from './sanity/queries';
+
 export interface Post {
   title: string;
   slug: string;
   excerpt: string;
   publishedAt: string;
   category?: string;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 const MOCK_POSTS: Post[] = [
@@ -31,29 +37,26 @@ const MOCK_POSTS: Post[] = [
 ];
 
 export async function fetchLatestPosts(limit: number = 3): Promise<Post[]> {
-  const projectId = process.env.SANITY_PROJECT_ID;
-  const dataset = process.env.SANITY_DATASET;
-  const apiVersion = process.env.SANITY_API_VERSION;
-  const token = process.env.SANITY_READ_TOKEN;
+  const projectId = process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+  const dataset = process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
 
-  if (!projectId || !dataset || !apiVersion) {
+  if (!projectId || !dataset) {
     console.log('[Sanity] Missing environment variables, returning mock posts');
     return MOCK_POSTS.slice(0, limit);
   }
 
   try {
-    console.log('[Sanity] TODO: Implement Sanity client fetch');
+    const posts = await sanityClient.fetch(LATEST_POSTS_QUERY, { limit });
 
-    // GROQ query placeholder:
-    // *[_type=="post"] | order(publishedAt desc) {
-    //   title,
-    //   "slug": slug.current,
-    //   excerpt,
-    //   publishedAt,
-    //   category
-    // }[0...$limit]
-
-    return MOCK_POSTS.slice(0, limit);
+    return posts.map((post: any) => ({
+      title: post.title,
+      slug: post.slug,
+      excerpt: post.excerpt,
+      publishedAt: post.publishedAt,
+      category: post.category,
+      imageUrl: post.mainImage?.asset?.url || (post.mainImage?.asset ? urlForImage(post.mainImage.asset).width(800).url() : undefined),
+      imageAlt: post.mainImage?.alt || post.title
+    }));
   } catch (error) {
     console.error('[Sanity] Error fetching posts:', error);
     return MOCK_POSTS.slice(0, limit);

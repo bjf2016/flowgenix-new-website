@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, ArrowRight } from 'lucide-react';
 import type { Post } from '@/lib/sanity';
 
@@ -23,35 +24,49 @@ export function BlogList({ posts }: BlogListProps) {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group rounded-2xl bg-white p-6 shadow-md border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            className="group rounded-2xl bg-white overflow-hidden shadow-md border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
           >
-            {post.category && (
-              <span className="inline-block px-3 py-1 rounded-full bg-[#009CE3]/10 text-xs font-medium text-[#009CE3] mb-4">
-                {post.category}
-              </span>
+            {post.imageUrl && (
+              <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
+                <Image
+                  src={post.imageUrl}
+                  alt={post.imageAlt || post.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
+                />
+              </div>
             )}
 
-            <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#009CE3] transition-colors line-clamp-2">
-              {post.title}
-            </h3>
+            <div className="p-6">
+              {post.category && (
+                <span className="inline-block px-3 py-1 rounded-full bg-[#009CE3]/10 text-xs font-medium text-[#009CE3] mb-4">
+                  {post.category}
+                </span>
+              )}
 
-            <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
-              {post.excerpt}
-            </p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#009CE3] transition-colors line-clamp-2">
+                {post.title}
+              </h3>
 
-            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-              <div className="flex items-center gap-2 text-xs text-gray-500">
-                <Calendar className="w-4 h-4" />
-                {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
-                })}
-              </div>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
+                {post.excerpt}
+              </p>
 
-              <div className="flex items-center gap-1 text-sm font-semibold text-[#009CE3] group-hover:gap-2 transition-all">
-                Read more
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <Calendar className="w-4 h-4" />
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </div>
+
+                <div className="flex items-center gap-1 text-sm font-semibold text-[#009CE3] group-hover:gap-2 transition-all">
+                  Read more
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
             </div>
           </Link>
