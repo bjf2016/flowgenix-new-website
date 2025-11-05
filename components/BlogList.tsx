@@ -39,10 +39,17 @@ export function BlogList({ posts }: BlogListProps) {
             )}
 
             <div className="p-6">
-              {post.category && (
-                <span className="inline-block px-3 py-1 rounded-full bg-[#009CE3]/10 text-xs font-medium text-[#009CE3] mb-4">
-                  {post.category}
-                </span>
+              {post.categories && post.categories.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {post.categories.map((cat) => (
+                    <span
+                      key={cat.slug}
+                      className="inline-block px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-medium"
+                    >
+                      {cat.title}
+                    </span>
+                  ))}
+                </div>
               )}
 
               <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#009CE3] transition-colors line-clamp-2">

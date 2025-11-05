@@ -72,35 +72,39 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {post.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric'
-              })}
-            </div>
-            {post.author && (
+          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
+            {post.publishedAt && (
               <div className="flex items-center gap-2">
-                <span>By {post.author}</span>
-              </div>
-            )}
-            {post.categories && post.categories.length > 0 && (
-              <div className="flex items-center gap-2">
-                <Tag className="w-4 h-4" />
-                {post.categories.join(', ')}
+                <Calendar className="w-4 h-4" />
+                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
               </div>
             )}
           </div>
+
+          {post.categories && post.categories.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {post.categories.map((cat: { title: string; slug: string }) => (
+                <span
+                  key={cat.slug}
+                  className="inline-block px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-medium"
+                >
+                  {cat.title}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      {post.imageUrl && (
+      {post.mainImage?.asset?.url && (
         <section className="relative w-full h-[400px] md:h-[500px] bg-gray-100">
           <Image
-            src={post.imageUrl}
-            alt={post.imageAlt || post.title}
+            src={post.mainImage.asset.url}
+            alt={post.mainImage.alt || post.title}
             fill
             className="object-cover"
             priority

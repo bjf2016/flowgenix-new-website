@@ -1,45 +1,41 @@
 export const LATEST_POSTS_QUERY = `
-  *[_type == "post"] | order(publishedAt desc) {
+  *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
     title,
     "slug": slug.current,
     excerpt,
     publishedAt,
-    "category": category->title,
-    mainImage {
-      asset->{_id, url},
-      alt
-    }
+    categories[]->{
+      "title": title,
+      "slug": slug.current
+    },
+    mainImage{asset->{_id, url}, alt}
   }[0...$limit]
 `;
 
-export const POSTS_QUERY = `
-  *[_type == "post"
-    && ($q == "" || title match $q || excerpt match $q || pt::text(body) match $q)
-    && ($cat == "" || category->slug.current == $cat)
-  ] | order(publishedAt desc) {
+export const PAGED_POSTS_QUERY = `
+{
+  "items": *[_type == "post"
+             && defined(slug.current)
+             && (!defined($q) || pt::text(body) match $q || title match $q || excerpt match $q)
+             && (!defined($cat) || $cat in categories[]->slug.current)
+  ] | order(publishedAt desc) [$from...$to] {
     title,
     "slug": slug.current,
     excerpt,
     publishedAt,
-    "category": category->title,
-    "categorySlug": category->slug.current,
-    mainImage {
-      asset->{_id, url},
-      alt
-    }
-  }
+    categories[]->{"title": title, "slug": slug.current},
+    mainImage{asset->{_id, url}, alt}
+  },
+  "total": count(*[_type == "post"
+                   && defined(slug.current)
+                   && (!defined($q) || pt::text(body) match $q || title match $q || excerpt match $q)
+                   && (!defined($cat) || $cat in categories[]->slug.current)])
+}
 `;
 
-export const POSTS_COUNT_QUERY = `
-  count(*[_type == "post"
-    && ($q == "" || title match $q || excerpt match $q || pt::text(body) match $q)
-    && ($cat == "" || category->slug.current == $cat)
-  ])
-`;
-
-export const CATEGORIES_QUERY = `
+export const ALL_CATEGORIES_QUERY = `
   *[_type == "category"] | order(title asc) {
-    title,
+    "title": title,
     "slug": slug.current
   }
 `;
@@ -50,12 +46,8 @@ export const POST_BY_SLUG_QUERY = `
     "slug": slug.current,
     excerpt,
     publishedAt,
-    "author": author->name,
-    "categories": categories[]->title,
-    mainImage {
-      asset->{_id, url},
-      alt
-    },
+    categories[]->{"title": title, "slug": slug.current},
+    mainImage{asset->{_id, url}, alt},
     body
   }
 `;

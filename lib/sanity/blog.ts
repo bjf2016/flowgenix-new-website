@@ -1,130 +1,63 @@
-import { sanityClient } from './client';
-import { urlForImage } from './image';
-import { POSTS_QUERY, POSTS_COUNT_QUERY, CATEGORIES_QUERY, POST_BY_SLUG_QUERY } from './queries';
+import { client } from './client';
+import { LATEST_POSTS_QUERY, PAGED_POSTS_QUERY, ALL_CATEGORIES_QUERY, POST_BY_SLUG_QUERY } from './queries';
 
-export interface BlogPost {
+export type CategoryRef = { title: string; slug: string };
+
+export type PostListItem = {
   title: string;
   slug: string;
-  excerpt: string;
-  publishedAt: string;
-  category?: string;
-  categorySlug?: string;
-  imageUrl?: string;
-  imageAlt?: string;
+  excerpt?: string;
+  publishedAt?: string;
+  categories?: CategoryRef[];
+  mainImage?: { asset?: { _id: string; url?: string }; alt?: string };
+};
+
+export async function fetchLatest(limit = 3): Promise<PostListItem[]> {
+  const { SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION } = process.env;
+  if (!SANITY_PROJECT_ID || !SANITY_DATASET || !SANITY_API_VERSION) return [];
+  try {
+    return await client.fetch(LATEST_POSTS_QUERY, { limit });
+  } catch (error) {
+    console.error('[Sanity] Error fetching latest posts:', error);
+    return [];
+  }
 }
 
-export interface FullBlogPost extends BlogPost {
-  author?: string;
-  categories?: string[];
-  body?: any;
-}
+export async function fetchPosts(params: { q?: string; cat?: string; page?: number; limit?: number }) {
+  const page = Math.max(1, params.page ?? 1);
+  const limit = Math.max(1, params.limit ?? 9);
+  const from = (page - 1) * limit;
+  const to = from + limit;
 
-export interface Category {
-  title: string;
-  slug: string;
-}
-
-export interface FetchPostsParams {
-  q?: string;
-  cat?: string;
-  page?: number;
-  limit?: number;
-}
-
-export interface FetchPostsResult {
-  items: BlogPost[];
-  total: number;
-}
-
-export async function fetchPosts({
-  q = '',
-  cat = '',
-  page = 1,
-  limit = 9
-}: FetchPostsParams = {}): Promise<FetchPostsResult> {
-  const projectId = process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-  const dataset = process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
-
-  if (!projectId || !dataset) {
-    return { items: [], total: 0 };
+  const vars: any = { from, to };
+  if (params.q && params.q.trim()) {
+    vars.q = `${params.q.trim()}*`;
+  }
+  if (params.cat && params.cat !== 'all') {
+    vars.cat = params.cat;
   }
 
   try {
-    const searchQuery = q ? `*${q}*` : '';
-    const offset = (page - 1) * limit;
-
-    const [posts, total] = await Promise.all([
-      sanityClient.fetch(`${POSTS_QUERY}[${offset}...${offset + limit}]`, {
-        q: searchQuery,
-        cat: cat || ''
-      }),
-      sanityClient.fetch(POSTS_COUNT_QUERY, {
-        q: searchQuery,
-        cat: cat || ''
-      })
-    ]);
-
-    const items = posts.map((post: any) => ({
-      title: post.title,
-      slug: post.slug,
-      excerpt: post.excerpt,
-      publishedAt: post.publishedAt,
-      category: post.category,
-      categorySlug: post.categorySlug,
-      imageUrl: post.mainImage?.asset?.url || (post.mainImage?.asset ? urlForImage(post.mainImage.asset).width(800).url() : undefined),
-      imageAlt: post.mainImage?.alt || post.title
-    }));
-
-    return { items, total };
+    const res = await client.fetch(PAGED_POSTS_QUERY, vars, { perspective: 'published' });
+    return res as { items: PostListItem[]; total: number };
   } catch (error) {
     console.error('[Sanity] Error fetching posts:', error);
     return { items: [], total: 0 };
   }
 }
 
-export async function fetchCategories(): Promise<Category[]> {
-  const projectId = process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-  const dataset = process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
-
-  if (!projectId || !dataset) {
-    return [];
-  }
-
+export async function fetchCategories(): Promise<CategoryRef[]> {
   try {
-    const categories = await sanityClient.fetch(CATEGORIES_QUERY);
-    return categories;
+    return await client.fetch(ALL_CATEGORIES_QUERY);
   } catch (error) {
     console.error('[Sanity] Error fetching categories:', error);
     return [];
   }
 }
 
-export async function fetchPostBySlug(slug: string): Promise<FullBlogPost | null> {
-  const projectId = process.env.SANITY_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-  const dataset = process.env.SANITY_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
-
-  if (!projectId || !dataset) {
-    return null;
-  }
-
+export async function fetchPostBySlug(slug: string) {
   try {
-    const post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
-
-    if (!post) {
-      return null;
-    }
-
-    return {
-      title: post.title,
-      slug: post.slug,
-      excerpt: post.excerpt,
-      publishedAt: post.publishedAt,
-      author: post.author,
-      categories: post.categories,
-      imageUrl: post.mainImage?.asset?.url || (post.mainImage?.asset ? urlForImage(post.mainImage.asset).width(1200).url() : undefined),
-      imageAlt: post.mainImage?.alt || post.title,
-      body: post.body
-    };
+    return await client.fetch(POST_BY_SLUG_QUERY, { slug });
   } catch (error) {
     console.error('[Sanity] Error fetching post by slug:', error);
     return null;

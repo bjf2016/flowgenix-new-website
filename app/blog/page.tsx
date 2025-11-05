@@ -13,12 +13,12 @@ interface BlogPageProps {
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const q = searchParams.q || '';
-  const cat = searchParams.cat || '';
+  const cat = searchParams.cat || 'all';
   const page = parseInt(searchParams.page || '1', 10);
   const limit = 9;
 
   const [{ items: posts, total }, categories] = await Promise.all([
-    fetchPosts({ q, cat, page, limit }),
+    fetchPosts({ q, cat: cat === 'all' ? undefined : cat, page, limit }),
     fetchCategories()
   ]);
 
@@ -27,7 +27,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const buildUrl = (params: { q?: string; cat?: string; page?: number }) => {
     const urlParams = new URLSearchParams();
     if (params.q) urlParams.set('q', params.q);
-    if (params.cat) urlParams.set('cat', params.cat);
+    if (params.cat && params.cat !== 'all') urlParams.set('cat', params.cat);
     if (params.page && params.page > 1) urlParams.set('page', params.page.toString());
     const query = urlParams.toString();
     return query ? `/blog?${query}` : '/blog';
@@ -68,9 +68,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
           <div className="flex flex-wrap justify-center gap-3">
             <Link
-              href={buildUrl({ q, page: 1 })}
+              href={buildUrl({ q, cat: 'all', page: 1 })}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                !cat
+                cat === 'all'
                   ? 'bg-[#009CE3] text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
