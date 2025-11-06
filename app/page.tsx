@@ -9,6 +9,8 @@ import { TrustSignals } from '@/components/TrustSignals';
 import { CallToAction } from '@/components/CallToAction';
 import { fetchLatestPosts } from '@/lib/sanity';
 
+export const revalidate = 60;
+
 export default async function Home() {
   const posts = await fetchLatestPosts(3);
 
