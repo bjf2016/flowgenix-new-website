@@ -132,12 +132,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       )}
 
       <article className="container mx-auto max-w-4xl px-6 py-12">
-        {post.excerpt && (
-          <div className="text-xl text-gray-600 leading-relaxed mb-8 pb-8 border-b border-gray-200">
-            {post.excerpt}
-          </div>
-        )}
-
         {post.body && (
           <div className="prose prose-lg max-w-none">
             <PortableText value={post.body} components={portableTextComponents} />
