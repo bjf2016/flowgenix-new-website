@@ -13,7 +13,6 @@ const nextConfig = {
       },
     ],
   },
-  transpilePackages: ['@portabletext/react'],
 };
 
 module.exports = nextConfig;
