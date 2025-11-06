@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, ArrowLeft, Tag } from 'lucide-react';
-import { PortableText } from '@portabletext/react';
+import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import { fetchPostBySlug } from '@/lib/sanity/blog';
 
 interface BlogPostPageProps {
@@ -13,39 +13,46 @@ interface BlogPostPageProps {
 
 export const dynamic = 'force-dynamic';
 
-const portableTextComponents = {
+const portableTextComponents: PortableTextComponents = {
   block: {
-    h1: ({ children }: any) => <h1 className="text-4xl font-bold text-gray-900 mb-6 mt-8">{children}</h1>,
-    h2: ({ children }: any) => <h2 className="text-3xl font-bold text-gray-900 mb-5 mt-8">{children}</h2>,
-    h3: ({ children }: any) => <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-6">{children}</h3>,
-    h4: ({ children }: any) => <h4 className="text-xl font-bold text-gray-900 mb-3 mt-6">{children}</h4>,
-    normal: ({ children }: any) => <p className="text-lg text-gray-700 leading-relaxed mb-6">{children}</p>,
-    blockquote: ({ children }: any) => (
+    h1:  ({children}) => <h1 className="text-4xl font-bold text-gray-900 mb-6 mt-8">{children}</h1>,
+    h2:  ({children}) => <h2 className="text-3xl font-bold text-gray-900 mb-5 mt-8">{children}</h2>,
+    h3:  ({children}) => <h3 className="text-2xl font-bold text-gray-900 mb-4 mt-6">{children}</h3>,
+    h4:  ({children}) => <h4 className="text-xl font-bold text-gray-900 mb-3 mt-6">{children}</h4>,
+    normal: ({children}) => <p className="text-lg text-gray-700 leading-relaxed mb-6">{children}</p>,
+    blockquote: ({children}) => (
       <blockquote className="border-l-4 border-[#009CE3] pl-6 py-2 italic text-gray-700 my-6">
         {children}
       </blockquote>
     ),
   },
+
+  // ✅ PortableText will try to call both list and listItem renderers
   list: {
-    bullet: ({ children }: any) => <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700">{children}</ul>,
-    number: ({ children }: any) => <ol className="list-decimal list-inside space-y-2 mb-6 text-gray-700">{children}</ol>,
+    bullet: ({children}) => <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700">{children}</ul>,
+    number: ({children}) => <ol className="list-decimal list-inside space-y-2 mb-6 text-gray-700">{children}</ol>,
   },
+  listItem: {
+    bullet: ({children}) => <li>{children}</li>,
+    number: ({children}) => <li>{children}</li>,
+  },
+
   marks: {
-    strong: ({ children }: any) => <strong className="font-bold text-gray-900">{children}</strong>,
-    em: ({ children }: any) => <em className="italic">{children}</em>,
-    code: ({ children }: any) => (
+    strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
+    em:     ({children}) => <em className="italic">{children}</em>,
+    code:   ({children}) => (
       <code className="bg-gray-100 text-[#009CE3] px-2 py-1 rounded text-sm font-mono">{children}</code>
     ),
-    link: ({ children, value }: any) => (
-      <a
-        href={value.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-[#009CE3] hover:underline font-medium"
-      >
-        {children}
-      </a>
-    ),
+    // ✅ guard against missing value/href
+    link:   ({children, value}) => {
+      const href = value?.href ?? '#';
+      return (
+        <a href={href} target="_blank" rel="noopener noreferrer"
+           className="text-[#009CE3] hover:underline font-medium">
+          {children}
+        </a>
+      );
+    },
   },
 };
 
