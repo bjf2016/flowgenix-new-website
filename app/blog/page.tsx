@@ -120,7 +120,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         ) : (
           <>
             <div className="flex items-center justify-between mb-6">
-              <LimitSelector currentLimit={limitParam} buildUrl={buildUrl} q={q} cat={cat} />
+              <LimitSelector currentLimit={limitParam} q={q} cat={cat} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
