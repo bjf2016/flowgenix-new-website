@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Calendar, ArrowLeft, Tag } from 'lucide-react';
 import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import { fetchPostBySlug } from '@/lib/sanity/blog';
+import { urlForImage } from '@/lib/sanity/image';
 
 interface BlogPostPageProps {
   params: {
@@ -14,6 +15,21 @@ interface BlogPostPageProps {
 export const dynamic = 'force-dynamic';
 
 const portableTextComponents: PortableTextComponents = {
+  types: {
+    image: ({ value }) => {
+      const src = urlForImage(value)?.width(1600).fit('max').url();
+      if (!src) return null;
+      return (
+        <Image
+          src={src}
+          alt={value?.alt || ''}
+          width={1600}
+          height={900}
+          className="rounded-lg my-8"
+        />
+      );
+    },
+  },
   block: {
     h1:  ({children}) => <h1 className="text-4xl font-bold text-gray-900 mb-6 mt-8">{children}</h1>,
     h2:  ({children}) => <h2 className="text-3xl font-bold text-gray-900 mb-5 mt-8">{children}</h2>,
@@ -26,8 +42,6 @@ const portableTextComponents: PortableTextComponents = {
       </blockquote>
     ),
   },
-
-  // ✅ PortableText will try to call both list and listItem renderers
   list: {
     bullet: ({children}) => <ul className="list-disc list-inside space-y-2 mb-6 text-gray-700">{children}</ul>,
     number: ({children}) => <ol className="list-decimal list-inside space-y-2 mb-6 text-gray-700">{children}</ol>,
@@ -36,14 +50,12 @@ const portableTextComponents: PortableTextComponents = {
     bullet: ({children}) => <li>{children}</li>,
     number: ({children}) => <li>{children}</li>,
   },
-
   marks: {
     strong: ({children}) => <strong className="font-bold text-gray-900">{children}</strong>,
     em:     ({children}) => <em className="italic">{children}</em>,
     code:   ({children}) => (
       <code className="bg-gray-100 text-[#009CE3] px-2 py-1 rounded text-sm font-mono">{children}</code>
     ),
-    // ✅ guard against missing value/href
     link:   ({children, value}) => {
       const href = value?.href ?? '#';
       return (

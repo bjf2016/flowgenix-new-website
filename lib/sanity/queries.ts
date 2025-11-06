@@ -42,12 +42,17 @@ export const ALL_CATEGORIES_QUERY = `
 
 export const POST_BY_SLUG_QUERY = `
   *[_type == "post" && slug.current == $slug][0] {
+    _id,
     title,
     "slug": slug.current,
     excerpt,
     publishedAt,
     categories[]->{"title": title, "slug": slug.current},
-    mainImage{asset->{_id, url}, alt},
-    body
+    "coverImage": mainImage{..., asset->},
+    body[]{
+      ...,
+      markDefs[]{..., _type == "internalLink" => {"slug": @.reference->slug}},
+      asset->
+    }
   }
 `;
