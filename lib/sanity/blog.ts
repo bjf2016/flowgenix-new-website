@@ -13,7 +13,8 @@ export type PostListItem = {
 };
 
 export type FullBlogPost = PostListItem & {
-  body?: any;
+  content?: any;
+  body?: any; // Keep for backwards compatibility
 };
 
 export async function fetchLatest(limit = 3): Promise<PostListItem[]> {
@@ -68,7 +69,12 @@ export async function fetchPostBySlug(slug: string): Promise<FullBlogPost | null
 
   try {
     const post = await client.fetch(POST_BY_SLUG_QUERY, { slug });
+    console.log('[Sanity] Fetched post:', slug, 'content length:', post?.content?.length);
     if (!post) return null;
+    // Map content to body for PortableText compatibility
+    if (post.content && !post.body) {
+      post.body = post.content;
+    }
     return post as FullBlogPost;
   } catch (error) {
     console.error('[Sanity] Error fetching post by slug:', error);

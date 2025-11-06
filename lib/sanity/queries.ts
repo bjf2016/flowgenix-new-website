@@ -49,10 +49,7 @@ export const POST_BY_SLUG_QUERY = `
     publishedAt,
     categories[]->{"title": title, "slug": slug.current},
     "coverImage": mainImage{..., asset->},
-    body[]{
-      ...,
-      markDefs[]{..., _type == "internalLink" => {"slug": @.reference->slug}},
-      asset->
-    }
+    mainImage{asset->{_id, url}, alt},
+    content
   }
 `;

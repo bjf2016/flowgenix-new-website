@@ -71,6 +71,9 @@ const portableTextComponents: PortableTextComponents = {
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = await fetchPostBySlug(params.slug);
 
+  console.log('[BlogPost] Slug:', params.slug);
+  console.log('[BlogPost] Post data:', JSON.stringify(post, null, 2));
+
   if (!post) {
     notFound();
   }
