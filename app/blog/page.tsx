@@ -4,6 +4,8 @@ import { fetchPosts, fetchCategories, PostListItem } from '@/lib/sanity/blog';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { LimitSelector } from '@/components/LimitSelector';
 
+export const revalidate = 60;
+
 interface BlogPageProps {
   searchParams: {
     q?: string;
