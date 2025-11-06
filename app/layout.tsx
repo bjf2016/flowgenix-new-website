@@ -31,10 +31,7 @@ export default function RootLayout({
         <link rel="icon" href="/brand/favicon.png" type="image/png" />
       </head>
       <body
-        className={[
-          inter.className,
-          'min-h-screen bg-white text-black antialiased',
-        ].join(' ')}
+        className={`${inter.className} min-h-screen bg-white text-black antialiased`}
       >
         <ChatProvider>
           {/* Global header for all pages */}
