@@ -69,7 +69,6 @@ export async function fetchPostBySlug(slug: string): Promise<FullBlogPost | null
 
   try {
     const post = await client.fetch(POST_BY_SLUG_QUERY, { slug });
-    console.log('[Sanity] Fetched post:', slug, 'content length:', post?.content?.length);
     if (!post) return null;
     // Map content to body for PortableText compatibility
     if (post.content && !post.body) {

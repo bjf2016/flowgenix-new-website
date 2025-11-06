@@ -16,7 +16,7 @@ export const PAGED_POSTS_QUERY = `
 {
   "items": *[_type == "post"
              && defined(slug.current)
-             && (!defined($q) || pt::text(body) match $q || title match $q || excerpt match $q)
+             && (!defined($q) || pt::text(content) match $q || title match $q || excerpt match $q)
              && (!defined($cat) || $cat in categories[]->slug.current)
   ] | order(publishedAt desc) [$from...$to] {
     title,
@@ -28,7 +28,7 @@ export const PAGED_POSTS_QUERY = `
   },
   "total": count(*[_type == "post"
                    && defined(slug.current)
-                   && (!defined($q) || pt::text(body) match $q || title match $q || excerpt match $q)
+                   && (!defined($q) || pt::text(content) match $q || title match $q || excerpt match $q)
                    && (!defined($cat) || $cat in categories[]->slug.current)])
 }
 `;
