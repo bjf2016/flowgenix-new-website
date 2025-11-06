@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import { fetchPosts, fetchCategories } from '@/lib/sanity/blog';
+import { fetchPosts, fetchCategories, PostListItem } from '@/lib/sanity/blog';
 import { BlogCard } from '@/components/blog/BlogCard';
 
 interface BlogPageProps {
@@ -100,7 +100,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {posts.map((post) => (
+              {posts.map((post: PostListItem) => (
                 <BlogCard key={post.slug} post={post} />
               ))}
             </div>

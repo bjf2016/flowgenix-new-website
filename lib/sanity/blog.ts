@@ -31,20 +31,35 @@ export async function fetchLatest(limit = 3): Promise<PostListItem[]> {
 export async function fetchPosts(params: { q?: string; cat?: string; page?: number; limit?: number }) {
   const page = Math.max(1, params.page ?? 1);
   const limit = Math.max(1, params.limit ?? 9);
-  const from = (page - 1) * limit;
-  const to = from + limit;
-
-  const vars: any = { from, to };
-  if (params.q && params.q.trim()) {
-    vars.q = `${params.q.trim()}*`;
-  }
-  if (params.cat && params.cat !== 'all') {
-    vars.cat = params.cat;
-  }
 
   try {
-    const res = await client.fetch(PAGED_POSTS_QUERY, vars, { perspective: 'published' });
-    return res as { items: PostListItem[]; total: number };
+    const allPosts = await client.fetch(PAGED_POSTS_QUERY, {}, { perspective: 'published' });
+
+    let filtered = allPosts;
+
+    // Filter by category
+    if (params.cat && params.cat !== 'all') {
+      filtered = filtered.filter((post: PostListItem) =>
+        post.categories?.some(cat => cat.slug === params.cat)
+      );
+    }
+
+    // Filter by search query
+    if (params.q && params.q.trim()) {
+      const query = params.q.trim().toLowerCase();
+      filtered = filtered.filter((post: PostListItem) =>
+        post.title?.toLowerCase().includes(query) ||
+        post.excerpt?.toLowerCase().includes(query)
+      );
+    }
+
+    // Paginate
+    const total = filtered.length;
+    const from = (page - 1) * limit;
+    const to = from + limit;
+    const items = filtered.slice(from, to);
+
+    return { items, total };
   } catch (error) {
     console.error('[Sanity] Error fetching posts:', error);
     return { items: [], total: 0 };
