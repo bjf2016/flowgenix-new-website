@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fetchPosts, fetchCategories, PostListItem } from '@/lib/sanity/blog';
 import { BlogCard } from '@/components/blog/BlogCard';
+import { LimitSelector } from '@/components/LimitSelector';
 
 interface BlogPageProps {
   searchParams: {
@@ -119,19 +120,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         ) : (
           <>
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <span className="text-gray-600 text-sm">Show:</span>
-                <select
-                  value={limitParam}
-                  onChange={(e) => { window.location.href = buildUrl({ q, cat, page: 1, limit: e.target.value }); }}
-                  className="px-3 py-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#009CE3] focus:border-transparent"
-                >
-                  <option value="5">5 posts</option>
-                  <option value="10">10 posts</option>
-                  <option value="25">25 posts</option>
-                  <option value="all">All posts</option>
-                </select>
-              </div>
+              <LimitSelector currentLimit={limitParam} buildUrl={buildUrl} q={q} cat={cat} />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
