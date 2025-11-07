@@ -1,5 +1,5 @@
 import 'server-only';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function POST(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -27,6 +27,7 @@ export async function POST(req: Request) {
   // Always revalidate the list pages
   revalidatePath('/');
   revalidatePath('/blog');
+  revalidateTag('home:posts');
 
   // Revalidate the specific post page if we can detect it
   if (slug) {

@@ -7,12 +7,12 @@ import { AboutStrip } from '@/components/AboutStrip';
 import { BlogList } from '@/components/BlogList';
 import { TrustSignals } from '@/components/TrustSignals';
 import { CallToAction } from '@/components/CallToAction';
-import { fetchLatestPosts } from '@/lib/sanity';
+import { getLatestPosts } from '@/lib/data/getLatestPosts';
 
 export const revalidate = 60;
 
 export default async function Home() {
-  const posts = await fetchLatestPosts(3);
+  const posts = await getLatestPosts();
 
   return (
     <div className="space-y-20 pb-20">
