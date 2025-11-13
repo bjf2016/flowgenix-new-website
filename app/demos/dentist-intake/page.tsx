@@ -57,7 +57,7 @@ export default function Page() {
       <div className="container max-w-xl mx-auto py-12">
         <header className="mb-6">
           <h1 className="text-3xl font-bold tracking-tight">
-            Dentist Intake Bot — Demo
+            Dentist AI Receptionist call-back — Demo
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             This demo will capture name, phone, reason for visit, and a preferred time window.
