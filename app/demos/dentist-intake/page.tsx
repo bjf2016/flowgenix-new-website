@@ -122,7 +122,7 @@ export default function Page() {
         )}
 
         <p className="text-xs text-muted-foreground">
-          Next step will wire this to Retell AI + n8n for an instant call-back.
+          This form triggers our AI receptionist to call you back.
         </p>
       </form>
     </main>
