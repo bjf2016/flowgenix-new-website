@@ -51,80 +51,96 @@ export default function Page() {
   }
 
   return (
-    <main className="container max-w-3xl py-12">
-      <h1 className="text-3xl font-bold tracking-tight">Dentist Intake Bot — Demo</h1>
-      <p className="mt-2 text-muted-foreground">
-        This demo will capture name, phone, reason for visit, and a preferred time window.
-      </p>
-
-      <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
-        <div>
-          <label className="block text-sm font-medium">Name</label>
-          <input
-            className="mt-1 w-full rounded-md border px-3 py-2"
-            placeholder="Jane Patel"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Phone</label>
-          <input
-            className="mt-1 w-full rounded-md border px-3 py-2"
-            placeholder="(555) 555-1234"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Reason for visit</label>
-          <select
-            className="mt-1 w-full rounded-md border px-3 py-2"
-            value={reason}
-            onChange={(e) => setReason(e.target.value)}
-          >
-            <option>New patient exam</option>
-            <option>Clear aligner consult</option>
-            <option>Cleaning</option>
-            <option>Emergency / pain</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Preferred time window</label>
-          <input
-            className="mt-1 w-full rounded-md border px-3 py-2"
-            placeholder="e.g., Tue–Thu, 9–11am"
-            value={preferredTime}
-            onChange={(e) => setPreferredTime(e.target.value)}
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="rounded-md px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Submitting..." : "Request AI Call Back"}
-        </button>
-
-        {notice && (
-          <p
-            className={`text-sm ${
-              notice.includes("Thanks") ? "text-green-600" : "text-red-600"
-            }`}
-          >
-            {notice}
+    <main className="min-h-screen bg-slate-50">
+      <div className="container max-w-xl mx-auto py-12">
+        <header className="mb-6">
+          <h1 className="text-3xl font-bold tracking-tight">
+            Dentist Intake Bot — Demo
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            This demo will capture name, phone, reason for visit, and a
+            preferred time window.
           </p>
-        )}
+        </header>
 
-        <p className="text-xs text-muted-foreground">
-          This form triggers our AI receptionist to call you back.
-        </p>
-      </form>
+        <div className="rounded-2xl border bg-white shadow-md p-6 sm:p-8">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <input
+                className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/60"
+                placeholder="Jane Patel"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Phone</label>
+              <input
+                className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/60"
+                placeholder="+1 555 555 1234"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Reason for visit
+              </label>
+              <select
+                className="mt-1 w-full rounded-md border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/60"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+              >
+                <option>New patient exam</option>
+                <option>Clear aligner consult</option>
+                <option>Cleaning</option>
+                <option>Emergency / pain</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Preferred time window
+              </label>
+              <input
+                className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/60"
+                placeholder="e.g., Tue–Thu, 9–11am"
+                value={preferredTime}
+                onChange={(e) => setPreferredTime(e.target.value)}
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full rounded-md px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Request AI Call Back"}
+            </button>
+
+            {notice && (
+              <p
+                className={`text-sm ${
+                  notice.includes("Thanks") ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {notice}
+              </p>
+            )}
+
+            <p className="text-xs text-muted-foreground">
+              This form triggers our AI receptionist to call you back.
+            </p>
+          </form>
+        </div>
+      </div>
     </main>
   );
 }
