@@ -2,6 +2,10 @@
 
 import { useState, FormEvent } from "react";
 
+const webhookUrl =
+  process.env.NEXT_PUBLIC_N8N_DENTIST_WEBHOOK ??
+  "https://n8n.flowgenixai.com/webhook/dentist-intake-demo";
+
 export default function Page() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -15,11 +19,18 @@ export default function Page() {
     setIsSubmitting(true);
     setNotice("");
 
+    // Guard in case webhookUrl is somehow missing
+    if (!webhookUrl) {
+      setNotice("Configuration error: webhook URL missing.");
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_N8N_DENTIST_WEBHOOK as string, {
+      const response = await fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, reason, preferredTime })
+        body: JSON.stringify({ name, phone, reason, preferredTime }),
       });
 
       if (!response.ok) {
@@ -101,7 +112,11 @@ export default function Page() {
         </button>
 
         {notice && (
-          <p className={`text-sm ${notice.includes("Thanks") ? "text-green-600" : "text-red-600"}`}>
+          <p
+            className={`text-sm ${
+              notice.includes("Thanks") ? "text-green-600" : "text-red-600"
+            }`}
+          >
             {notice}
           </p>
         )}
