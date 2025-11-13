@@ -63,7 +63,7 @@ export default function Page() {
             This demo will capture a current/new patient information such as name, phone number, reason for visit, and a preferred time to call back. (For demo purposes, the call back will be immediate)
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Once the website visitor clicks on "Request AI Call Back", they will receive a call from the AI Receptionist to help answer their quesitons or address their needs (which can be customized and contained)
+            Once the website visitor clicks on "Request AI Call Back", they will receive a call from the AI Receptionist to help answer their quesitons or address their needs (which can be customized and contained with dedicate practice business rules.)
           </p>
         </header>
 
