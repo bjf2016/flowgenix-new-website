@@ -108,7 +108,7 @@ export default function Page() {
           className="rounded-md px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Submitting..." : "Connect to Live Bot"}
+          {isSubmitting ? "Submitting..." : "Request AI Call Back"}
         </button>
 
         {notice && (
