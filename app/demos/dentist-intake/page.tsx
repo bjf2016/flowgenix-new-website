@@ -1,12 +1,15 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 const webhookUrl =
   process.env.NEXT_PUBLIC_N8N_DENTIST_WEBHOOK ??
   "https://n8n.flowgenixai.com/webhook/dentist-intake-demo";
 
 export default function Page() {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [reason, setReason] = useState("New patient exam");
@@ -19,7 +22,6 @@ export default function Page() {
     setIsSubmitting(true);
     setNotice("");
 
-    // Guard in case webhookUrl is somehow missing
     if (!webhookUrl) {
       setNotice("Configuration error: webhook URL missing.");
       setIsSubmitting(false);
@@ -58,8 +60,7 @@ export default function Page() {
             Dentist Intake Bot — Demo
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            This demo will capture name, phone, reason for visit, and a
-            preferred time window.
+            This demo will capture name, phone, reason for visit, and a preferred time window.
           </p>
         </header>
 
@@ -88,9 +89,7 @@ export default function Page() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
-                Reason for visit
-              </label>
+              <label className="block text-sm font-medium mb-1">Reason for visit</label>
               <select
                 className="mt-1 w-full rounded-md border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/60"
                 value={reason}
@@ -105,9 +104,7 @@ export default function Page() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
-                Preferred time window
-              </label>
+              <label className="block text-sm font-medium mb-1">Preferred time window</label>
               <input
                 className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/60"
                 placeholder="e.g., Tue–Thu, 9–11am"
@@ -117,13 +114,24 @@ export default function Page() {
               />
             </div>
 
-            <button
-              type="submit"
-              className="w-full rounded-md px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Submitting..." : "Request AI Call Back"}
-            </button>
+            {/* ACTION BUTTONS */}
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                type="submit"
+                className="flex-1 rounded-md px-4 py-2 bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Request AI Call Back"}
+              </button>
+
+              <button
+                type="button"
+                className="rounded-md border px-4 py-2 text-sm hover:bg-gray-100 transition-colors"
+                onClick={() => router.back()}
+              >
+                Cancel
+              </button>
+            </div>
 
             {notice && (
               <p
