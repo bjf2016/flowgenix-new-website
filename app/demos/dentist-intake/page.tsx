@@ -60,7 +60,7 @@ export default function Page() {
             Dentist AI Receptionist call-back
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            This demo will capture name, phone, reason for visit, and a preferred time window.
+            This demo will capture a current/new patient information such as name, phone number, reason for visit, and a preferred time to call back(this is a demo so the call will be immediate). Once the website visitor clicks on "Request AI Call Back", they will receive a call from the AI Receptionist to help answer their quesitons or address their needs (which can be customized and contained)
           </p>
         </header>
 
