@@ -1,12 +1,44 @@
-export const revalidate = 60;
+"use client";
 
-export const metadata = {
-  title: "Dentist Intake Bot Demo",
-  description: "Sample intake flow: capture name, phone, reason, and preferred time window.",
-  openGraph: { title: "Dentist Intake Bot Demo" }
-};
+import { useState, FormEvent } from "react";
 
 export default function Page() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [reason, setReason] = useState("New patient exam");
+  const [preferredTime, setPreferredTime] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notice, setNotice] = useState("");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setNotice("");
+
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_N8N_DENTIST_WEBHOOK as string, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, reason, preferredTime })
+      });
+
+      if (!response.ok) {
+        setNotice("Something went wrong. Please try again.");
+        return;
+      }
+
+      setNotice("Thanks! Our AI receptionist will call you shortly.");
+      setName("");
+      setPhone("");
+      setReason("New patient exam");
+      setPreferredTime("");
+    } catch (error) {
+      setNotice("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <main className="container max-w-3xl py-12">
       <h1 className="text-3xl font-bold tracking-tight">Dentist Intake Bot — Demo</h1>
@@ -14,18 +46,34 @@ export default function Page() {
         This demo will capture name, phone, reason for visit, and a preferred time window.
       </p>
 
-      <form className="mt-8 space-y-4">
+      <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
         <div>
           <label className="block text-sm font-medium">Name</label>
-          <input className="mt-1 w-full rounded-md border px-3 py-2" placeholder="Jane Patel" />
+          <input
+            className="mt-1 w-full rounded-md border px-3 py-2"
+            placeholder="Jane Patel"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label className="block text-sm font-medium">Phone</label>
-          <input className="mt-1 w-full rounded-md border px-3 py-2" placeholder="(555) 555-1234" />
+          <input
+            className="mt-1 w-full rounded-md border px-3 py-2"
+            placeholder="(555) 555-1234"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label className="block text-sm font-medium">Reason for visit</label>
-          <select className="mt-1 w-full rounded-md border px-3 py-2">
+          <select
+            className="mt-1 w-full rounded-md border px-3 py-2"
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+          >
             <option>New patient exam</option>
             <option>Clear aligner consult</option>
             <option>Cleaning</option>
@@ -35,12 +83,28 @@ export default function Page() {
         </div>
         <div>
           <label className="block text-sm font-medium">Preferred time window</label>
-          <input className="mt-1 w-full rounded-md border px-3 py-2" placeholder="e.g., Tue–Thu, 9–11am" />
+          <input
+            className="mt-1 w-full rounded-md border px-3 py-2"
+            placeholder="e.g., Tue–Thu, 9–11am"
+            value={preferredTime}
+            onChange={(e) => setPreferredTime(e.target.value)}
+            required
+          />
         </div>
 
-        <button className="rounded-md px-4 py-2 bg-gray-300 cursor-not-allowed" disabled>
-          Connect to Live Bot (coming next)
+        <button
+          type="submit"
+          className="rounded-md px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Submitting..." : "Connect to Live Bot"}
         </button>
+
+        {notice && (
+          <p className={`text-sm ${notice.includes("Thanks") ? "text-green-600" : "text-red-600"}`}>
+            {notice}
+          </p>
+        )}
 
         <p className="text-xs text-muted-foreground">
           Next step will wire this to Retell AI + n8n for an instant call-back.
