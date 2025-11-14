@@ -65,21 +65,21 @@ export default function Page() {
           <h2 className="text-3xl font-bold tracking-tight mb-8 text-center">What We Deliver</h2>
           <div className="grid gap-6 md:grid-cols-3">
             <div className="border rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-3">AI Voice Receptionist (Retell)</h3>
+              <h3 className="text-xl font-semibold mb-3">AI Voice Receptionist</h3>
               <p className="text-muted-foreground">
                 Answers, qualifies, schedules. After-hours coverage that never misses a lead.
               </p>
             </div>
             <div className="border rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-3">Website Chatbot (Claude via OpenRouter)</h3>
+              <h3 className="text-xl font-semibold mb-3">Website Chatbot</h3>
               <p className="text-muted-foreground">
-                Guides patients, captures info, books consults—integrated with your forms.
+                Guides patients, captures info, books consults integrated with your forms.
               </p>
             </div>
             <div className="border rounded-lg p-6">
-              <h3 className="text-xl font-semibold mb-3">Workflow Automation (n8n / Make)</h3>
+              <h3 className="text-xl font-semibold mb-3">Workflow Automation</h3>
               <p className="text-muted-foreground">
-                From forms to CRM, Slack alerts, and follow-ups—less manual work for staff.
+                From forms to CRM, Slack alerts, and follow-ups less manual work for staff.
               </p>
             </div>
           </div>
@@ -99,7 +99,7 @@ export default function Page() {
               <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mx-auto mb-4">
                 2
               </div>
-              <h3 className="font-semibold mb-2">Bot collects essentials</h3>
+              <h3 className="font-semibold mb-2">AI Agent collects essentials</h3>
               <p className="text-sm text-muted-foreground">Name, contact info, and consents</p>
             </div>
             <div className="text-center">
@@ -126,7 +126,7 @@ export default function Page() {
               href="/demos/dentist-intake"
               className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
             >
-              Try the Intake Bot
+              Try the AI Receptionist call back
             </Link>
             <a
               href="https://cal.com/b.foroodian/30-min-ai-workflow-audit"
