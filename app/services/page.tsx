@@ -9,17 +9,17 @@ import Link from 'next/link';
 export default function ServicesPage() {
   const services = [
     {
-      title: "AI Voice Receptionist (Retell)",
+      title: "AI Voice Receptionist",
       desc: "Answer, qualify, schedule. 24/7 phone coverage that never misses a call or opportunity.",
       href: "/demo/hvac-after-hours"
     },
     {
-      title: "Website Chatbot (Claude via OpenRouter)",
+      title: "Website Chatbot",
       desc: "Hybrid rule + LLM. Intelligent chat that understands context and guides visitors to action.",
       href: "/demo/restaurant-waitlist"
     },
     {
-      title: "Workflow Automation (n8n / Make)",
+      title: "Workflow Automation",
       desc: "Connect apps, remove manual steps. Automate repetitive tasks and free up your team.",
       href: "/demo/dentist-intake-bot"
     },
