@@ -9,7 +9,7 @@ export default function Page() {
     <>
       <SectionHero
         eyebrow="Demo"
-        title="Dentist Intake Bot — Demo"
+        title="Dentist AI Receptionist call-back"
         subtitle="Demo using synthetic data. Baseline → Workflow → Expected outcomes."
         primaryCta={{ label: "Play demo video", href: "#demo-video" }}
         secondaryCta={{ label: "Talk to our AI", onClick: "openChat" }}
