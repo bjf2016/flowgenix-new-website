@@ -3,7 +3,7 @@
 import SectionHero from "@/components/SectionHero";
 
 export default function Page() {
-  const videoExists = false;
+  const videoExists = true;
 
   return (
     <>
@@ -15,15 +15,21 @@ export default function Page() {
         secondaryCta={{ label: "Talk to our AI", onClick: "openChat" }}
       />
 
-      <section id="demo-video" className="container mx-auto max-w-5xl px-4 py-12">
+      <section
+        id="demo-video"
+        className="container mx-auto max-w-5xl px-4 py-12"
+      >
         {videoExists ? (
-          <video
-            controls
-            className="w-full rounded-xl shadow"
-            src="https://youtu.be/B4s3mieZlJo"
-          >
-            Your browser does not support the video tag.
-          </video>
+          <div className="aspect-video w-full overflow-hidden rounded-xl shadow bg-black">
+            <iframe
+              className="h-full w-full"
+              src="https://www.youtube.com/embed/B4s3mieZlJo"
+              title="Dentist AI Receptionist call-back demo"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </div>
         ) : (
           <div className="aspect-video rounded-xl border bg-neutral-50 grid place-items-center text-neutral-500 text-sm">
             Upload /public/demos/dentist-intake.mp4
@@ -56,7 +62,9 @@ export default function Page() {
             <ul className="space-y-2 text-sm text-neutral-600">
               <li className="flex gap-2">
                 <span className="text-neutral-400">•</span>
-                <span>Caller/visitor engages bot → collects name, insurance, intent</span>
+                <span>
+                  Caller/visitor engages bot → collects name, insurance, intent
+                </span>
               </li>
               <li className="flex gap-2">
                 <span className="text-neutral-400">•</span>
