@@ -11,7 +11,7 @@ export default function Page() {
         eyebrow="Demo"
         title="Dentist AI Receptionist call-back"
         subtitle="Demo using synthetic data. Baseline → Workflow → Expected outcomes."
-        primaryCta={{ label: "Try the AI Receptionist call back", href: "../personas/dentists" }}
+        primaryCta={{ label: "Try the AI Receptionist call back", href: "../demos/dentist-intake" }}
         secondaryCta={{ label: "Talk to our AI", onClick: "openChat" }}
       />
 
