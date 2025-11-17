@@ -15,7 +15,7 @@ export default function ServicesPage() {
     },
     {
       title: "Website Chatbot",
-      desc: "Hybrid rule + LLM. Intelligent chat that understands context and guides visitors to action.",
+      desc: "Intelligent chat that understands context and guides visitors to action.",
       href: "/demo/restaurant-waitlist"
     },
     {
