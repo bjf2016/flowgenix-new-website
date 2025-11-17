@@ -1,7 +1,156 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SectionHero from "@/components/SectionHero";
 import { openChat } from "@/lib/handoff";
+
+type Message = {
+  role: "visitor" | "assistant";
+  text: string;
+};
+
+type ScenarioKey = "hvac" | "law" | "dental";
+
+const SCENARIOS: Record<ScenarioKey, { title: string; messages: Message[] }> = {
+  hvac: {
+    title: "HVAC Company – Emergency After-Hours Request",
+    messages: [
+      { role: "visitor", text: "Hi, my AC stopped working and it's 90 degrees in the house. Do you handle emergencies in Folsom?" },
+      { role: "assistant", text: "Yes, we do provide emergency AC service in Folsom. I can help you get scheduled right away. Is your system completely off, or is it blowing warm air?" },
+      { role: "visitor", text: "It's blowing warm air and making a rattling noise." },
+      { role: "assistant", text: "Got it. That can indicate a failing compressor or fan motor. I'll flag this as a high-priority call. What's your name and the best phone number for our on-call technician to reach you?" },
+      { role: "visitor", text: "I'm Sarah, and my number is 916-555-0123." },
+      { role: "assistant", text: "Thanks, Sarah. Last question: when is the best window for our technician to come out in the next few hours? We're currently booking same-day emergency slots." },
+      { role: "visitor", text: "Anytime after 5pm works." },
+      { role: "assistant", text: "Perfect. I've submitted your request for an emergency AC visit after 5pm today. Our dispatcher will call you shortly to confirm the exact arrival time. You'll also receive a text with your appointment details once it's confirmed." },
+    ],
+  },
+  law: {
+    title: "Law Firm – Screening New Client Inquiry",
+    messages: [
+      { role: "visitor", text: "Hi, I'm looking for help with a car accident case. Do you take personal injury clients in California?" },
+      { role: "assistant", text: "Yes, our firm handles personal injury cases throughout California. I can help determine if we're a good fit and schedule a consultation. First, were you injured in the accident in the last two years?" },
+      { role: "visitor", text: "Yes, it happened about six months ago." },
+      { role: "assistant", text: "I'm sorry you're dealing with that. Were you the driver, passenger, or a pedestrian?" },
+      { role: "visitor", text: "I was the driver." },
+      { role: "assistant", text: "Understood. We'll want to review the police report and your medical records. What's your full name, and how can our intake team reach you?" },
+      { role: "visitor", text: "I'm David Flores, and my number is 510-555-0198." },
+      { role: "assistant", text: "Thank you, David. We offer a free 30-minute consultation for car accident cases. Would you prefer a phone call or a Zoom meeting?" },
+      { role: "visitor", text: "Zoom would be great." },
+      { role: "assistant", text: "Perfect. I've noted your preference for a Zoom consultation. Our intake coordinator will contact you within one business day to confirm a time and send the meeting link." },
+    ],
+  },
+  dental: {
+    title: "Dental Office – New Patient & Insurance Check",
+    messages: [
+      { role: "visitor", text: "Hi, I'm looking for a new dentist. Do you take Delta Dental PPO?" },
+      { role: "assistant", text: "Welcome! Yes, we're in-network with Delta Dental PPO. I can help you check availability and get scheduled. Are you interested in a cleaning and exam, or do you have a specific issue like pain or a broken tooth?" },
+      { role: "visitor", text: "Just a cleaning and exam for now." },
+      { role: "assistant", text: "Great. We usually recommend a new patient visit that includes X-rays, a full exam, and cleaning. When are you hoping to come in—this week, next week, or later?" },
+      { role: "visitor", text: "Next week if possible." },
+      { role: "assistant", text: "We have several openings next week. What's your name and the best phone number so our front desk can text to confirm a specific time?" },
+      { role: "visitor", text: "I'm Maria, and my number is 925-555-0144." },
+      { role: "assistant", text: "Thanks, Maria. I've sent your info to our team and flagged it as a new patient with Delta Dental PPO. You'll receive a text from our office shortly with a couple of time options for next week." },
+    ],
+  },
+};
+
+function WebsiteChatExamples() {
+  const [activeScenario, setActiveScenario] = useState<ScenarioKey>("hvac");
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  useEffect(() => {
+    setVisibleCount(0);
+    const messages = SCENARIOS[activeScenario].messages;
+    let count = 0;
+
+    const timer = setInterval(() => {
+      count++;
+      setVisibleCount(count);
+      if (count >= messages.length) {
+        clearInterval(timer);
+      }
+    }, 150);
+
+    return () => clearInterval(timer);
+  }, [activeScenario]);
+
+  const scenario = SCENARIOS[activeScenario];
+
+  return (
+    <section className="mb-16">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold tracking-tight mb-3">See Example Conversations</h2>
+        <p className="text-muted-foreground">
+          Here's what your AI website chat could look like for different types of businesses.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap gap-3 justify-center mb-8">
+        <button
+          onClick={() => setActiveScenario("hvac")}
+          className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
+            activeScenario === "hvac"
+              ? "bg-primary text-primary-foreground"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+          }`}
+        >
+          HVAC
+        </button>
+        <button
+          onClick={() => setActiveScenario("law")}
+          className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
+            activeScenario === "law"
+              ? "bg-primary text-primary-foreground"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+          }`}
+        >
+          Law Firm
+        </button>
+        <button
+          onClick={() => setActiveScenario("dental")}
+          className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
+            activeScenario === "dental"
+              ? "bg-primary text-primary-foreground"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+          }`}
+        >
+          Dental
+        </button>
+      </div>
+
+      <div className="border rounded-lg p-6 bg-white max-w-3xl mx-auto">
+        <h3 className="text-sm font-semibold text-muted-foreground mb-6 text-center">
+          {scenario.title}
+        </h3>
+        <div className="space-y-4">
+          {scenario.messages.map((message, index) => {
+            const isVisible = index < visibleCount;
+            return (
+              <div
+                key={index}
+                className={`flex ${message.role === "assistant" ? "justify-end" : "justify-start"}`}
+              >
+                <div
+                  className={`max-w-[80%] rounded-lg px-4 py-3 transition-all duration-300 ease-out ${
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                  } ${
+                    message.role === "assistant"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-gray-100 text-gray-900"
+                  }`}
+                  style={{ transitionDelay: `${index * 120}ms` }}
+                >
+                  <p className="text-sm leading-relaxed">{message.text}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Page() {
   return (
@@ -142,6 +291,8 @@ export default function Page() {
             </div>
           </div>
         </section>
+
+        <WebsiteChatExamples />
 
         <section className="bg-muted rounded-lg p-8 md:p-12 text-center">
           <h2 className="text-3xl font-bold tracking-tight mb-4">Ready to turn your website into a sales machine?</h2>
