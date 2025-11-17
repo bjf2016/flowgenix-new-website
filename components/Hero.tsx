@@ -9,8 +9,8 @@ interface HeroProps {
   title: string;
   highlight?: string;
   subtitle?: string;
-  primaryCta?: { label: string; href?: string; onClick?: string };
-  secondaryCta?: { label: string; href?: string; onClick?: string };
+  primaryCta?: { label: string; href?: string; onClick?: string | (() => void) };
+  secondaryCta?: { label: string; href?: string; onClick?: string | (() => void) };
   badges?: Array<{ src: string; alt: string }>;
   portraitSrc?: string;
   trustLogos?: string[];
@@ -28,8 +28,10 @@ export default function Hero({
   portraitSrc = '/brand/ben v4.png',
   dark = false,
 }: HeroProps) {
-  const handleCtaClick = (onClick?: string) => {
-    if (onClick === 'openChat') {
+  const handleCtaClick = (onClick?: string | (() => void)) => {
+    if (typeof onClick === "function") {
+      onClick();
+    } else if (onClick === 'openChat') {
       openChat();
     }
   };
