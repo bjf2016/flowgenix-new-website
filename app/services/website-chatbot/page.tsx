@@ -78,7 +78,7 @@ function WebsiteChatExamples() {
   const scenario = SCENARIOS[activeScenario];
 
   return (
-    <section className="mb-16">
+    <section id="examples" className="mb-16 scroll-mt-20">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold tracking-tight mb-3">See Example Conversations</h2>
         <p className="text-muted-foreground">
@@ -153,13 +153,20 @@ function WebsiteChatExamples() {
 }
 
 export default function Page() {
+  const scrollToExamples = () => {
+    const element = document.getElementById("examples");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <>
       <SectionHero
         eyebrow="Website Chatbot"
         title="Your website, now a 24/7 AI sales assistant"
         subtitle="Intelligent chat that answers questions, captures leads, and routes conversations to your team — automatically."
-        primaryCta={{ label: "See it in action", onClick: "openChat" }}
+        primaryCta={{ label: "See it in action", onClick: scrollToExamples }}
         secondaryCta={{ label: "Book a demo", href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit" }}
       />
       <main className="container mx-auto max-w-7xl px-4 py-12">

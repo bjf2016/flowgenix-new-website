@@ -8,8 +8,8 @@ interface SectionHeroProps {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  primaryCta?: { label: string; href?: string; onClick?: string };
-  secondaryCta?: { label: string; href?: string; onClick?: string };
+  primaryCta?: { label: string; href?: string; onClick?: string | (() => void) };
+  secondaryCta?: { label: string; href?: string; onClick?: string | (() => void) };
 }
 
 export default function SectionHero({
@@ -19,13 +19,21 @@ export default function SectionHero({
   primaryCta,
   secondaryCta,
 }: SectionHeroProps) {
+  const handleClick = (onClick?: string | (() => void)) => {
+    if (typeof onClick === "function") {
+      onClick();
+    } else if (onClick === "openChat") {
+      openChat();
+    }
+  };
+
   const renderButton = (
-    cta: { label: string; href?: string; onClick?: string },
+    cta: { label: string; href?: string; onClick?: string | (() => void) },
     variant: "default" | "outline" = "default"
   ) => {
-    if (cta.onClick === "openChat") {
+    if (cta.onClick) {
       return (
-        <Button variant={variant} size="lg" onClick={openChat}>
+        <Button variant={variant} size="lg" onClick={() => handleClick(cta.onClick)}>
           {cta.label}
         </Button>
       );
