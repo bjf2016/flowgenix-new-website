@@ -11,7 +11,7 @@ export default function ServicesPage() {
     {
       title: "AI Voice Receptionist",
       desc: "Answer, qualify, schedule. 24/7 phone coverage that never misses a call or opportunity.",
-      href: "/demo/hvac-after-hours"
+      href: "/demo/dentist-intake-bot"
     },
     {
       title: "Website Chatbot",
@@ -21,7 +21,7 @@ export default function ServicesPage() {
     {
       title: "Workflow Automation",
       desc: "Connect apps, remove manual steps. Automate repetitive tasks and free up your team.",
-      href: "/demo/dentist-intake-bot"
+      href: "/demo/hvac-after-hours"
     },
     {
       title: "Lead Intake & Routing",
