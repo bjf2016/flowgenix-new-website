@@ -1,6 +1,7 @@
 "use client";
 
 import SectionHero from "@/components/SectionHero";
+import { openChat } from "@/lib/handoff";
 
 export default function Page() {
   return (
@@ -10,7 +11,7 @@ export default function Page() {
         title="Your website, now a 24/7 AI sales assistant"
         subtitle="Intelligent chat that answers questions, captures leads, and routes conversations to your team — automatically."
         primaryCta={{ label: "See it in action", onClick: "openChat" }}
-        secondaryCta={{ label: "Book a demo", href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit", target: "_blank" }}
+        secondaryCta={{ label: "Book a demo", href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit" }}
       />
       <main className="container mx-auto max-w-7xl px-4 py-12">
         <section className="mb-16">
@@ -149,7 +150,7 @@ export default function Page() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
             <button
-              onClick={() => (window as any).openChat?.()}
+              onClick={openChat}
               className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               Talk to our AI now
