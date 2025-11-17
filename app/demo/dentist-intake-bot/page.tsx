@@ -20,7 +20,7 @@ export default function Page() {
           <video
             controls
             className="w-full rounded-xl shadow"
-            src="/demos/dentist-intake.mp4"
+            src="https://youtu.be/B4s3mieZlJo"
           >
             Your browser does not support the video tag.
           </video>
