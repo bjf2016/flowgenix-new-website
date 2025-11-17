@@ -10,7 +10,7 @@ export default function Page() {
         title="Your website, now a 24/7 AI sales assistant"
         subtitle="Intelligent chat that answers questions, captures leads, and routes conversations to your team — automatically."
         primaryCta={{ label: "See it in action", onClick: "openChat" }}
-        secondaryCta={{ label: "Book a demo", href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit", target="_blank" }}
+        secondaryCta={{ label: "Book a demo", href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit", target: "_blank" }}
       />
       <main className="container mx-auto max-w-7xl px-4 py-12">
         <section className="mb-16">
