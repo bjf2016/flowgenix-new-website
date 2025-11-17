@@ -15,8 +15,8 @@ export default function ServicesPage() {
     },
     {
       title: "Website Chatbot",
-      desc: "Intelligent chat that understands context and guides visitors to action.",
-      href: "/demo/restaurant-waitlist"
+      desc: "Turn your website into a 24/7 AI-powered sales assistant that answers questions, captures leads, and routes conversations to your team.",
+      href: "/services/website-chatbot"
     },
     {
       title: "Workflow Automation",
