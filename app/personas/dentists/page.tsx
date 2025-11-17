@@ -10,7 +10,7 @@ export default function Page() {
         eyebrow="Dentists"
         title="AI that books more dental appointments"
         subtitle="Automated intake, insurance pre-qual, recalls and reminders — without exposing your calendar."
-        primaryCta={{ label: "Try the AI Receptionist call back", href: "../demos/dentist-intake" }}
+        primaryCta={{ label: "Play demo video", href: "#demo-video" }}
         secondaryCta={{ label: "Talk to our AI", onClick: "openChat" }}
       />
       <main className="container mx-auto max-w-7xl px-4 py-12">
