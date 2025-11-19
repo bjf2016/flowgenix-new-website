@@ -1,6 +1,60 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SectionHero from "@/components/SectionHero";
+
+function WorkflowDemos() {
+  const [visibleSteps, setVisibleSteps] = useState<{ hvac: number; law: number }>({ hvac: 0, law: 0 });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setVisibleSteps((prev) => {
+        if (prev.hvac < 4) return { ...prev, hvac: prev.hvac + 1 };
+        if (prev.law < 4) return { ...prev, law: prev.law + 1 };
+        return prev;
+      });
+    }, 200);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const workflows = [
+    {
+      title: "HVAC: Lead-to-Job Automation Flow",
+      steps: ["Lead captured", "AI qualifies", "Job created", "Customer notified"],
+      visibleCount: visibleSteps.hvac,
+    },
+    {
+      title: "Law Firm: Intake-to-Consult Flow",
+      steps: ["Case details captured", "AI qualifies lead", "Case created", "Consult scheduled"],
+      visibleCount: visibleSteps.law,
+    },
+  ];
+
+  return (
+    <div className="space-y-8">
+      {workflows.map((workflow) => (
+        <div key={workflow.title}>
+          <h3 className="text-xl font-semibold mb-4">{workflow.title}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {workflow.steps.map((step, index) => (
+              <div
+                key={index}
+                className={`border rounded-lg p-3 text-sm bg-white transition-all duration-300 ${
+                  index < workflow.visibleCount
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-2"
+                }`}
+              >
+                <div className="font-medium text-gray-900">{step}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function Page() {
   const scrollToExamples = () => {
@@ -97,11 +151,7 @@ export default function Page() {
 
         <section id="examples" className="mb-16 scroll-mt-20">
           <h2 className="text-3xl font-bold tracking-tight mb-6">Workflow examples</h2>
-          <div className="border rounded-lg p-8 bg-gray-50">
-            <p className="text-muted-foreground text-center">
-              We'll add visual HVAC and law firm workflow demos here next.
-            </p>
-          </div>
+          <WorkflowDemos />
         </section>
 
         <section className="bg-muted rounded-lg p-8 md:p-12 text-center">
