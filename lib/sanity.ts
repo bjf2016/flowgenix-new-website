@@ -17,21 +17,27 @@ const MOCK_POSTS: Post[] = [
     slug: "ai-voice-bots-dental-practices",
     excerpt: "Discover how automated intake systems are helping dentists capture more appointments while reducing administrative overhead.",
     publishedAt: "2025-09-15",
-    categories: [{ title: "Dentists", slug: "dentists" }]
+    categories: [{ title: "Dentists", slug: "dentists" }],
+    imageUrl: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg?auto=compress&cs=tinysrgb&w=800",
+    imageAlt: "Dentist using technology"
   },
   {
     title: "After-Hours Lead Capture: Never Miss an HVAC Emergency Again",
     slug: "after-hours-hvac-lead-capture",
     excerpt: "Learn how local service businesses are capturing leads 24/7 without hiring night staff.",
     publishedAt: "2025-09-10",
-    categories: [{ title: "Local Services", slug: "local-services" }]
+    categories: [{ title: "Local Services", slug: "local-services" }],
+    imageUrl: "https://images.pexels.com/photos/5691542/pexels-photo-5691542.jpeg?auto=compress&cs=tinysrgb&w=800",
+    imageAlt: "HVAC technician at work"
   },
   {
     title: "Reducing No-Shows: Restaurant Reservation Automation That Works",
     slug: "restaurant-reservation-automation",
     excerpt: "See how AI-powered waitlist management is helping restaurants maximize seating capacity.",
     publishedAt: "2025-09-05",
-    categories: [{ title: "Restaurants", slug: "restaurants" }]
+    categories: [{ title: "Restaurants", slug: "restaurants" }],
+    imageUrl: "https://images.pexels.com/photos/3201921/pexels-photo-3201921.jpeg?auto=compress&cs=tinysrgb&w=800",
+    imageAlt: "Restaurant interior"
   }
 ];
 
