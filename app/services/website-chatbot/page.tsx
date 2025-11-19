@@ -82,7 +82,7 @@ function WebsiteChatExamples() {
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold tracking-tight mb-3">See Example Conversations</h2>
         <p className="text-muted-foreground">
-          Here's what your AI website chat could look like for different types of businesses. Click on each business type and see the chat conversation between the client and the AI Chat solution.
+          Here's what your AI website chat could look like for different types of businesses. <br>Click on each business type and see the chat conversation between the client and the AI Chat solution.
         </p>
       </div>
 
