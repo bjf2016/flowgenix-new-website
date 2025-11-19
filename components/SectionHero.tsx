@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { openChat } from "@/lib/handoff";
-import { Button } from "@/components/ui/button";
 
 interface SectionHeroProps {
   eyebrow?: string;
@@ -29,28 +28,34 @@ export default function SectionHero({
 
   const renderButton = (
     cta: { label: string; href?: string; onClick?: string | (() => void) },
-    variant: "default" | "outline" = "default"
+    isPrimary: boolean = true
   ) => {
+    const baseClasses = "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8";
+    const variantClasses = isPrimary
+      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+      : "border border-input bg-background hover:bg-accent hover:text-accent-foreground";
+    const className = `${baseClasses} ${variantClasses}`;
+
     if (cta.onClick) {
       return (
-        <Button variant={variant} size="lg" onClick={() => handleClick(cta.onClick)}>
+        <button onClick={() => handleClick(cta.onClick)} className={className}>
           {cta.label}
-        </Button>
+        </button>
       );
     }
 
     if (cta.href) {
       return (
-        <Button variant={variant} size="lg" asChild>
-          <Link href={cta.href}>{cta.label}</Link>
-        </Button>
+        <Link href={cta.href} className={className}>
+          {cta.label}
+        </Link>
       );
     }
 
     return (
-      <Button variant={variant} size="lg">
+      <button className={className}>
         {cta.label}
-      </Button>
+      </button>
     );
   };
 
@@ -73,8 +78,8 @@ export default function SectionHero({
           )}
           {(primaryCta || secondaryCta) && (
             <div className="mt-6 flex flex-wrap gap-3">
-              {primaryCta && renderButton(primaryCta, "default")}
-              {secondaryCta && renderButton(secondaryCta, "outline")}
+              {primaryCta && renderButton(primaryCta, true)}
+              {secondaryCta && renderButton(secondaryCta, false)}
             </div>
           )}
         </div>
