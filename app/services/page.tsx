@@ -21,7 +21,7 @@ export default function ServicesPage() {
     {
       title: "Workflow Automation",
       desc: "Connect apps, remove manual steps. Automate repetitive tasks and free up your team.",
-      href: "/demo/hvac-after-hours"
+      href: "/services/workflow-automation"
     },
     {
       title: "Lead Intake & Routing",
