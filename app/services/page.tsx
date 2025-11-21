@@ -26,7 +26,7 @@ export default function ServicesPage() {
     {
       title: "Lead Intake & Routing",
       desc: "Forms to CRM, alerts, follow-ups. Capture every lead and route it to the right person instantly.",
-      href: "/demo/dentist-intake-bot"
+      href: "/services/lead-intake-routing"
     },
     {
       title: "Training & Playbooks",
