@@ -68,7 +68,12 @@ function WorkflowDemos() {
       title: "Law Firm: Intake-to-Consult Flow",
       steps: ["Case details captured", "AI qualifies lead", "Case created", "Consult scheduled"],
       visibleCount: visibleSteps.law,
-      lottie: undefined, // no animations for law yet
+      lottie: [
+        "/lottie/LAW-01.json",
+        "/lottie/LAW-02.json",
+        "/lottie/LAW-03.json",
+        "/lottie/LAW-04.json",
+      ],
     },
   ];
 
