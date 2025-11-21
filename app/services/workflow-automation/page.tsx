@@ -2,9 +2,14 @@
 
 import { useState, useEffect } from "react";
 import SectionHero from "@/components/SectionHero";
+import Image from "next/image";
+
 
 function WorkflowDemos() {
-  const [visibleSteps, setVisibleSteps] = useState<{ hvac: number; law: number }>({ hvac: 0, law: 0 });
+  const [visibleSteps, setVisibleSteps] = useState<{ hvac: number; law: number }>({
+    hvac: 0,
+    law: 0,
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -20,14 +25,23 @@ function WorkflowDemos() {
 
   const workflows = [
     {
+      key: "hvac" as const,
       title: "HVAC: Lead-to-Job Automation Flow",
       steps: ["Lead captured", "AI qualifies", "Job created", "Customer notified"],
       visibleCount: visibleSteps.hvac,
+      images: [
+        "/lottie/HVAC-01.gif",
+        "/lottie/HVAC-02.gif",
+        "/lottie/HVAC-03.gif",
+        "/lottie/HVAC-04.gif",
+      ],
     },
     {
+      key: "law" as const,
       title: "Law Firm: Intake-to-Consult Flow",
       steps: ["Case details captured", "AI qualifies lead", "Case created", "Consult scheduled"],
       visibleCount: visibleSteps.law,
+      images: undefined, // no images yet for law flow
     },
   ];
 
@@ -46,6 +60,18 @@ function WorkflowDemos() {
                     : "opacity-0 translate-y-2"
                 }`}
               >
+                {workflow.images && workflow.images[index] && (
+                  <div className="mb-3 flex justify-center">
+                    <Image
+                      src={workflow.images[index]}
+                      alt={`${workflow.title} - ${step}`}
+                      width={200}
+                      height={140}
+                      className="rounded-md object-contain"
+                      unoptimized
+                    />
+                  </div>
+                )}
                 <div className="font-medium text-gray-900">{step}</div>
               </div>
             ))}
@@ -55,6 +81,7 @@ function WorkflowDemos() {
     </div>
   );
 }
+
 
 export default function Page() {
   const scrollToExamples = () => {
