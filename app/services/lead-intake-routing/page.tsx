@@ -31,6 +31,8 @@ function UniversalIntakeForm() {
   const [businessType, setBusinessType] = useState<"hvac" | "law" | null>(null);
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleBusinessTypeSelect = (type: "hvac" | "law") => {
     setBusinessType(type);
@@ -45,7 +47,7 @@ function UniversalIntakeForm() {
     return formData.contactName && formData.contactEmail && formData.contactPhone && formData.preferredContact;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const cfg = businessType ? INTAKE_CONFIG[businessType] : null;
     const answers: Record<string, any> = {};
     if (cfg && businessType) {
@@ -68,8 +70,28 @@ function UniversalIntakeForm() {
       source: "website_universal_intake",
     };
 
-    console.log("Intake submission:", payload);
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/intake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (data.ok === true) {
+        setSubmitted(true);
+      } else {
+        setError("Something went wrong sending your intake. Please try again.");
+      }
+    } catch (err) {
+      setError("Something went wrong sending your intake. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -285,19 +307,26 @@ function UniversalIntakeForm() {
               </div>
             </div>
           </div>
-          <div className="flex gap-3 mt-6">
-            <button
-              onClick={() => setStep(2)}
-              className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-gray-50 transition-colors"
-            >
-              Back
-            </button>
-            <button
-              onClick={handleSubmit}
-              className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
-            >
-              Submit intake
-            </button>
+          <div className="flex flex-col gap-3 mt-6">
+            <div className="flex gap-3">
+              <button
+                onClick={() => setStep(2)}
+                className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-gray-50 transition-colors"
+                disabled={isSubmitting}
+              >
+                Back
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? "Submitting..." : "Submit intake"}
+              </button>
+            </div>
+            {error && (
+              <p className="text-sm text-red-600">{error}</p>
+            )}
           </div>
         </div>
       )}
