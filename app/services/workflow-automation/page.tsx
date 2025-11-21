@@ -3,6 +3,33 @@
 import { useState, useEffect } from "react";
 import SectionHero from "@/components/SectionHero";
 import Image from "next/image";
+import Lottie from "lottie-react";
+
+function LottieAnimation({ src }: { src: string }) {
+  const [data, setData] = useState<any | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    fetch(src)
+      .then((res) => res.json())
+      .then((json) => {
+        if (mounted) setData(json);
+      })
+      .catch((err) => {
+        console.error("Error loading Lottie:", src, err);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [src]);
+
+  if (!data) return null;
+
+  return <Lottie animationData={data} loop autoplay style={{ height: 160 }} />;
+}
+
 
 
 function WorkflowDemos() {
@@ -29,11 +56,11 @@ function WorkflowDemos() {
       title: "HVAC: Lead-to-Job Automation Flow",
       steps: ["Lead captured", "AI qualifies", "Job created", "Customer notified"],
       visibleCount: visibleSteps.hvac,
-      images: [
-        "/lottie/HVAC-01.gif",
-        "/lottie/HVAC-02.gif",
-        "/lottie/HVAC-03.gif",
-        "/lottie/HVAC-04.gif",
+      lottie: [
+        "/lottie/HVAC-01.json",
+        "/lottie/HVAC-02.json",
+        "/lottie/HVAC-03.json",
+        "/lottie/HVAC-04.json",
       ],
     },
     {
@@ -41,7 +68,7 @@ function WorkflowDemos() {
       title: "Law Firm: Intake-to-Consult Flow",
       steps: ["Case details captured", "AI qualifies lead", "Case created", "Consult scheduled"],
       visibleCount: visibleSteps.law,
-      images: undefined, // no images yet for law flow
+      lottie: undefined, // no animations for law yet
     },
   ];
 
@@ -60,16 +87,9 @@ function WorkflowDemos() {
                     : "opacity-0 translate-y-2"
                 }`}
               >
-                {workflow.images && workflow.images[index] && (
+                {workflow.lottie && workflow.lottie[index] && (
                   <div className="mb-3 flex justify-center">
-                    <Image
-                      src={workflow.images[index]}
-                      alt={`${workflow.title} - ${step}`}
-                      width={200}
-                      height={140}
-                      className="rounded-md object-contain"
-                      unoptimized
-                    />
+                    <LottieAnimation src={workflow.lottie[index]} />
                   </div>
                 )}
                 <div className="font-medium text-gray-900">{step}</div>
@@ -81,7 +101,6 @@ function WorkflowDemos() {
     </div>
   );
 }
-
 
 export default function Page() {
   const scrollToExamples = () => {
