@@ -57,18 +57,25 @@ export default function Hero({
   return (
     <section className="relative isolate overflow-hidden bg-[#CDE4F3] text-gray-900">
       {/* Background video */}
-      <video
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-      >
-        <source src="/brand/flowgenixai-hero.webm" type="video/webm" />
-        <source src="/brand/flowgenixai-hero.mp4" type="video/mp4" />
-        {/* If video can't play, the solid bg color remains */}
-      </video>
+    <video
+      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+      autoPlay
+      muted
+      loop={false}  // disable built-in loop
+      playsInline
+      aria-hidden="true"
+      onEnded={(e) => {
+        const video = e.currentTarget;
+        setTimeout(() => {
+          video.currentTime = 0;
+          video.play();
+        }, 2000); // pause for 2 seconds
+      }}
+    >
+      <source src="/brand/flowgenixai-hero.webm" type="video/webm" />
+      <source src="/brand/flowgenixai-hero.mp4" type="video/mp4" />
+    </video>
+
 
       {/* Overlay to keep text readable */}
       <div
