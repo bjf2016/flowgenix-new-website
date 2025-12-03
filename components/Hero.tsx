@@ -57,25 +57,26 @@ export default function Hero({
   return (
     <section className="relative isolate overflow-hidden bg-[#CDE4F3] text-gray-900">
       {/* Background video */}
-    <video
-      className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-      autoPlay
-      muted
-      loop={false}  // disable built-in loop
-      playsInline
-      aria-hidden="true"
-      onEnded={(e) => {
-        const video = e.currentTarget;
-        setTimeout(() => {
-          video.currentTime = 0;
-          video.play();
-        }, 2000); // pause for 2 seconds
-      }}
-    >
-      <source src="/brand/flowgenixai-hero.webm" type="video/webm" />
-      <source src="/brand/flowgenixai-hero.mp4" type="video/mp4" />
-    </video>
-
+      <video
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop={false}          // we'll handle looping manually
+        playsInline
+        aria-hidden="true"
+        onEnded={(e) => {
+          const video = e.currentTarget;
+          // pause a bit before looping again
+          setTimeout(() => {
+            video.currentTime = 0;
+            void video.play();
+          }, 2000); // 2000ms = 2 second pause between loops
+        }}
+      >
+        <source src="/brand/flowgenixai-hero.webm" type="video/webm" />
+        <source src="/brand/flowgenixai-hero.mp4" type="video/mp4" />
+        {/* If video can't play, the solid bg color remains */}
+      </video>
 
       {/* Overlay to keep text readable */}
       <div
@@ -85,6 +86,7 @@ export default function Hero({
 
       <div className="container relative z-10 mx-auto max-w-7xl px-6 pt-12 pb-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* LEFT: text + CTAs (unchanged) */}
           <div className="order-2 lg:order-1 max-w-xl">
             {eyebrow && (
               <p role="doc-subtitle" className="text-sm font-semibold tracking-wider uppercase text-[#009CE3] mb-4">
@@ -166,8 +168,45 @@ export default function Hero({
             )}
           </div>
 
-          {/* Right column intentionally left empty to preserve layout spacing */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-end" />
+          {/* RIGHT: semi-translucent product card over the video */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-end">
+            <div className="w-full max-w-md rounded-3xl border border-white/40 bg-white/10 p-6 shadow-xl backdrop-blur-xl">
+              <p className="text-xs font-semibold uppercase tracking-wide text-[#009CE3]">
+                AI Receptionist Workflow
+              </p>
+
+              <p className="mt-2 text-sm text-gray-800">
+                Every call is answered, qualified, and booked into your calendar automatically.
+              </p>
+
+              <div className="mt-5 space-y-3">
+                {[
+                  'Caller phones your business number',
+                  'AI receptionist greets + understands intent',
+                  'Qualifier checks fit, urgency, and availability',
+                  'Appointment is booked + confirmation sent',
+                ].map((step, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="mt-1 h-5 w-5 flex items-center justify-center rounded-full bg-[#009CE3]/10 ring-1 ring-[#009CE3]/40">
+                      <span className="text-[10px] font-semibold text-[#009CE3]">
+                        {index + 1}
+                      </span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-gray-900">
+                      {step}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 flex items-center justify-between rounded-2xl bg-white/70 px-4 py-2 text-xs text-gray-800">
+                <span className="font-semibold">Outcome:</span>
+                <span className="font-medium">
+                  New lead booked — no missed calls.
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
