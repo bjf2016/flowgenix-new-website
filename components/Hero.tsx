@@ -233,12 +233,11 @@ export default function Hero({
 
           {/* RIGHT: auto-rotating workflow card */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-end">
-            <div
-              <div
-                className={`w-full max-w-md rounded-3xl border border-white/60 bg-gradient-to-br from-white/40 via-white/10 to-white/5 p-6 shadow-[0_18px_45px_rgba(15,23,42,0.35)] backdrop-blur-2xl transition-all duration-300 ${
-                  isFading ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
-                }`}
-              >
+             <div
+              className={`w-full max-w-md rounded-3xl border border-white/60 bg-gradient-to-br from-white/40 via-white/10 to-white/5 p-6 shadow-[0_18px_45px_rgba(15,23,42,0.35)] backdrop-blur-2xl transition-all duration-300 ${
+                isFading ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
+              }`}
+            >
 
               <p className="text-sm sm:text-base font-semibold uppercase tracking-wide text-[#009CE3]">
                 {activeWorkflow.label}
