@@ -238,9 +238,10 @@ export default function Hero({
                 isFading ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
               }`}
             >
-              <p className="text-xs font-semibold uppercase tracking-wide text-[#009CE3]">
+              <p className="text-sm sm:text-base font-semibold uppercase tracking-wide text-[#009CE3]">
                 {activeWorkflow.label}
               </p>
+
 
               <p className="mt-2 text-sm text-gray-800">
                 {activeWorkflow.description}
