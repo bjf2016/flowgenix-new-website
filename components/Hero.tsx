@@ -238,65 +238,71 @@ export default function Hero({
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-end">
             <div
               className={
-                `w-full max-w-md rounded-3xl border border-white/60 ` +
-                `bg-gradient-to-br from-white/40 via-white/10 to-white/5 ` +
-                `p-6 shadow-2xl backdrop-blur-2xl transition-all duration-500 ` +
+                'relative w-full max-w-md rounded-3xl border border-white/25 ' +
+                'bg-white/5 bg-gradient-to-br from-white/40 via-white/10 to-white/0 ' +
+                'shadow-xl shadow-slate-900/40 backdrop-blur-3xl transition-all duration-300 ' +
                 (isFading ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0')
               }
             >
-
-              <p className="text-sm sm:text-base font-semibold uppercase tracking-wide text-[#009CE3]">
-                {activeWorkflow.label}
-              </p>
-
-
-              <p className="mt-2 text-sm text-gray-800">
-                {activeWorkflow.description}
-              </p>
-
-              <div className="mt-5 space-y-3">
-                {activeWorkflow.steps.map((step, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="mt-1 h-5 w-5 flex items-center justify-center rounded-full bg-[#009CE3]/10 ring-1 ring-[#009CE3]/40">
-                      <span className="text-[10px] font-semibold text-[#009CE3]">
-                        {index + 1}
-                      </span>
+              {/* highlight / glare layer */}
+              <div
+                className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-tr from-white/70 via-white/10 to-transparent opacity-70"
+                aria-hidden="true"
+              />
+          
+              {/* actual content */}
+              <div className="relative p-6">
+                <p className="text-sm sm:text-base font-semibold uppercase tracking-wide text-[#009CE3]">
+                  {activeWorkflow.label}
+                </p>
+          
+                <p className="mt-2 text-sm text-gray-800">
+                  {activeWorkflow.description}
+                </p>
+          
+                <div className="mt-5 space-y-3">
+                  {activeWorkflow.steps.map((step, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <div className="mt-1 h-6 w-6 flex items-center justify-center rounded-full bg-[#009CE3]/10 ring-1 ring-[#009CE3]/40">
+                        <span className="text-[11px] font-semibold text-[#009CE3]">
+                          {index + 1}
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-gray-900">{step}</p>
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-900">{step}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 flex items-center justify-between rounded-2xl bg-white/70 px-4 py-2 text-xs text-gray-800">
-                <span className="font-semibold">Outcome:</span>
-                <span className="font-medium">{activeWorkflow.outcome}</span>
-              </div>
-
-              {/* Little pills / dots for manual navigation */}
-              <div className="mt-4 flex justify-center gap-2">
-                {WORKFLOWS.map((wf, index) => (
-                  <button
-                    key={wf.id}
-                    type="button"
-                    aria-label={`Show workflow: ${wf.label}`}
-                    onClick={() => {
-                      setIsFading(true);
-                      setTimeout(() => {
-                        setActiveIndex(index);
-                        setIsFading(false);
-                      }, 150);
-                    }}
-                    className={`h-1.5 w-5 rounded-full transition ${
-                      index === activeIndex
-                        ? 'bg-[#009CE3]'
-                        : 'bg-white/40 hover:bg-white/80'
-                    }`}
-                  />
-                ))}
+                  ))}
+                </div>
+          
+                <div className="mt-5 flex items-center justify-between rounded-2xl bg-white/75 px-4 py-2 text-xs text-gray-800">
+                  <span className="font-semibold">Outcome:</span>
+                  <span className="font-medium">{activeWorkflow.outcome}</span>
+                </div>
+          
+                {/* dots / pills */}
+                <div className="mt-4 flex justify-center gap-2">
+                  {WORKFLOWS.map((wf, index) => (
+                    <button
+                      key={wf.id}
+                      type="button"
+                      aria-label={`Show workflow: ${wf.label}`}
+                      onClick={() => {
+                        setIsFading(true);
+                        setTimeout(() => {
+                          setActiveIndex(index);
+                          setIsFading(false);
+                        }, 150);
+                      }}
+                      className={`h-1.5 w-5 rounded-full transition ${
+                        index === activeIndex
+                          ? 'bg-[#009CE3]'
+                          : 'bg-white/50 hover:bg-white/90'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </section>
   );
