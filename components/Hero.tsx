@@ -249,17 +249,17 @@ export default function Hero({
                 className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-tr from-white/70 via-white/10 to-transparent opacity-70"
                 aria-hidden="true"
               />
-          
+
               {/* actual content */}
               <div className="relative p-6">
                 <p className="text-sm sm:text-base font-semibold uppercase tracking-wide text-[#009CE3]">
                   {activeWorkflow.label}
                 </p>
-          
+
                 <p className="mt-2 text-sm text-gray-800">
                   {activeWorkflow.description}
                 </p>
-          
+
                 <div className="mt-5 space-y-3">
                   {activeWorkflow.steps.map((step, index) => (
                     <div key={index} className="flex items-start gap-3">
@@ -272,12 +272,12 @@ export default function Hero({
                     </div>
                   ))}
                 </div>
-          
+
                 <div className="mt-5 flex items-center justify-between rounded-2xl bg-white/75 px-4 py-2 text-xs text-gray-800">
                   <span className="font-semibold">Outcome:</span>
                   <span className="font-medium">{activeWorkflow.outcome}</span>
                 </div>
-          
+
                 {/* dots / pills */}
                 <div className="mt-4 flex justify-center gap-2">
                   {WORKFLOWS.map((wf, index) => (
@@ -303,7 +303,9 @@ export default function Hero({
               </div>
             </div>
           </div>
-      </div>
+        </div> {/* closes grid */}
+      </div>   {/* closes container */}
     </section>
   );
 }
+
