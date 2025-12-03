@@ -126,6 +126,9 @@ export default function Hero({
         loop={false} // manual looping so we can pause between loops
         playsInline
         aria-hidden="true"
+        onLoadedMetadata={(e) => {
+          e.currentTarget.playbackRate = 0.75; // slower playback
+        }}
         onEnded={(e) => {
           const video = e.currentTarget;
           setTimeout(() => {
@@ -237,8 +240,8 @@ export default function Hero({
               className={
                 `w-full max-w-md rounded-3xl border border-white/60 ` +
                 `bg-gradient-to-br from-white/40 via-white/10 to-white/5 ` +
-                `p-6 shadow-2xl backdrop-blur-2xl transition-all duration-300 ` +
-                (isFading ? 'opacity-0 translate-y-2' : 'opacity-80 translate-y-0')
+                `p-6 shadow-2xl backdrop-blur-2xl transition-all duration-500 ` +
+                (isFading ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0')
               }
             >
 
