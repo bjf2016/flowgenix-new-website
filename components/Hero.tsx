@@ -58,7 +58,7 @@ export default function Hero({
     <section className="relative isolate overflow-hidden bg-[#CDE4F3] text-gray-900">
       {/* Background video */}
       <video
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         autoPlay
         muted
         loop
