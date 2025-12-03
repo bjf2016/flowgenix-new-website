@@ -127,7 +127,7 @@ export default function Hero({
         playsInline
         aria-hidden="true"
         onLoadedMetadata={(e) => {
-          e.currentTarget.playbackRate = 0.75; // slower playback
+          e.currentTarget.playbackRate = 0.50; // slower playback
         }}
         onEnded={(e) => {
           const video = e.currentTarget;
