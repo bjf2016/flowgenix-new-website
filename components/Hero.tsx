@@ -56,7 +56,27 @@ export default function Hero({
 
   return (
     <section className="relative isolate overflow-hidden bg-[#CDE4F3] text-gray-900">
-      <div className="container relative mx-auto max-w-7xl px-6 pt-12 pb-0">
+      {/* Background video */}
+      <video
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      >
+        <source src="/brand/flowgenixai-hero -upscaled v1.WebM" type="video/webm" />
+        <source src="/brand/flowgenixai-hero -upscaled v1.mp4" type="video/mp4" />
+        {/* If video can't play, the solid bg color remains */}
+      </video>
+
+      {/* Overlay to keep text readable */}
+      <div
+        className="absolute inset-0 bg-[#CDE4F3]/80"
+        aria-hidden="true"
+      />
+
+      <div className="container relative z-10 mx-auto max-w-7xl px-6 pt-12 pb-0">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="order-2 lg:order-1 max-w-xl">
             {eyebrow && (
@@ -139,18 +159,8 @@ export default function Hero({
             )}
           </div>
 
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-end">
-            <div className="relative w-full max-w-2xl lg:max-w-3xl">
-              <Image
-                src={portraitSrc}
-                alt="Founder portrait"
-                width={500}
-                height={600}
-                priority
-                className="w-full h-auto object-contain object-bottom"
-              />
-            </div>
-          </div>
+          {/* Right column intentionally left empty to preserve layout spacing */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end items-end" />
         </div>
       </div>
     </section>
