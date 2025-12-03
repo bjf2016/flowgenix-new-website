@@ -65,7 +65,7 @@ export default function Hero({
         playsInline
         aria-hidden="true"
       >
-        <source src="/brand/flowgenixai-hero.WebM" type="video/webm" />
+        <source src="/brand/flowgenixai-hero.webm" type="video/webm" />
         <source src="/brand/flowgenixai-hero.mp4" type="video/mp4" />
         {/* If video can't play, the solid bg color remains */}
       </video>
