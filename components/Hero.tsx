@@ -134,7 +134,7 @@ export default function Hero({
           setTimeout(() => {
             video.currentTime = 0;
             void video.play();
-          }, 6000); // 2-second pause between loops
+          }, 1000); // 2-second pause between loops
         }}
       >
         <source src="/brand/Full_Flowgenixai_hero.webm" type="video/webm" />
