@@ -101,7 +101,9 @@ export default function CRMDashboardPage() {
                 height="650"
                 className="w-full"
                 title="FlowGenixAI Demo Dashboard"
+                loading="lazy"
                 allow="display-capture"
+                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
               />
             </div>
           </div>
