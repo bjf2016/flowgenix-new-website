@@ -96,7 +96,7 @@ export default function CRMDashboardPage() {
             </div>
             <div className="rounded-lg border border-gray-200 overflow-hidden">
               <iframe
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUX-CHvoWH2y2RjIPX3GoG9U-Z1FzYf2kwBz4OhRBOq8ovbM4_QPotjqVYbvYCaOaOi7AuddWBrkZ9/pubhtml?gid=1997322929&single=true"
+                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUX-CHvoWH2y2RjIPX3GoG9U-Z1FzYf2kwBz4OhRBOq8ovbM4_QPotjqVYbvYCaOaOi7AuddWBrkZ9/pubhtml?gid=1997322929&amp;single=true&amp;widget=true&amp;headers=false"
                 width="100%"
                 height="650"
                 className="w-full"
