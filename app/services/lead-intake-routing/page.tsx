@@ -111,12 +111,22 @@ function UniversalIntakeForm() {
 
   if (submitted) {
     return (
-      <div className="border rounded-lg p-6 bg-white text-center">
-        <h3 className="text-2xl font-bold text-green-600 mb-2">Thank you!</h3>
-        <p className="text-muted-foreground">
-          Your intake has been received. We&apos;ll be in touch soon.
-        </p>
-      </div>
+    <div className="border rounded-lg p-6 bg-white text-center space-y-4">
+      <h3 className="text-2xl font-bold text-green-600">Thank you!</h3>
+      <p className="text-muted-foreground">Your intake has been received. We'll be in touch soon.</p>
+    
+      <a
+        href="/demo/crm-dashboard"
+        className="inline-flex items-center justify-center px-5 py-2 rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+      >
+        View Sample CRM Dashboard
+      </a>
+    
+      <p className="text-xs text-muted-foreground">
+        See how your intakes would appear inside a live AI-powered dashboard.
+      </p>
+    </div>
+
     );
   }
 
