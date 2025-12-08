@@ -44,12 +44,18 @@ function UniversalIntakeForm() {
   };
 
   const isStep1Valid = () => {
-    return formData.contactName && formData.contactEmail && formData.contactPhone && formData.preferredContact;
+    return (
+      formData.contactName &&
+      formData.contactEmail &&
+      formData.contactPhone &&
+      formData.preferredContact
+    );
   };
 
   const handleSubmit = async () => {
     const cfg = businessType ? INTAKE_CONFIG[businessType] : null;
     const answers: Record<string, any> = {};
+
     if (cfg && businessType) {
       cfg.questions.forEach((q) => {
         const key = `${businessType}_${q.id}`;
@@ -74,36 +80,42 @@ function UniversalIntakeForm() {
     setError(null);
 
     try {
-      const response = await fetch("https://n8n.flowgenixai.com/webhook/intake-flowgenix", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-    
+      const response = await fetch(
+        "https://n8n.flowgenixai.com/webhook/intake-flowgenix",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
       if (!response.ok) {
         console.error("Intake submit failed:", await response.text());
-        setError("Something went wrong sending your intake. Please try again.");
+        setError(
+          "Something went wrong sending your intake. Please try again."
+        );
         return;
       }
-    
-      // Optional: you *can* read the JSON if you want, but you don't need it
-      // const data = await response.json();
-    
-      // ✅ Treat 2xx as success
-      setError(null);
-      setSuccess(true);
-      // if you reset fields, do it here
+
+      // We don't need the response body; treat any 2xx as success
+      setSubmitted(true);
     } catch (err) {
       console.error("Intake submit error:", err);
-      setError("Something went wrong sending your intake. Please try again.");
+      setError(
+        "Something went wrong sending your intake. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
-
+  };
 
   if (submitted) {
     return (
       <div className="border rounded-lg p-6 bg-white text-center">
         <h3 className="text-2xl font-bold text-green-600 mb-2">Thank you!</h3>
-        <p className="text-muted-foreground">Your intake has been received. We'll be in touch soon.</p>
+        <p className="text-muted-foreground">
+          Your intake has been received. We&apos;ll be in touch soon.
+        </p>
       </div>
     );
   }
@@ -112,9 +124,13 @@ function UniversalIntakeForm() {
     <div className="border rounded-lg p-6 bg-white space-y-6">
       {step === 0 && (
         <div>
-          <h3 className="text-xl font-semibold mb-4">Select your business type</h3>
+          <h3 className="text-xl font-semibold mb-4">
+            Select your business type
+          </h3>
           <div className="grid gap-4 md:grid-cols-2">
-            {(Object.keys(INTAKE_CONFIG) as Array<keyof typeof INTAKE_CONFIG>).map((key) => {
+            {(Object.keys(INTAKE_CONFIG) as Array<
+              keyof typeof INTAKE_CONFIG
+            >).map((key) => {
               const config = INTAKE_CONFIG[key];
               return (
                 <button
@@ -122,8 +138,12 @@ function UniversalIntakeForm() {
                   onClick={() => handleBusinessTypeSelect(key)}
                   className="border rounded-lg p-6 text-left hover:border-primary hover:bg-primary/5 transition-colors"
                 >
-                  <h4 className="font-semibold text-lg mb-2">{config.label}</h4>
-                  <p className="text-sm text-muted-foreground">{config.description}</p>
+                  <h4 className="font-semibold text-lg mb-2">
+                    {config.label}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    {config.description}
+                  </p>
                 </button>
               );
             })}
@@ -136,40 +156,56 @@ function UniversalIntakeForm() {
           <h3 className="text-xl font-semibold mb-4">Contact details</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Name *</label>
+              <label className="block text-sm font-medium mb-1">
+                Name *
+              </label>
               <input
                 type="text"
                 value={formData.contactName || ""}
-                onChange={(e) => handleInputChange("contactName", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("contactName", e.target.value)
+                }
                 className="w-full rounded-md border px-3 py-2 text-sm"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Email *</label>
+              <label className="block text-sm font-medium mb-1">
+                Email *
+              </label>
               <input
                 type="email"
                 value={formData.contactEmail || ""}
-                onChange={(e) => handleInputChange("contactEmail", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("contactEmail", e.target.value)
+                }
                 className="w-full rounded-md border px-3 py-2 text-sm"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Phone *</label>
+              <label className="block text-sm font-medium mb-1">
+                Phone *
+              </label>
               <input
                 type="tel"
                 value={formData.contactPhone || ""}
-                onChange={(e) => handleInputChange("contactPhone", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("contactPhone", e.target.value)
+                }
                 className="w-full rounded-md border px-3 py-2 text-sm"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Preferred contact method *</label>
+              <label className="block text-sm font-medium mb-1">
+                Preferred contact method *
+              </label>
               <select
                 value={formData.preferredContact || ""}
-                onChange={(e) => handleInputChange("preferredContact", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("preferredContact", e.target.value)
+                }
                 className="w-full rounded-md border px-3 py-2 text-sm"
                 required
               >
@@ -179,11 +215,15 @@ function UniversalIntakeForm() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Preferred time</label>
+              <label className="block text-sm font-medium mb-1">
+                Preferred time
+              </label>
               <input
                 type="text"
                 value={formData.preferredTime || ""}
-                onChange={(e) => handleInputChange("preferredTime", e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("preferredTime", e.target.value)
+                }
                 className="w-full rounded-md border px-3 py-2 text-sm"
                 placeholder="e.g., Weekday mornings"
               />
@@ -212,18 +252,24 @@ function UniversalIntakeForm() {
 
       {step === 2 && businessType && (
         <div>
-          <h3 className="text-xl font-semibold mb-4">{INTAKE_CONFIG[businessType].label} details</h3>
+          <h3 className="text-xl font-semibold mb-4">
+            {INTAKE_CONFIG[businessType].label} details
+          </h3>
           <div className="space-y-4">
             {INTAKE_CONFIG[businessType].questions.map((q) => {
               const key = `${businessType}_${q.id}`;
               return (
                 <div key={q.id}>
-                  <label className="block text-sm font-medium mb-1">{q.label}</label>
+                  <label className="block text-sm font-medium mb-1">
+                    {q.label}
+                  </label>
                   {q.type === "text" && (
                     <input
                       type="text"
                       value={formData[key] || ""}
-                      onChange={(e) => handleInputChange(key, e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(key, e.target.value)
+                      }
                       className="w-full rounded-md border px-3 py-2 text-sm"
                     />
                   )}
@@ -231,14 +277,18 @@ function UniversalIntakeForm() {
                     <input
                       type="date"
                       value={formData[key] || ""}
-                      onChange={(e) => handleInputChange(key, e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(key, e.target.value)
+                      }
                       className="w-full rounded-md border px-3 py-2 text-sm"
                     />
                   )}
                   {q.type === "textarea" && (
                     <textarea
                       value={formData[key] || ""}
-                      onChange={(e) => handleInputChange(key, e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(key, e.target.value)
+                      }
                       className="w-full rounded-md border px-3 py-2 text-sm"
                       rows={3}
                     />
@@ -246,7 +296,9 @@ function UniversalIntakeForm() {
                   {q.type === "select" && q.options && (
                     <select
                       value={formData[key] || ""}
-                      onChange={(e) => handleInputChange(key, e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(key, e.target.value)
+                      }
                       className="w-full rounded-md border px-3 py-2 text-sm"
                     >
                       <option value="">Select...</option>
@@ -265,12 +317,14 @@ function UniversalIntakeForm() {
             <button
               onClick={() => setStep(1)}
               className="px-4 py-2 rounded-md border text-sm font-medium hover:bg-gray-50 transition-colors"
+              disabled={isSubmitting}
             >
               Back
             </button>
             <button
               onClick={() => setStep(3)}
               className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+              disabled={isSubmitting}
             >
               Next
             </button>
@@ -280,24 +334,51 @@ function UniversalIntakeForm() {
 
       {step === 3 && businessType && (
         <div>
-          <h3 className="text-xl font-semibold mb-4">Review your submission</h3>
+          <h3 className="text-xl font-semibold mb-4">
+            Review your submission
+          </h3>
           <div className="space-y-4">
             <div className="border-b pb-3">
-              <p className="text-sm font-medium text-muted-foreground">Business type</p>
-              <p className="font-semibold">{INTAKE_CONFIG[businessType].label}</p>
+              <p className="text-sm font-medium text-muted-foreground">
+                Business type
+              </p>
+              <p className="font-semibold">
+                {INTAKE_CONFIG[businessType].label}
+              </p>
             </div>
             <div className="border-b pb-3">
-              <p className="text-sm font-medium text-muted-foreground mb-2">Contact details</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                Contact details
+              </p>
               <div className="space-y-1 text-sm">
-                <p><span className="font-medium">Name:</span> {formData.contactName}</p>
-                <p><span className="font-medium">Email:</span> {formData.contactEmail}</p>
-                <p><span className="font-medium">Phone:</span> {formData.contactPhone}</p>
-                <p><span className="font-medium">Preferred contact:</span> {formData.preferredContact}</p>
-                {formData.preferredTime && <p><span className="font-medium">Preferred time:</span> {formData.preferredTime}</p>}
+                <p>
+                  <span className="font-medium">Name:</span>{" "}
+                  {formData.contactName}
+                </p>
+                <p>
+                  <span className="font-medium">Email:</span>{" "}
+                  {formData.contactEmail}
+                </p>
+                <p>
+                  <span className="font-medium">Phone:</span>{" "}
+                  {formData.contactPhone}
+                </p>
+                <p>
+                  <span className="font-medium">Preferred contact:</span>{" "}
+                  {formData.preferredContact}
+                </p>
+                {formData.preferredTime && (
+                  <p>
+                    <span className="font-medium">Preferred time:</span>{" "}
+                    {formData.preferredTime}
+                  </p>
+                )}
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">{INTAKE_CONFIG[businessType].label} details</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                {INTAKE_CONFIG[businessType].label} details
+              </p>
               <div className="space-y-1 text-sm">
                 {INTAKE_CONFIG[businessType].questions.map((q) => {
                   const key = `${businessType}_${q.id}`;
@@ -305,7 +386,8 @@ function UniversalIntakeForm() {
                   if (!value) return null;
                   return (
                     <p key={q.id}>
-                      <span className="font-medium">{q.label}:</span> {value}
+                      <span className="font-medium">{q.label}:</span>{" "}
+                      {value}
                     </p>
                   );
                 })}
@@ -330,7 +412,9 @@ function UniversalIntakeForm() {
               </button>
             </div>
             {error && (
-              <p className="text-sm text-red-600">{error}</p>
+              <p className="text-sm text-red-600">
+                {error}
+              </p>
             )}
           </div>
         </div>
@@ -354,11 +438,16 @@ export default function Page() {
         title="Capture every lead and send it to the right place."
         subtitle="We design intake flows that collect the right details and route each lead to the right person or system automatically."
         primaryCta={{ label: "See intake examples", onClick: scrollToExamples }}
-        secondaryCta={{ label: "Book a consult", href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit" }}
+        secondaryCta={{
+          label: "Book a consult",
+          href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit",
+        }}
       />
       <main className="container mx-auto max-w-7xl px-4 py-12">
         <section id="why" className="mb-16">
-          <h2 className="text-3xl font-bold tracking-tight mb-6">Why lead intake & routing</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-6">
+            Why lead intake & routing
+          </h2>
           <ul className="space-y-4 text-lg text-muted-foreground">
             <li className="flex items-start gap-3">
               <span className="text-green-500 mt-1">✓</span>
@@ -376,22 +465,32 @@ export default function Page() {
         </section>
 
         <section id="what" className="mb-16">
-          <h2 className="text-3xl font-bold tracking-tight mb-6">What we build</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-6">
+            What we build
+          </h2>
           <div className="space-y-4">
             <div className="border rounded-lg p-6 bg-white">
-              <h3 className="text-xl font-semibold mb-2">Multi-step website and chat intake forms</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                Multi-step website and chat intake forms
+              </h3>
             </div>
             <div className="border rounded-lg p-6 bg-white">
-              <h3 className="text-xl font-semibold mb-2">Routing rules by location, service type, or urgency</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                Routing rules by location, service type, or urgency
+              </h3>
             </div>
             <div className="border rounded-lg p-6 bg-white">
-              <h3 className="text-xl font-semibold mb-2">Automatic lead creation in your CRM, sheets, or helpdesk</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                Automatic lead creation in your CRM, sheets, or helpdesk
+              </h3>
             </div>
           </div>
         </section>
 
         <section id="how" className="mb-16">
-          <h2 className="text-3xl font-bold tracking-tight mb-8 text-center">How it works</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-8 text-center">
+            How it works
+          </h2>
           <div className="grid gap-6 md:grid-cols-3">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mx-auto mb-4">
@@ -403,7 +502,9 @@ export default function Page() {
               <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mx-auto mb-4">
                 2
               </div>
-              <h3 className="font-semibold mb-2">Connect your tools and routing rules</h3>
+              <h3 className="font-semibold mb-2">
+                Connect your tools and routing rules
+              </h3>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold mx-auto mb-4">
@@ -415,9 +516,12 @@ export default function Page() {
         </section>
 
         <section id="examples" className="mb-16 scroll-mt-20">
-          <h2 className="text-3xl font-bold tracking-tight mb-6">Intake & routing examples</h2>
+          <h2 className="text-3xl font-bold tracking-tight mb-6">
+            Intake & routing examples
+          </h2>
           <p className="text-muted-foreground mb-6">
-            Switch between HVAC and Law Firm to see how the same engine adapts questions and routing.
+            Switch between HVAC and Law Firm to see how the same engine adapts
+            questions and routing.
           </p>
           <UniversalIntakeForm />
         </section>
