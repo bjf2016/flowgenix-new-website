@@ -19,24 +19,21 @@ export async function POST(request: NextRequest) {
 
     let response: Response;
 
-    try {
-      response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
     } catch (err: any) {
-      // <-- network / TLS errors land here
       console.error('Fetch to n8n failed:', err);
       return NextResponse.json(
         {
           ok: false,
           error: 'fetch_failed',
           message: err?.message || 'Unknown fetch error',
+          name: err?.name || null,
+          code: err?.code || err?.cause?.code || null,
+          details: String(err),
         },
         { status: 500 }
       );
     }
+
 
     if (response.status < 200 || response.status >= 300) {
       const text = await response.text().catch(() => '');
