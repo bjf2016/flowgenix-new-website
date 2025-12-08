@@ -13,12 +13,18 @@ export async function POST(request: NextRequest) {
           error: 'missing_webhook_url',
           message: 'N8N_INTAKE_WEBHOOK_URL is not configured on the server',
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
     let response: Response;
 
+    try {
+      response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
     } catch (err: any) {
       console.error('Fetch to n8n failed:', err);
       return NextResponse.json(
@@ -30,10 +36,9 @@ export async function POST(request: NextRequest) {
           code: err?.code || err?.cause?.code || null,
           details: String(err),
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
-
 
     if (response.status < 200 || response.status >= 300) {
       const text = await response.text().catch(() => '');
@@ -46,7 +51,7 @@ export async function POST(request: NextRequest) {
           status: response.status,
           body: text,
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -59,7 +64,7 @@ export async function POST(request: NextRequest) {
         error: 'server_error',
         message: error?.message || 'Unexpected error in /api/intake',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
