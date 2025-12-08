@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { openChat } from '@/lib/handoff';
-import ChatbotLauncher from "@/components/ChatbotLauncher";
+
 
 
 export function Header() {
@@ -30,7 +30,6 @@ export function Header() {
         </nav>
 
         {/* Chat trigger */}
-        <ChatbotLauncher variant="button" />
 
 
       </div>
