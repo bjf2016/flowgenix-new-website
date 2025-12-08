@@ -123,24 +123,20 @@ export default function Hero({
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         autoPlay
         muted
-        loop={false} // manual looping so we can pause between loops
+        loop
         playsInline
+        preload="auto"
         aria-hidden="true"
         onLoadedMetadata={(e) => {
-          e.currentTarget.playbackRate = 0.50; // slower playback
-        }}
-        onEnded={(e) => {
-          const video = e.currentTarget;
-          setTimeout(() => {
-            video.currentTime = 0;
-            void video.play();
-          }, 1000); // 2-second pause between loops
+          // slow down playback a bit
+          e.currentTarget.playbackRate = 0.5;
         }}
       >
         <source src="/brand/Full_Flowgenixai_hero.webm" type="video/webm" />
         <source src="/brand/Full_Flowgenixai_hero.mp4" type="video/mp4" />
         {/* If video can't play, the solid bg color remains */}
       </video>
+
 
       {/* Overlay to keep text readable */}
       <div className="absolute inset-0 bg-[#CDE4F3]/80" aria-hidden="true" />
