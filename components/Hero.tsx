@@ -132,8 +132,8 @@ export default function Hero({
           e.currentTarget.playbackRate = 0.5;
         }}
       >
-        <source src="/brand/Full_Flowgenixai_hero.webm" type="video/webm" />
-        <source src="/brand/Full_Flowgenixai_hero.mp4" type="video/mp4" />
+        <source src="/brand/full_flowgenixai_hero.webm" type="video/webm" />
+        <source src="/brand/full_flowgenixai_hero.mp4" type="video/mp4" />
         {/* If video can't play, the solid bg color remains */}
       </video>
 
