@@ -79,20 +79,25 @@ function UniversalIntakeForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
-      const data = await response.json();
-
-      if (data.ok === true) {
-        setSubmitted(true);
-      } else {
+    
+      if (!response.ok) {
+        console.error("Intake submit failed:", await response.text());
         setError("Something went wrong sending your intake. Please try again.");
+        return;
       }
+    
+      // Optional: you *can* read the JSON if you want, but you don't need it
+      // const data = await response.json();
+    
+      // ✅ Treat 2xx as success
+      setError(null);
+      setSuccess(true);
+      // if you reset fields, do it here
     } catch (err) {
+      console.error("Intake submit error:", err);
       setError("Something went wrong sending your intake. Please try again.");
-    } finally {
-      setIsSubmitting(false);
     }
-  };
+
 
   if (submitted) {
     return (
