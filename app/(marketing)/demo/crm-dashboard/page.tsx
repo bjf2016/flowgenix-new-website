@@ -94,18 +94,24 @@ export default function CRMDashboardPage() {
                 This embedded Sheet powers the demo charts and KPIs for our test HVAC + Law Firm workflow.
               </p>
             </div>
-            <div className="rounded-lg border border-gray-200 overflow-hidden">
-              <iframe
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUX-CHvoWH2y2RjIPX3GoG9U-Z1FzYf2kwBz4OhRBOq8ovbM4_QPotjqVYbvYCaOaOi7AuddWBrkZ9/pubhtml?gid=1997322929&amp;single=true&amp;widget=true&amp;headers=false"
-                width="100%"
-                height="650"
-                className="w-full"
-                title="FlowGenixAI Demo Dashboard"
-                loading="lazy"
-                allow="display-capture"
-                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-              />
-            </div>
+              <div className="rounded-lg border border-gray-200 overflow-hidden flex flex-col items-center justify-center py-10 px-6 gap-4">
+                <p className="text-gray-700 text-center max-w-xl">
+                  For security reasons, Google isn&apos;t allowing this Sheet to be embedded inside
+                  this development environment. You can still view the live dashboard in a new tab.
+                </p>
+                <a
+                  href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUX-CHvoWH2y2RjIPX3GoG9U-Z1FzYf2kwBz4OhRBOq8ovbM4_QPotjqVYbvYCaOaOi7AuddWBrkZ9/pubhtml?gid=1997322929&single=true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-md bg-[#009CE3] px-6 py-3 text-sm font-medium text-white hover:bg-[#0088cc] transition-colors shadow-sm"
+                >
+                  Open live Google Sheets dashboard
+                </a>
+                <p className="text-xs text-gray-500 text-center max-w-md">
+                  This link opens the same published dashboard you saw in the screenshot, powered by
+                  the HVAC + Law Firm intake demo data.
+                </p>
+              </div>
           </div>
         </section>
 
