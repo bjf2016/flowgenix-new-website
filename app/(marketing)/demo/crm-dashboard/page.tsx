@@ -86,28 +86,46 @@ export default function CRMDashboardPage() {
 
         <section className="mb-10">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-            <div className="mb-4">
+            <div className="mb-6">
               <h2 className="text-2xl font-semibold text-[#202629] mb-2">
-                Live Dashboard (Google Sheets)
+                Live Dashboard (example view)
               </h2>
               <p className="text-sm text-gray-600">
-                This embedded Sheet powers the demo charts and KPIs for our test HVAC + Law Firm workflow.
+                In a real deployment, this panel is powered by live data coming from your AI
+                receptionist and intake flows. For the demo, we’re showing a static example of
+                what that dashboard looks like without embedding Google Sheets.
               </p>
             </div>
-            <div className="rounded-lg border border-gray-200 overflow-hidden">
-              <iframe
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUX-CHvoWH2y2RjIPX3GoG9U-Z1FzYf2kwBz4OhRBOq8ovbM4_QPotjqVYbvYCaOaOi7AuddWBrkZ9/pubhtml?gid=1997322929&amp;single=true&amp;widget=true&amp;headers=false"
-                width="100%"
-                height="650"
-                className="w-full"
-                title="FlowGenixAI Demo Dashboard"
-                loading="lazy"
-                allow="display-capture"
-                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-              />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                  What this dashboard tracks
+                </h3>
+                <ul className="text-sm text-gray-700 space-y-1.5">
+                  <li>• New intakes by business type (HVAC vs. Law)</li>
+                  <li>• Emergency vs. non-emergency rate</li>
+                  <li>• Daily intake volume for the last 7 days</li>
+                  <li>• Source of each lead (web, phone, AI agent, etc.)</li>
+                </ul>
+              </div>
+
+              <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-6 flex flex-col items-center justify-center text-center">
+                <p className="text-xs font-semibold text-gray-500 mb-2">
+                  Dashboard snapshot (mock)
+                </p>
+                <p className="text-sm text-gray-500 mb-4">
+                  In your account this area would show your live charts and KPIs, powered by
+                  Sheets, your CRM, or a custom data store.
+                </p>
+                <span className="inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
+                  No external embeds required
+                </span>
+              </div>
             </div>
           </div>
         </section>
+
 
         <footer className="text-center py-12">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-10 max-w-3xl mx-auto">
