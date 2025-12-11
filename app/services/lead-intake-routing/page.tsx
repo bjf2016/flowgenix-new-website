@@ -47,52 +47,61 @@ function UniversalIntakeForm() {
     return formData.contactName && formData.contactEmail && formData.contactPhone && formData.preferredContact;
   };
 
-  const handleSubmit = async () => {
-    const cfg = businessType ? INTAKE_CONFIG[businessType] : null;
-    const answers: Record<string, any> = {};
-    if (cfg && businessType) {
-      cfg.questions.forEach((q) => {
-        const key = `${businessType}_${q.id}`;
-        answers[q.id] = formData[key];
-      });
-    }
+const N8N_WEBHOOK_URL = "https://n8n.flowgenixai.com/webhook/intake-flowgenix";
 
-    const payload = {
-      businessType,
-      contact: {
-        name: formData.contactName,
-        email: formData.contactEmail,
-        phone: formData.contactPhone,
-        preferredContact: formData.preferredContact,
-        preferredTime: formData.preferredTime,
-      },
-      answers,
-      source: "website_universal_intake",
-    };
+const handleSubmit = async () => {
+  if (!businessType) {
+    setError("Please select a business type.");
+    return;
+  }
 
-    setIsSubmitting(true);
-    setError(null);
+  const cfg = INTAKE_CONFIG[businessType];
+  const answers: Record<string, any> = {};
 
-    try {
-      const response = await fetch("/api/intake", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+  cfg.questions.forEach((q) => {
+    const key = `${businessType}_${q.id}`;
+    answers[q.id] = formData[key] ?? "";
+  });
 
-      const data = await response.json();
-
-      if (data.ok === true) {
-        setSubmitted(true);
-      } else {
-        setError("Something went wrong sending your intake. Please try again.");
-      }
-    } catch (err) {
-      setError("Something went wrong sending your intake. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+  const payload = {
+    businessType,
+    contact: {
+      name: formData.contactName,
+      email: formData.contactEmail,
+      phone: formData.contactPhone,
+      preferredContact: formData.preferredContact,
+      preferredTime: formData.preferredTime,
+    },
+    answers,
+    source: "website_universal_intake",
   };
+
+  setIsSubmitting(true);
+  setError(null);
+
+  try {
+    const response = await fetch(N8N_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      console.error("Intake submit failed:", await response.text());
+      setError("Something went wrong sending your intake. Please try again.");
+      return;
+    }
+
+    // Success – show the thank-you state
+    setSubmitted(true);
+  } catch (err) {
+    console.error("Intake submit error:", err);
+    setError("Something went wrong sending your intake. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   if (submitted) {
     return (
