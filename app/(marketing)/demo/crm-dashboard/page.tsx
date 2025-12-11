@@ -118,9 +118,18 @@ export default function CRMDashboardPage() {
                   In your account this area would show your live charts and KPIs, powered by
                   Sheets, your CRM, or a custom data store.
                 </p>
-                <span className="inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700">
+                <span className="inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-700 mb-4">
                   No external embeds required
                 </span>
+
+                <a
+                  href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUX-CHvoWH2y2RjIPX3GoG9U-Z1FzYf2kwBz4OhRBOq8ovbM4_QPotjqVYbvYCaOaOi7AuddWBrkZ9/pubhtml?gid=1997322929&single=true"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center justify-center rounded-md bg-[#009CE3] px-4 py-2 text-xs font-medium text-white hover:bg-[#0088cc] transition-colors"
+                >
+                  View live Google Sheet dashboard
+                </a>
               </div>
             </div>
           </div>
