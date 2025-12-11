@@ -103,14 +103,24 @@ const handleSubmit = async () => {
 };
 
 
-  if (submitted) {
-    return (
-      <div className="border rounded-lg p-6 bg-white text-center">
-        <h3 className="text-2xl font-bold text-green-600 mb-2">Thank you!</h3>
-        <p className="text-muted-foreground">Your intake has been received. We'll be in touch soon.</p>
-      </div>
-    );
-  }
+if (submitted) {
+  return (
+    <div className="border rounded-lg p-6 bg-white text-center">
+      <h3 className="text-2xl font-bold text-green-600 mb-2">Thank you!</h3>
+      <p className="text-muted-foreground mb-6">
+        Your intake has been received. We'll be in touch soon.
+      </p>
+
+      <a
+        href="/demo/crm-dashboard"
+        className="inline-block rounded-md bg-[#009CE3] text-white px-6 py-3 font-semibold shadow hover:bg-[#0080c0] transition"
+      >
+        View Example CRM Dashboard →
+      </a>
+    </div>
+  );
+}
+
 
   return (
     <div className="border rounded-lg p-6 bg-white space-y-6">
