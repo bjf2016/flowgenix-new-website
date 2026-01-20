@@ -51,49 +51,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Lead Follow-up Card */}
-      <section className="container mx-auto max-w-7xl px-6 py-12">
-        <div className="max-w-md mx-auto">
-          <div className="rounded-3xl border border-gray-200 bg-white shadow-lg p-6">
-            <p className="text-sm sm:text-base font-semibold uppercase tracking-wide text-[#009CE3]">
-              Lead Follow-Up & Nurture Flows
-            </p>
-            <p className="mt-2 text-sm text-gray-800">
-              AI follows up with new and stale leads via SMS and email so your pipeline never goes cold.
-            </p>
-            <div className="mt-5 space-y-3">
-              <div className="flex items-start gap-3">
-                <div className="mt-1 h-6 w-6 flex items-center justify-center rounded-full bg-[#009CE3]/10 ring-1 ring-[#009CE3]/40">
-                  <span className="text-[11px] font-semibold text-[#009CE3]">1</span>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-900">New lead hits your CRM or web form</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="mt-1 h-6 w-6 flex items-center justify-center rounded-full bg-[#009CE3]/10 ring-1 ring-[#009CE3]/40">
-                  <span className="text-[11px] font-semibold text-[#009CE3]">2</span>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-900">AI sends personalized follow-up within minutes</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="mt-1 h-6 w-6 flex items-center justify-center rounded-full bg-[#009CE3]/10 ring-1 ring-[#009CE3]/40">
-                  <span className="text-[11px] font-semibold text-[#009CE3]">3</span>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-900">Conversation continues over SMS/email based on responses</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="mt-1 h-6 w-6 flex items-center justify-center rounded-full bg-[#009CE3]/10 ring-1 ring-[#009CE3]/40">
-                  <span className="text-[11px] font-semibold text-[#009CE3]">4</span>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-900">Qualified leads are nudged to book directly into your calendar</p>
-              </div>
-            </div>
-            <div className="mt-5 flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-2 text-xs text-gray-800">
-              <span className="font-semibold">Outcome:</span>
-              <span className="font-medium">More conversions from the same lead volume.</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Solutions Grid */}
       <section className="container mx-auto max-w-7xl px-6">
