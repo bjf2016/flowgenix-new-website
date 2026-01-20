@@ -9,7 +9,7 @@ export default function Page() {
     <>
       <SectionHero
         eyebrow="Demo"
-        title="HVAC After-Hours Bot — Demo"
+        title="Website Chatbot — Demo"
         subtitle="Demo using synthetic data. Capture overnight leads → next-day dispatch."
         primaryCta={{ label: "Play demo video", href: "#demo-video" }}
         secondaryCta={{ label: "Talk to our AI", onClick: "openChat" }}
