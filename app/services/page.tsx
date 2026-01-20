@@ -4,7 +4,6 @@ import Hero from '@/components/Hero';
 import ServiceCard from '@/components/services/ServiceCard';
 import TrustMarquee from '@/components/TrustMarquee';
 import { CallToAction } from '@/components/CallToAction';
-import Link from 'next/link';
 
 export default function ServicesPage() {
   const services = [
@@ -41,7 +40,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="space-y-20 pb-20">
+    <div className="space-y-12 pb-20">
       <Hero
         title="AI Solutions that Drive Results"
         subtitle="From voice receptionists to end-to-end workflow automation, we implement fast and iterate."
@@ -53,7 +52,7 @@ export default function ServicesPage() {
         portraitSrc="/brand/ben v4.png"
       />
 
-      <section className="container mx-auto max-w-7xl px-6">
+      <section className="container mx-auto max-w-7xl px-6 -mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service) => (
             <ServiceCard
@@ -63,27 +62,6 @@ export default function ServicesPage() {
               href={service.href}
             />
           ))}
-        </div>
-      </section>
-
-      <section className="container mx-auto max-w-7xl px-6">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-4">Solutions by Industry</h2>
-          <p className="text-gray-600">Tailored AI implementations for your specific business needs</p>
-        </div>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link
-            href="/personas/dentists"
-            className="inline-flex items-center px-6 py-3 rounded-full bg-white border-2 border-[#009CE3] text-[#009CE3] font-medium hover:bg-[#009CE3] hover:text-white transition-all duration-200 hover:shadow-lg"
-          >
-            Dentists
-          </Link>
-          <Link
-            href="/personas/local-services"
-            className="inline-flex items-center px-6 py-3 rounded-full bg-white border-2 border-[#009CE3] text-[#009CE3] font-medium hover:bg-[#009CE3] hover:text-white transition-all duration-200 hover:shadow-lg"
-          >
-            Local Services
-          </Link>
         </div>
       </section>
 
