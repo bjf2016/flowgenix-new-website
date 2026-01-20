@@ -21,9 +21,6 @@ export function Header() {
           <Link href="/services" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
             Solutions
           </Link>
-          <Link href="/demo" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
-            Demo
-          </Link>
           <Link href="/blog" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
             Blog
           </Link>
