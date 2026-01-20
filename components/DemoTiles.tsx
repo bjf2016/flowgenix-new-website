@@ -10,6 +10,7 @@ interface DemoItem {
 
 interface DemoTilesProps {
   items: DemoItem[];
+  id?: string;
 }
 
 const iconMap: Record<string, any> = {
@@ -18,9 +19,9 @@ const iconMap: Record<string, any> = {
   'Restaurant Waitlist Bot': Users,
 };
 
-export function DemoTiles({ items }: DemoTilesProps) {
+export function DemoTiles({ items, id }: DemoTilesProps) {
   return (
-    <section className="container mx-auto max-w-7xl px-6">
+    <section id={id} className="container mx-auto max-w-7xl px-6">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           See it in action

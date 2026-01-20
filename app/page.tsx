@@ -17,12 +17,13 @@ export default async function Home() {
   return (
     <div className="space-y-20 pb-20">
       <Hero
-        eyebrow="Trusted by SMBs"
-        title="B2B AI Consulting, built for real results"
-        highlight="real results"
-        subtitle="Merging strategy with AI enablement to capture and convert more opportunities — without exposing your calendar."
-        primaryCta={{ label: "See 60-sec Demo", href: "/demo/dentist-intake-bot" }}
-        secondaryCta={{ label: "Talk to our AI", onClick: "openChat" }}
+        eyebrow="Built for local & service-based businesses"
+        title="AI Systems & Workflow Automation for Service Businesses"
+        highlight="Service Businesses"
+        subtitle="FlowGenixAI designs and implements AI phone, intake, and automation systems so your team answers every call, captures every lead, and keeps your CRM up to date — without adding headcount."
+        features="AI voice receptionist · Multi-step intake & routing · CRM dashboards & workflows"
+        primaryCta={{ label: "Book a strategy call", href: "/contact" }}
+        secondaryCta={{ label: "View live demos", href: "#demos" }}
         badges={[
           { src: "/badges/cert-1.svg", alt: "Certification placeholder" },
           { src: "/badges/cert-2.svg", alt: "Award placeholder" }
@@ -56,6 +57,7 @@ export default async function Home() {
       />
 
       <DemoTiles
+        id="demos"
         items={[
           {
             title: "Dentist Intake Bot",

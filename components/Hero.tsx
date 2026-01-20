@@ -10,6 +10,7 @@ interface HeroProps {
   title: string;
   highlight?: string;
   subtitle?: string;
+  features?: string;
   primaryCta?: { label: string; href?: string; onClick?: string | (() => void) };
   secondaryCta?: { label: string; href?: string; onClick?: string | (() => void) };
   badges?: Array<{ src: string; alt: string }>;
@@ -66,6 +67,7 @@ export default function Hero({
   title,
   highlight,
   subtitle,
+  features,
   primaryCta,
   secondaryCta,
   badges,
@@ -164,11 +166,21 @@ export default function Hero({
 
             {subtitle && (
               <p
-                className={`text-lg sm:text-xl mb-8 leading-relaxed ${
+                className={`text-lg sm:text-xl mb-6 leading-relaxed ${
                   dark ? 'text-neutral-300' : 'text-gray-600'
                 }`}
               >
                 {subtitle}
+              </p>
+            )}
+
+            {features && (
+              <p
+                className={`text-sm sm:text-base mb-8 leading-relaxed font-medium ${
+                  dark ? 'text-neutral-400' : 'text-gray-500'
+                }`}
+              >
+                {features}
               </p>
             )}
 
