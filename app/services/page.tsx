@@ -53,7 +53,7 @@ export default function ServicesPage() {
 
 
       {/* Solutions Grid */}
-      <section className="container mx-auto max-w-7xl px-6">
+      <section className="container mx-auto max-w-7xl px-6 pt-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service) => (
             <ServiceCard
@@ -66,17 +66,19 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <CallToAction
-        title="Ready to automate the busywork?"
-        primary={{
-          label: "Talk to our AI",
-          onClick: "openChat"
-        }}
-        secondary={{
-          label: "Book a 30-min consult",
-          href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit"
-        }}
-      />
+      <div className="pt-16">
+        <CallToAction
+          title="Ready to automate the busywork?"
+          primary={{
+            label: "Talk to our AI",
+            onClick: "openChat"
+          }}
+          secondary={{
+            label: "Book a 30-min consult",
+            href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit"
+          }}
+        />
+      </div>
     </div>
   );
 }
