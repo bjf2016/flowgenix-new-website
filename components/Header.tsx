@@ -15,21 +15,29 @@ export function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
+          <Link href="/" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
+            Home
+          </Link>
           <Link href="/services" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
-            Services
+            Solutions
+          </Link>
+          <Link href="/demo/dentist-intake-bot" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
+            Demo
           </Link>
           <Link href="/blog" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
             Blog
-          </Link>
-          <Link href="/personas" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
-            Personas
           </Link>
           <Link href="/about" className="text-sm font-medium text-white hover:text-[#009CE3] transition-colors">
             About
           </Link>
         </nav>
 
-        {/* Chat trigger */}
+        <Link
+          href="/contact"
+          className="rounded-full bg-[#009CE3] px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-[#0088cc] transition-colors"
+        >
+          Book a strategy call
+        </Link>
 
 
       </div>
