@@ -1,16 +1,20 @@
-import SectionHero from "@/components/SectionHero";
-
 export default function Page() {
   return (
-    <>
-      <SectionHero
-        eyebrow="About"
-        title="Why FlowGenixAI"
-        subtitle="Founder-led consulting focused on reliable workflows and clear ROI."
-        secondaryCta={{ label: "Talk to our AI", onClick: "openChat" }}
-      />
-      <main className="container mx-auto max-w-7xl px-4 py-12">
+    <div>
+      {/* Hero Section */}
+      <section className="bg-[#CDE4F3] py-16">
+        <div className="container mx-auto max-w-7xl px-6 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            About FlowGenixAI
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            FlowGenixAI helps local and service-based businesses design and deploy AI systems that actually fit their workflows — from voice receptionists to automation and reporting.
+          </p>
+        </div>
+      </section>
+
+      <main className="container mx-auto max-w-7xl px-6 py-12">
       </main>
-    </>
+    </div>
   );
 }

@@ -95,18 +95,18 @@ export function Footer() {
 
         {/* Tech Strip */}
         <div className="mt-12 pt-8 border-t border-gray-700">
-          <p className="text-sm text-center text-gray-400 mb-8 font-medium">
+          <p className="text-sm text-center text-gray-300 mb-8 font-medium">
             Powered by industry-leading technology
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center justify-items-center">
             {techLogos.map((logo) => (
-              <div key={logo} className="transition-opacity hover:opacity-80">
+              <div key={logo} className="transition-opacity hover:opacity-100">
                 <Image
                   src={`/logos/${logo}.svg`}
                   alt={`${logo} logo`}
                   width={120}
                   height={48}
-                  className="h-10 w-auto opacity-40 hover:opacity-60 transition-opacity"
+                  className="h-10 w-auto opacity-70 hover:opacity-90 transition-opacity"
                 />
               </div>
             ))}
