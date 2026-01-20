@@ -2,7 +2,6 @@
 
 import Hero from '@/components/Hero';
 import ServiceCard from '@/components/services/ServiceCard';
-import TrustMarquee from '@/components/TrustMarquee';
 import { CallToAction } from '@/components/CallToAction';
 
 export default function ServicesPage() {
@@ -64,11 +63,6 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
-
-      <TrustMarquee
-        logos={["retell","n8n","sanity","vercel"]}
-        heading="Powered by industry-leading technology"
-      />
 
       <CallToAction
         title="Ready to automate the busywork?"

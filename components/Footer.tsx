@@ -1,7 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Logo } from './Logo';
 
 export function Footer() {
+  const techLogos = ["retell", "n8n", "sanity", "vercel"];
+
   return (
     <footer className="border-t bg-[#1F2528]">
       <div className="container mx-auto max-w-7xl px-6 py-12">
@@ -90,8 +93,28 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <p className="text-center text-sm text-gray-600">
+        {/* Tech Strip */}
+        <div className="mt-12 pt-8 border-t border-gray-700">
+          <p className="text-sm text-center text-gray-400 mb-8 font-medium">
+            Powered by industry-leading technology
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 items-center justify-items-center">
+            {techLogos.map((logo) => (
+              <div key={logo} className="transition-opacity hover:opacity-80">
+                <Image
+                  src={`/logos/${logo}.svg`}
+                  alt={`${logo} logo`}
+                  width={120}
+                  height={48}
+                  className="h-10 w-auto opacity-40 hover:opacity-60 transition-opacity"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-gray-700">
+          <p className="text-center text-sm text-gray-400">
             © {new Date().getFullYear()} FlowGenixAI. All rights reserved.
           </p>
         </div>

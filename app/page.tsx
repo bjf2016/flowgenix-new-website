@@ -1,5 +1,4 @@
 import Hero from '@/components/Hero';
-import TrustMarquee from '@/components/TrustMarquee';
 import PromoBand from '@/components/PromoBand';
 import { PersonaCards } from '@/components/PersonaCards';
 import { DemoTiles } from '@/components/DemoTiles';
@@ -31,8 +30,6 @@ export default async function Home() {
         portraitSrc="/brand/ben v4.png"
         trustLogos={["retell","n8n","sanity","vercel"]}
       />
-      
-      <TrustMarquee logos={["retell","n8n","sanity","vercel"]} />
 
       <PromoBand
         message="Get in touch to discuss your project."
