@@ -26,7 +26,7 @@ export default function DentistCallbackDemo() {
         title="Dentist AI Receptionist call-back"
         subtitle="Demo using synthetic data. Baseline → Workflow → Expected outcomes."
         primaryCta={{ label: "Book a strategy call", href: "/contact" }}
-        secondaryCta={{ label: "Try out the AI Receptionist", href: "/demo/dentist-callback" }}
+        secondaryCta={{ label: "Try out the AI Receptionist", href: "../demo/dentist-callback" }}
       />
 
       <section
