@@ -33,9 +33,8 @@ export default async function Home() {
       <section className="container mx-auto max-w-7xl px-6 -mt-8">
         <div className="text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            AI systems we implement
+            AI systems we specialize in and implement
           </h2>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">We specialize in:</h2>
           <div className="flex flex-wrap justify-center gap-3">
             <Link
               href="/services"
