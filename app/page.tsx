@@ -110,30 +110,6 @@ export default async function Home() {
         </div>
       </section>
 
-       <DemoTiles
-        id="demos"
-        items={[
-          {
-            title: "Dentist Intake Bot",
-            label: "Demo (synthetic)",
-            description: "Collect the right info and increase completed bookings.",
-            href: "/demo/dentist-intake-bot"
-          },
-          {
-            title: "HVAC After-Hours Bot",
-            label: "Demo (synthetic)",
-            description: "Capture overnight leads and prepare next-day dispatch.",
-            href: "/demo/hvac-after-hours"
-          },
-          {
-            title: "Restaurant Waitlist Bot",
-            label: "Demo (synthetic)",
-            description: "Confirm reservations and reduce no-shows.",
-            href: "/demo/restaurant-waitlist"
-          }
-        ]}
-      />
-
       <AboutStrip />
 
       <BlogList posts={posts} />
