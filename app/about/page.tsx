@@ -56,7 +56,7 @@ export default function Page() {
               <div className="aspect-video w-full">
                 {/* TODO: Replace VIDEO_ID with the actual Flowgenix AI explainer video ID */}
                 <iframe
-                  src="https://www.youtube.com/embed/VIDEO_ID"
+                  src="/public/brand/flowgenix_ai_intro.mp4"
                   title="Flowgenix AI explainer video"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
