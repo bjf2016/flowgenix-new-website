@@ -55,19 +55,10 @@ export default async function Home() {
               Other SMBs
             </Link>
           </div>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                We design and deploy practical AI systems that plug into your existing tools and workflows.
+            </p>
         </div>
-      </section>
-
-      <section className="container mx-auto max-w-6xl px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            AI systems we implement
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            We design and deploy practical AI systems that plug into your existing tools and workflows.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
             <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -119,7 +110,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <DemoTiles
+       <DemoTiles
         id="demos"
         items={[
           {
