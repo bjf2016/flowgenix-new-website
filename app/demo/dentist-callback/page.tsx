@@ -12,7 +12,7 @@ export default function DentistCallbackDemo() {
       <div className="bg-[#CDE4F3] pt-6">
         <div className="container mx-auto max-w-7xl px-6">
           <Link
-            href="/demo"
+            href="/services"
             className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#009CE3] transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
