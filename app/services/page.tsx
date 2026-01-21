@@ -8,7 +8,7 @@ export default function ServicesPage() {
     {
       title: "AI Voice Receptionist",
       desc: "Answer, qualify, schedule. 24/7 phone coverage that never misses a call or opportunity.",
-      href: "/demo/dentist-callback"
+      href: "/demo/dentist-intake-bot"
     },
     {
       title: "Website Chatbot",
