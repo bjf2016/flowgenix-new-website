@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import SectionHero from "@/components/SectionHero";
 import { openChat } from "@/lib/handoff";
 
@@ -162,6 +164,18 @@ export default function Page() {
 
   return (
     <>
+      <div className="bg-[#CDE4F3] pt-6">
+        <div className="container mx-auto max-w-7xl px-6">
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#009CE3] transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Back to all Solutions
+          </Link>
+        </div>
+      </div>
+
       <SectionHero
         eyebrow="Website Chatbot"
         title="Your website, now a 24/7 AI sales assistant"
