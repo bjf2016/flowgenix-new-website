@@ -16,7 +16,7 @@ export default function DentistCallbackDemo() {
             className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-[#009CE3] transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
-            Back to all demos
+            Back to all Services
           </Link>
         </div>
       </div>
