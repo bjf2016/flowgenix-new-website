@@ -27,13 +27,13 @@ export default function ServicesPage() {
     },
     {
       title: "Training & Playbooks",
-      desc: "Team enablement + SOPs. Documentation and training that scales with your business.",
-      href: "/demo/restaurant-waitlist"
+      desc: "Team enablement + SOPs. Documentation and training that scales with your business. (Coming soon)",
+      href: ""
     },
     {
       title: "Analytics & QA",
-      desc: "Call summaries, trend insights. Data-driven decisions backed by real conversation intelligence.",
-      href: "/demo/hvac-after-hours"
+      desc: "Call summaries, trend insights. Data-driven decisions backed by real conversation intelligence. (Coming soon)",
+      href: ""
     }
   ];
 
