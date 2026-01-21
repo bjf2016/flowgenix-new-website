@@ -1,12 +1,11 @@
 import Hero from '@/components/Hero';
-import PromoBand from '@/components/PromoBand';
-import { PersonaCards } from '@/components/PersonaCards';
 import { DemoTiles } from '@/components/DemoTiles';
 import { AboutStrip } from '@/components/AboutStrip';
 import { BlogList } from '@/components/BlogList';
 import { TrustSignals } from '@/components/TrustSignals';
 import { CallToAction } from '@/components/CallToAction';
 import { fetchLatestPosts } from '@/lib/sanity';
+import Link from 'next/link';
 
 export const revalidate = 60;
 
@@ -22,7 +21,7 @@ export default async function Home() {
         subtitle="FlowGenixAI designs and implements AI phone, intake, and automation systems so your team answers every call, captures every lead, and keeps your CRM up to date — without adding headcount."
         features="AI voice receptionist · Multi-step intake & routing · CRM dashboards & workflows"
         primaryCta={{ label: "Book a strategy call", href: "/contact" }}
-        secondaryCta={{ label: "View live demos", href: "#demos" }}
+        secondaryCta={{ label: "View solutions", href: "/services" }}
         badges={[
           { src: "/badges/cert-1.svg", alt: "Certification placeholder" },
           { src: "/badges/cert-2.svg", alt: "Award placeholder" }
@@ -31,27 +30,92 @@ export default async function Home() {
         trustLogos={["retell","n8n","sanity","vercel"]}
       />
 
-      <PromoBand
-        message="Get in touch to discuss your project."
-        primary={{ label: "Talk to our AI", onClick: "openChat" }}
-      />
+      <section className="container mx-auto max-w-7xl px-6 -mt-8">
+        <div className="text-center">
+          <p className="text-sm text-gray-600 mb-3">We specialize in:</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/services"
+              className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-[#009CE3] hover:text-white transition-colors"
+            >
+              Dentists
+            </Link>
+            <Link
+              href="/services"
+              className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-[#009CE3] hover:text-white transition-colors"
+            >
+              Local services
+            </Link>
+            <Link
+              href="/services"
+              className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-[#009CE3] hover:text-white transition-colors"
+            >
+              Other SMBs
+            </Link>
+          </div>
+        </div>
+      </section>
 
-      <PersonaCards
-        items={[
-          {
-            title: "Dentists",
-            description: "Automated intake, insurance pre-qual, recalls and reminders.",
-            ctaLabel: "See Dentist solutions",
-            href: "/personas/dentists"
-          },
-          {
-            title: "Local Services",
-            description: "Answer, qualify, schedule, and reduce no-shows for HVAC, Electricians, Restaurants & Retail.",
-            ctaLabel: "See Local Services",
-            href: "/personas/local-services"
-          }
-        ]}
-      />
+      <section className="container mx-auto max-w-6xl px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            AI systems we implement
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            We design and deploy practical AI systems that plug into your existing tools and workflows.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <h3 className="text-xl font-bold text-gray-900 mb-3">
+              AI Voice Receptionist & Call Systems
+            </h3>
+            <p className="text-gray-600 mb-4 leading-relaxed">
+              Answer every call, qualify intent, and capture leads 24/7 without adding headcount.
+            </p>
+            <Link
+              href="/services"
+              className="inline-flex items-center text-[#009CE3] font-semibold hover:gap-2 transition-all"
+            >
+              View solutions
+              <span className="ml-1">→</span>
+            </Link>
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <h3 className="text-xl font-bold text-gray-900 mb-3">
+              Lead Intake & Routing
+            </h3>
+            <p className="text-gray-600 mb-4 leading-relaxed">
+              Guide callers and web visitors through the right questions, then route structured data into n8n and Google Sheets or your CRM.
+            </p>
+            <Link
+              href="/services"
+              className="inline-flex items-center text-[#009CE3] font-semibold hover:gap-2 transition-all"
+            >
+              View solutions
+              <span className="ml-1">→</span>
+            </Link>
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+            <h3 className="text-xl font-bold text-gray-900 mb-3">
+              Workflow Automation & Reporting
+            </h3>
+            <p className="text-gray-600 mb-4 leading-relaxed">
+              Automate handoffs, reminders, and give your team a clear view of what AI is capturing and where it's going.
+            </p>
+            <Link
+              href="/services"
+              className="inline-flex items-center text-[#009CE3] font-semibold hover:gap-2 transition-all"
+            >
+              View solutions
+              <span className="ml-1">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <DemoTiles
         id="demos"
