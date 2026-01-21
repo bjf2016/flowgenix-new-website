@@ -18,13 +18,19 @@ export default function ServiceCard({ title, desc, href }: ServiceCardProps) {
       <p className="text-gray-600 mb-4 leading-relaxed">
         {desc}
       </p>
-      <Link
-        href={href}
-        className="inline-flex items-center text-sm font-medium text-[#009CE3] hover:text-[#0088cc] transition-colors"
-      >
-        See examples
-        <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-      </Link>
+      {href ? (
+        <Link
+          href={href}
+          className="inline-flex items-center text-sm font-medium text-[#009CE3] hover:text-[#0088cc] transition-colors"
+        >
+          See examples
+          <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      ) : (
+        <span className="text-sm font-medium text-gray-400">
+          Demo examples coming soon!
+        </span>
+      )}
     </div>
   );
 }
