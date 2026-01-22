@@ -75,7 +75,7 @@ export default function ServicesPage() {
           }}
           secondary={{
             label: "Book a 30-min consult",
-            href: "https://cal.com/b.foroodian/30-min-ai-workflow-audit"
+            href: "/strategy-call"
           }}
         />
       </div>
