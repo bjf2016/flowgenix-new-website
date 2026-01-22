@@ -72,7 +72,7 @@ export default function Page() {
 
       {/* Founder Section - Image should be placed at public/images/ben-foroodian.png */}
       <section className="py-8 md:py-10 mt-0">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl px-6">
           <p className="mb-4 text-xs font-semibold tracking-wide text-sky-600 uppercase">
             Founder
           </p>
