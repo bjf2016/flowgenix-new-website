@@ -71,7 +71,7 @@ export default function Page() {
       </section>
 
       {/* Founder Section - Image should be placed at public/images/ben-foroodian.png */}
-      <section className="py-10 md:py-12 mt-10">
+      <section className="py-10 md:py-12 mt-4">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="mb-4 text-xs font-semibold tracking-wide text-sky-600 uppercase">
             Founder
