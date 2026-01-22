@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { CallToAction } from '@/components/CallToAction';
 
@@ -63,6 +64,57 @@ export default function Page() {
                   allowFullScreen
                   className="w-full h-full"
                 />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder Section - Image should be placed at public/images/ben-foroodian.png */}
+      <section className="py-16 bg-gradient-to-b from-white to-slate-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="mb-6 text-xs font-semibold tracking-wide text-sky-600 uppercase">
+            Founder
+          </p>
+
+          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-700/50">
+            <div className="grid gap-8 md:grid-cols-[minmax(0,280px)_minmax(0,1fr)] items-center">
+              {/* Founder Image */}
+              <div className="flex flex-col items-center md:items-start space-y-3">
+                <Image
+                  src="/images/ben-foroodian.png"
+                  alt="Ben Foroodian, Founder of FlowgenixAI"
+                  width={400}
+                  height={400}
+                  className="rounded-2xl object-cover border border-white/10 shadow-xl"
+                />
+                <p className="text-xs font-semibold uppercase tracking-wide text-sky-300 text-center md:text-left">
+                  Founder & AI Workflow Architect
+                </p>
+              </div>
+
+              {/* Founder Bio */}
+              <div className="space-y-4">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-2">
+                    Meet Ben Foroodian
+                  </h2>
+                  <div className="h-px bg-sky-500/40 w-24 mb-4"></div>
+                </div>
+
+                <div className="text-sm sm:text-base text-slate-100/80 leading-relaxed space-y-3">
+                  <p>
+                    Ben Foroodian is the founder of FlowgenixAI and a strategic operator with 20+ years of experience building technology, data, and automation solutions across healthcare, software, and services. He's led teams in companies like Align Technology, Henry Schein Orthodontics, Straumann/ClearCorrect, Carl Zeiss Meditec, and several SaaS and data firms—always with the same focus: turn messy, manual workflows into clear, scalable systems that actually work in the real world.
+                  </p>
+
+                  <p>
+                    In previous roles, Ben built and led global teams across product, R&D, clinical affairs, and operations. He helped launch and scale digital platforms for clear aligners, treatment planning, and practice workflows, integrating everything from scanners and remote monitoring to CRM-style communication tools. Earlier in his career he worked in ASP/SaaS data platforms, finance tech, and digital agencies, giving him a broad perspective on how different industries move information and serve customers.
+                  </p>
+
+                  <p>
+                    Today, through FlowgenixAI, Ben helps dentists, local service businesses, and other specialized markets use AI to streamline intake, routing, and operations. His approach is practical and outcome-driven: start with the real workflow, automate what matters, and measure the impact in booked appointments, staff time saved, and better customer experiences.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
