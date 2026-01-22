@@ -3,6 +3,7 @@ import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fetchPosts, fetchCategories, PostListItem } from '@/lib/sanity/blog';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { LimitSelector } from '@/components/LimitSelector';
+import { CallToAction } from '@/components/CallToAction';
 
 export const revalidate = 60;
 
@@ -192,6 +193,20 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           </>
         )}
       </section>
+
+      <div className="pt-16">
+        <CallToAction
+          title="Ready to see it in action?"
+          primary={{
+            label: "Talk to our AI front desk",
+            onClick: "openChat"
+          }}
+          secondary={{
+            label: "Book a 30-min consult",
+            href: "/strategy-call"
+          }}
+        />
+      </div>
     </div>
   );
 }

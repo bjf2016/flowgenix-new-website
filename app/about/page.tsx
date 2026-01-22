@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { CallToAction } from '@/components/CallToAction';
 
 export default function Page() {
   return (
@@ -67,6 +68,20 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <div className="pt-16">
+        <CallToAction
+          title="Ready to see it in action?"
+          primary={{
+            label: "Talk to our AI front desk",
+            onClick: "openChat"
+          }}
+          secondary={{
+            label: "Book a 30-min consult",
+            href: "/strategy-call"
+          }}
+        />
+      </div>
     </div>
   );
 }
