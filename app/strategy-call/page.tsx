@@ -68,16 +68,26 @@ export default function StrategyCallPage() {
       return;
     }
 
-    // Log the payload
-    console.log('Strategy call form submitted:', formData);
+    // Send form data to n8n webhook
+    const payload = {
+      fullName: formData.fullName,
+      email: formData.email,
+      businessName: formData.businessName,
+      website: formData.website,
+      businessType: formData.businessType,
+      aiHelp: formData.needs,
+      source: "strategy_call_form",
+    };
 
-    // TODO: send this payload to n8n / Google Sheets / CRM / email
-    // Example API call:
-    // await fetch('/api/strategy-call', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(formData),
-    // });
+    try {
+      await fetch("https://n8n.flowgenixai.com/webhook/fgx-strategy-call", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      console.error("Failed to send lead to n8n", error);
+    }
 
     // Set submitted to reveal calendar
     setIsSubmitted(true);
