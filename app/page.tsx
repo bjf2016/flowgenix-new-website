@@ -123,8 +123,8 @@ export default async function Home() {
           onClick: "openChat"
         }}
         secondary={{
-          label: "Watch the 60-sec demo",
-          href: "/demo/dentist-intake-bot"
+            label: "Book a 30-min consult",
+            href: "/strategy-call"
         }}
       />
     </div>
