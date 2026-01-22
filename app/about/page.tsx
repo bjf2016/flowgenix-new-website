@@ -123,7 +123,7 @@ export default function Page() {
         </div>
       </section>
 
-      <div className="pt-10 md:pt-12">
+      <div className="pt-16">
         <CallToAction
           title="Ready to see it in action?"
           primary={{
