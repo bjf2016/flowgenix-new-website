@@ -356,7 +356,7 @@ export default function StrategyCallPage() {
                 </p>
                 {/* TODO: replace with the real Cal.com booking link */}
                 <iframe
-                  src="https://cal.com/YOUR_USERNAME/strategy-call"
+                  src="https://cal.com/b.foroodian/30-min-ai-strategy-call"
                   title="Book a strategy call with FlowGenixAI"
                   className="w-full h-[650px] rounded-xl border border-slate-200"
                   allow="clipboard-write; fullscreen"
