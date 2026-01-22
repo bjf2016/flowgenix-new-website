@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#CDE4F3] to-white py-20">
+      <section className="bg-gradient-to-b from-[#CDE4F3] to-white pt-20 pb-10">
         <div className="container mx-auto max-w-6xl px-6">
           {/* Centered Heading */}
           <div className="text-center mb-16">
@@ -71,7 +71,7 @@ export default function Page() {
       </section>
 
       {/* Founder Section - Image should be placed at public/images/ben-foroodian.png */}
-      <section className="py-10 md:py-12 mt-4">
+      <section className="py-8 md:py-10 mt-0">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="mb-4 text-xs font-semibold tracking-wide text-sky-600 uppercase">
             Founder
