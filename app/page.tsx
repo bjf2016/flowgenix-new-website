@@ -20,7 +20,7 @@ export default async function Home() {
         highlight="Service Businesses"
         subtitle="FlowGenixAI designs and implements AI phone, intake, and automation systems so your team answers every call, captures every lead, and keeps your CRM up to date — without adding headcount."
         features="AI voice receptionist · Multi-step intake & routing · CRM dashboards & workflows"
-        primaryCta={{ label: "Book a strategy call", href: "/contact" }}
+        primaryCta={{ label: "Book a strategy call", href: "/strategy-call" }}
         secondaryCta={{ label: "View solutions", href: "/services" }}
         badges={[
           { src: "/badges/cert-1.svg", alt: "Certification placeholder" },

@@ -25,7 +25,7 @@ export default function DentistCallbackDemo() {
         eyebrow="Demo"
         title="Dentist AI Receptionist call-back"
         subtitle="Demo using synthetic data. Baseline → Workflow → Expected outcomes."
-        primaryCta={{ label: "Book a strategy call", href: "/contact" }}
+        primaryCta={{ label: "Book a strategy call", href: "/strategy-call" }}
         secondaryCta={{ label: "Try out the AI Receptionist", href: "../demo/dentist-callback" }}
       />
 

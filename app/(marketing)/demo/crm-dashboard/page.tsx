@@ -145,7 +145,7 @@ export default function CRMDashboardPage() {
               We'll connect your calls, forms, and messages into a live AI-powered intake dashboard.
             </p>
             <a
-              href="/contact"
+              href="/strategy-call"
               className="inline-flex items-center justify-center rounded-md bg-[#009CE3] px-8 py-3 text-base font-medium text-white hover:bg-[#0088cc] transition-colors shadow-sm"
             >
               Book a strategy call
