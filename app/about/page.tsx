@@ -71,24 +71,26 @@ export default function Page() {
       </section>
 
       {/* Founder Section - Image should be placed at public/images/ben-foroodian.png */}
-      <section className="py-16 bg-gradient-to-b from-white to-slate-50">
+      <section className="py-10 md:py-12 mt-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="mb-6 text-xs font-semibold tracking-wide text-sky-600 uppercase">
+          <p className="mb-4 text-xs font-semibold tracking-wide text-sky-600 uppercase">
             Founder
           </p>
 
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-700/50">
-            <div className="grid gap-8 md:grid-cols-[minmax(0,280px)_minmax(0,1fr)] items-center">
+          <div className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-md p-6 sm:p-8">
+            <div className="grid gap-6 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)] md:gap-8 items-center">
               {/* Founder Image */}
               <div className="flex flex-col items-center md:items-start space-y-3">
-                <Image
-                  src="/images/ben-foroodian.png"
-                  alt="Ben Foroodian, Founder of FlowgenixAI"
-                  width={400}
-                  height={400}
-                  className="rounded-2xl object-cover border border-white/10 shadow-xl"
-                />
-                <p className="text-xs font-semibold uppercase tracking-wide text-sky-300 text-center md:text-left">
+                <div className="max-w-xs">
+                  <Image
+                    src="/images/ben-foroodian.png"
+                    alt="Ben Foroodian, Founder of FlowgenixAI"
+                    width={400}
+                    height={400}
+                    className="rounded-2xl object-cover border border-slate-200 shadow-lg"
+                  />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-sky-600 text-center md:text-left">
                   Founder & AI Workflow Architect
                 </p>
               </div>
@@ -96,13 +98,13 @@ export default function Page() {
               {/* Founder Bio */}
               <div className="space-y-4">
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-2">
+                  <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3">
                     Meet Ben Foroodian
                   </h2>
-                  <div className="h-px bg-sky-500/40 w-24 mb-4"></div>
+                  <div className="h-px bg-sky-500/30 w-24 mb-4"></div>
                 </div>
 
-                <div className="text-sm sm:text-base text-slate-100/80 leading-relaxed space-y-3">
+                <div className="text-sm sm:text-base text-gray-700 leading-relaxed space-y-3">
                   <p>
                     Ben Foroodian is the founder of FlowgenixAI and a strategic operator with 20+ years of experience building technology, data, and automation solutions across healthcare, software, and services. He's led teams in companies like Align Technology, Henry Schein Orthodontics, Straumann/ClearCorrect, Carl Zeiss Meditec, and several SaaS and data firms—always with the same focus: turn messy, manual workflows into clear, scalable systems that actually work in the real world.
                   </p>
@@ -121,7 +123,7 @@ export default function Page() {
         </div>
       </section>
 
-      <div className="pt-16">
+      <div className="pt-10 md:pt-12">
         <CallToAction
           title="Ready to see it in action?"
           primary={{
