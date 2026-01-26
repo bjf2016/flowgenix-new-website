@@ -133,6 +133,13 @@ export default function StrategyCallPage() {
                 Step 1 · Tell us about your business
               </h2>
 
+                {isSubmitted && (
+                  <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                    Thanks for sharing your details — you’re all set for Step 2.  
+                    Please choose a time in the calendar below.
+                  </div>
+                )}
+              
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Honeypot field - hidden */}
                 <input
