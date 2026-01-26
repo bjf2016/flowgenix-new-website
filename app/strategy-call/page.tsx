@@ -107,7 +107,7 @@ export default function StrategyCallPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#CDE4F3] to-white py-16">
+      <section className="bg-gradient-to-b from-[#CDE4F3] to-white pt-16 pb-6">
         <div className="container mx-auto max-w-5xl px-6">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
