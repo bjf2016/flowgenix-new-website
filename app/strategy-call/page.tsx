@@ -124,7 +124,7 @@ export default function StrategyCallPage() {
       </section>
 
       {/* Main Content - Two Column Layout */}
-      <section className="py-16">
+      <section className="pt-6 pb-16">
         <div className="container mx-auto max-w-5xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {/* Left Column: Intake Form */}
