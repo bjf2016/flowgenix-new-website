@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,6 +15,8 @@ import {
 
 export default function StrategyCallPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string>('');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -25,12 +27,17 @@ export default function StrategyCallPage() {
     company_code: '', // honeypot field
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const calendarRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Prevent double-submit
+    if (isSubmitting) return;
+
     // Reset errors
     setErrors({});
+    setSubmitError('');
 
     // Honeypot check - if filled, silently ignore
     if (formData.company_code) {
@@ -79,18 +86,33 @@ export default function StrategyCallPage() {
       source: "strategy_call_form",
     };
 
+    setIsSubmitting(true);
+
     try {
-      await fetch("https://n8n.flowgenixai.com/webhook/fgx-strategy-call", {
+      const response = await fetch("https://n8n.flowgenixai.com/webhook/fgx-strategy-call", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      // Set submitted to reveal calendar
+      setIsSubmitted(true);
+      setSubmitError('');
+
+      // Scroll to calendar after a brief delay to allow rendering
+      setTimeout(() => {
+        calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
     } catch (error) {
       console.error("Failed to send lead to n8n", error);
+      setSubmitError('Something went wrong. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // Set submitted to reveal calendar
-    setIsSubmitted(true);
   };
 
   const handleInputChange = (
@@ -124,7 +146,7 @@ export default function StrategyCallPage() {
       </section>
 
       {/* Main Content - Two Column Layout */}
-      <section className="pt-6 pb-16">
+      <section className="pt-2 pb-16">
         <div className="container mx-auto max-w-5xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {/* Left Column: Intake Form */}
@@ -133,13 +155,21 @@ export default function StrategyCallPage() {
                 Step 1 · Tell us about your business
               </h2>
 
-                {isSubmitted && (
-                  <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                    Thanks for sharing your details — you’re all set for Step 2.  
-                    Please choose a time in the calendar below.
-                  </div>
-                )}
-              
+              {isSubmitted ? (
+                <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                  <p className="font-medium mb-1">Thank you!</p>
+                  <p>Your details have been submitted. Please choose a time in the calendar below.</p>
+                </div>
+              ) : (
+                <>
+                  {submitError && (
+                    <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                      {submitError}
+                    </div>
+                  )}
+                </>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Honeypot field - hidden */}
                 <input
@@ -265,8 +295,9 @@ export default function StrategyCallPage() {
                   type="submit"
                   size="lg"
                   className="w-full bg-[#009CE3] hover:bg-[#0082C4] text-white"
+                  disabled={isSubmitting || isSubmitted}
                 >
-                  Submit details
+                  {isSubmitting ? 'Submitting...' : isSubmitted ? 'Submitted' : 'Submit details'}
                 </Button>
               </form>
             </div>
@@ -355,7 +386,7 @@ export default function StrategyCallPage() {
           </div>
 
           {/* Step 2: Cal.com Embed */}
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+          <div ref={calendarRef} className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
               Step 2 · Choose a time
             </h2>
@@ -371,7 +402,6 @@ export default function StrategyCallPage() {
                 <p className="text-gray-600 mb-4">
                   Thanks! Now choose a time that works for you:
                 </p>
-                {/* TODO: replace with the real Cal.com booking link */}
                 <iframe
                   src="https://cal.com/b.foroodian/30-min-ai-strategy-call"
                   title="Book a strategy call with FlowGenixAI"
