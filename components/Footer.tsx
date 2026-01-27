@@ -20,18 +20,23 @@ export function Footer() {
             <h3 className="font-semibold text-[#009CE3] mb-4">Product</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/personas/dentists" className="text-sm text-white hover:text-[#009CE3] transition-colors">
-                  For Dentists
+                <Link href="demos/dentist-intake" className="text-sm text-white hover:text-[#009CE3] transition-colors">
+                  AI Receptionist
                 </Link>
               </li>
               <li>
-                <Link href="/personas/local-services" className="text-sm text-white hover:text-[#009CE3] transition-colors">
-                  For Local Services
+                <Link href="/services/lead-intake-routing" className="text-sm text-white hover:text-[#009CE3] transition-colors">
+                  Lead Capture
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="text-sm text-white hover:text-[#009CE3] transition-colors">
-                  Services
+                <Link href="/services/website-chatbot" className="text-sm text-white hover:text-[#009CE3] transition-colors">
+                  Website Chatbot
+                </Link>
+              </li>
+                            <li>
+                <Link href="/services/workflow-automation" className="text-sm text-white hover:text-[#009CE3] transition-colors">
+                  Workflow Automations
                 </Link>
               </li>
             </ul>
