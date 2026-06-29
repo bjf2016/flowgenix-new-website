@@ -92,7 +92,7 @@ export function Footer() {
               </li>
               <li>
                 <span className="text-white/80">Location: </span>
-                <span className="text-[#009CE3]">Available Nationwide </span>
+                <span className="text-[#009CE3]">Folsom, CA · serving Sacramento &amp; nationwide</span>
               </li>
             </ul>
           </div>

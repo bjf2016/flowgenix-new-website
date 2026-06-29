@@ -9,15 +9,18 @@ import ChatWidget from '@/components/chat/ChatWidget';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'FlowGenixAI - AI that answers, qualifies, and books',
+  title: 'FlowGenixAI - AI phone, intake & automation for service businesses',
   description:
-    'AI-powered voice and chat solutions for Dentists and Local Services. Automated intake, qualification, and booking without exposing your calendar.',
+    'AI voice receptionist, lead intake, and workflow automation for home services, professional services, health & wellness, and busy owners. Answer every call, capture every lead, automate the busywork.',
   keywords: [
-    'AI voice bot',
-    'dental intake automation',
-    'local services',
-    'HVAC automation',
-    'restaurant booking',
+    'AI voice receptionist',
+    'lead intake automation',
+    'workflow automation',
+    'home services AI',
+    'professional services automation',
+    'med spa AI',
+    'small business automation',
+    'AI operations dashboard',
   ],
 };
 

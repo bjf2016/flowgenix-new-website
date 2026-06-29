@@ -15,11 +15,11 @@ export default async function Home() {
   return (
     <div className="space-y-20 pb-20">
       <Hero
-        eyebrow="Built for local & service-based businesses"
-        title="AI Systems & Workflow Automation for Service Businesses"
-        highlight="Service Businesses"
-        subtitle="FlowGenixAI designs and implements AI phone, intake, and automation systems so your team answers every call, captures every lead, and keeps your CRM up to date — without adding headcount."
-        features="AI voice receptionist · Multi-step intake & routing · CRM dashboards & workflows"
+        eyebrow="Built for service businesses and busy owners"
+        title="AI systems that run your front desk and your back office"
+        highlight="back office"
+        subtitle="FlowGenixAI designs and builds AI phone, intake, and automation systems so your team answers every call, captures every lead, and keeps the busywork moving, without adding headcount."
+        features="Voice receptionist · Lead intake & routing · Workflow automation · Operations dashboards"
         primaryCta={{ label: "Book a strategy call", href: "/strategy-call" }}
         secondaryCta={{ label: "View solutions", href: "/services" }}
         badges={[
@@ -40,13 +40,31 @@ export default async function Home() {
               href="/services"
               className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-[#009CE3] hover:text-white transition-colors"
             >
-              Dentists
+              Home & field services
             </Link>
             <Link
               href="/services"
               className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-[#009CE3] hover:text-white transition-colors"
             >
-              Local services
+              Professional services
+            </Link>
+            <Link
+              href="/services"
+              className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-[#009CE3] hover:text-white transition-colors"
+            >
+              Health & wellness
+            </Link>
+            <Link
+              href="/services"
+              className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-[#009CE3] hover:text-white transition-colors"
+            >
+              Real estate
+            </Link>
+            <Link
+              href="/services"
+              className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium hover:bg-[#009CE3] hover:text-white transition-colors"
+            >
+              Owners & operators
             </Link>
             <Link
               href="/services"

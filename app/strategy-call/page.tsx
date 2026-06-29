@@ -139,7 +139,7 @@ export default function StrategyCallPage() {
               A focused 30-minute call to map where AI and automation can remove busywork in your business. No hard pitch, just practical next steps.
             </p>
             <p className="text-base text-gray-500">
-              Designed for dentists, local service businesses, and other SMBs exploring AI systems.
+              Designed for service businesses, professional practices, and busy owners exploring AI systems.
             </p>
           </div>
         </div>
@@ -258,9 +258,11 @@ export default function StrategyCallPage() {
                       <SelectValue placeholder="Select your business type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="dentists">Dentists</SelectItem>
-                      <SelectItem value="hvac-trades">HVAC / trades</SelectItem>
-                      <SelectItem value="local-services">Other local services</SelectItem>
+                      <SelectItem value="home-services">Home &amp; field services</SelectItem>
+                      <SelectItem value="professional-services">Professional services</SelectItem>
+                      <SelectItem value="health-wellness">Health &amp; wellness</SelectItem>
+                      <SelectItem value="real-estate">Real estate &amp; property</SelectItem>
+                      <SelectItem value="owner-operator">Busy owner / operator</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
