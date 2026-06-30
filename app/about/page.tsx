@@ -1,141 +1,214 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { CallToAction } from '@/components/CallToAction';
+import type { Metadata } from 'next';
 
-export default function Page() {
+export const metadata: Metadata = {
+  title: 'About - FlowGenixAI',
+  description:
+    'FlowGenixAI is led by Ben Foroodian, twenty years of turning messy operations into systems that actually work.',
+};
+
+const EXPERIENCE = ['Align Technology', 'Henry Schein', 'Straumann', 'Carl Zeiss'];
+
+const RULES = [
+  {
+    n: '01',
+    title: 'Start with the real workflow, not the tech.',
+    body: 'The tool only matters once the problem is clear.',
+  },
+  {
+    n: '02',
+    title: 'Build fast, then iterate.',
+    body: 'Something working in days beats something perfect in months.',
+  },
+  {
+    n: '03',
+    title: 'Measure the impact, hours saved, leads captured.',
+    body: 'If it does not move a number that matters, it does not ship.',
+  },
+  {
+    n: '04',
+    title: 'Keep it secure and private by design.',
+    body: 'Your data stays yours, on infrastructure you control.',
+  },
+];
+
+const RECENT = [
+  { n: '01', title: 'AI Operations Dashboard', sub: 'Secure cockpit for a multi-venture founder', slug: 'ai-operations-dashboard' },
+  { n: '02', title: 'EverSage', sub: 'Voice-first AI assistant for iPhone', slug: 'eversage' },
+  { n: '03', title: 'Almanac Leaf', sub: 'Consumer iOS app for family stories', slug: 'almanac-leaf' },
+  { n: '04', title: 'AI Voice Agents', sub: 'Receptionists that answer, qualify, and book', slug: 'ai-voice-agents' },
+];
+
+export default function AboutPage() {
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-[#CDE4F3] to-white pt-20 pb-6">
-        <div className="container mx-auto max-w-6xl px-6">
-          {/* Centered Heading */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              About Flowgenix AI
+    <div className="relative overflow-x-hidden bg-bg-base font-body text-text-body">
+      {/* page header */}
+      <section className="relative overflow-hidden pb-[clamp(40px,5vw,64px)] pt-[clamp(56px,7vw,104px)]">
+        <div className="pointer-events-none absolute inset-0 bg-glow-brand" />
+        <img
+          src="/brand/fgx-head.png"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute right-[-7%] top-[-12%] w-[min(560px,46vw)] opacity-[0.06] saturate-[0.9]"
+        />
+        <div className="relative mx-auto max-w-container px-[var(--gutter)]">
+          <div className="flex max-w-[900px] flex-col gap-[22px]">
+            <span className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand">
+              About
+            </span>
+            <h1 className="m-0 font-display text-[clamp(2.8rem,6vw,5rem)] font-extrabold leading-[1.02] tracking-[-0.035em] text-text-strong [text-wrap:balance]">
+              Built by an operator, not an agency.
             </h1>
-            <p className="text-xl text-gray-600">
-              Your trusted partner in intelligent automation
+            <p className="m-0 max-w-[62ch] text-[clamp(1.1rem,1.5vw,1.3rem)] leading-[1.6] text-text-body">
+              FlowGenixAI is led by Ben Foroodian, twenty years of turning messy operations into
+              systems that actually work.
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* Two-Column Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            {/* Left Column: Text Content */}
-            <div className="space-y-6">
-              <p className="text-gray-700 leading-relaxed">
-                Flowgenix AI is built to bridge the gap between cutting-edge artificial intelligence and practical business operations. We understand that every business has unique challenges, processes, and goals.
-              </p>
-
-              <p className="text-gray-700 leading-relaxed">
-                Our approach combines cutting-edge AI technology with deep business understanding, ensuring that every solution we implement drives measurable results. Whether you're looking to automate routine tasks, enhance customer experiences, or unlock insights from your data, we're here to guide you through every step of your AI transformation.
-              </p>
-
-              <p className="text-gray-700 leading-relaxed">
-                From strategy development to implementation and ongoing support, Flowgenix AI ensures your business stays ahead of the curve in an increasingly AI-driven marketplace.
-              </p>
-
-              <div className="pt-4">
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  Our Vision
-                </h2>
-                <p className="text-gray-700 leading-relaxed">
-                  To democratize AI adoption for businesses of all sizes, making intelligent automation accessible, practical, and profitable for every organization ready to embrace the future.
-                </p>
-              </div>
-
-              <div className="pt-4">
-                <Button asChild size="lg" className="bg-[#009CE3] hover:bg-[#0082C4] text-white">
-                  <Link href="/services">
-                    Explore Our Services
-                  </Link>
-                </Button>
-              </div>
+      {/* founder block */}
+      <section className="pb-[clamp(72px,9vw,140px)] pt-[clamp(40px,5vw,72px)]">
+        <div className="mx-auto grid max-w-container items-center gap-[clamp(32px,6vw,80px)] px-[var(--gutter)] md:grid-cols-[0.9fr_1.1fr]">
+          <div className="relative">
+            <div className="absolute inset-x-[6%] bottom-0 top-[6%] rounded-[var(--radius-xl)] bg-glow-soft" />
+            <div className="relative flex aspect-square items-end justify-center overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md">
+              <Image
+                src="/brand/fgx-ben.png"
+                alt="Ben Foroodian, founder of FlowGenixAI"
+                width={620}
+                height={620}
+                className="block w-[96%] saturate-[0.95]"
+              />
             </div>
-
-            {/* Right Column: YouTube Video */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-              <div className="aspect-video w-full">
-                {/* TODO: Replace VIDEO_ID with the actual Flowgenix AI explainer video ID */}
-                <iframe
-                  src="/brand/flowgenix_ai_intro.mp4"
-                  title="Flowgenix AI explainer video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
+          </div>
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-1">
+              <span className="font-display text-[clamp(1.5rem,2.4vw,2rem)] font-bold tracking-[-0.02em] text-text-strong">
+                Ben Foroodian
+              </span>
+              <span className="font-mono text-[13px] tracking-[0.06em] text-brand">
+                Founder, FlowGenixAI
+              </span>
+            </div>
+            <p className="m-0 max-w-[52ch] text-[1.1875rem] leading-[1.65] text-text-body">
+              I&apos;ve led product, operations, and data teams at companies like Align Technology,
+              Henry Schein, Straumann, and Carl Zeiss, always with the same focus: take the manual,
+              frustrating parts of a business and make them run quietly in the background.
+            </p>
+            <p className="m-0 max-w-[52ch] text-[1.1875rem] leading-[1.65] text-text-body">
+              For the last two years I&apos;ve built that future hands-on, AI assistants, operations
+              dashboards, automations, and apps. FlowGenixAI brings all of it to your business.
+            </p>
+            <div className="mt-2 flex flex-col gap-[14px]">
+              <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-text-faint">
+                Experience across
+              </span>
+              <div className="flex flex-wrap items-center gap-x-9 gap-y-[14px]">
+                {EXPERIENCE.map((name) => (
+                  <span
+                    key={name}
+                    className="font-display text-[1.15rem] font-bold tracking-[-0.01em] text-text-muted"
+                  >
+                    {name}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Founder Section - Image should be placed at public/images/ben-foroodian.png */}
-      <section className="py-4 md:py-6 mt-0">
-        <div className="container mx-auto max-w-6xl px-6">
-          <p className="mb-4 text-xs font-semibold tracking-wide text-sky-600 uppercase">
-            Founder
-          </p>
-
-          <div className="rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur-sm shadow-md p-6 sm:p-8">
-            <div className="grid gap-6 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)] md:gap-8 items-center">
-              {/* Founder Image */}
-              <div className="flex flex-col items-center md:items-start space-y-3">
-                <div className="max-w-xs">
-                  <Image
-                    src="/images/ben-foroodian.png"
-                    alt="Ben Foroodian, Founder of FlowgenixAI"
-                    width={400}
-                    height={400}
-                    className="rounded-2xl object-cover border border-slate-200 shadow-lg"
-                  />
-                </div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-sky-600 text-center md:text-left">
-                  Founder & AI Workflow Architect
-                </p>
+      {/* how I work */}
+      <section className="border-t border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]">
+        <div className="mx-auto max-w-container px-[var(--gutter)]">
+          <div className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
+            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+              How I work
+            </span>
+            <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
+              Four rules I build by.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {RULES.map((r) => (
+              <div
+                key={r.n}
+                className="flex flex-col gap-[13px] rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(26px,3vw,34px)] shadow-fgx-md"
+              >
+                <span className="font-mono text-[13px] text-brand">{r.n}</span>
+                <h3 className="m-0 font-display text-[1.3rem] font-bold leading-[1.2] tracking-[-0.02em] text-text-strong">
+                  {r.title}
+                </h3>
+                <p className="m-0 text-[1rem] leading-[1.6] text-text-muted">{r.body}</p>
               </div>
-
-              {/* Founder Bio */}
-              <div className="space-y-4">
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3">
-                    Meet Ben Foroodian
-                  </h2>
-                  <div className="h-px bg-sky-500/30 w-24 mb-4"></div>
-                </div>
-
-                <div className="text-sm sm:text-base text-gray-700 leading-relaxed space-y-3">
-                  <p>
-                    Ben Foroodian is the founder of FlowgenixAI and a strategic operator with 20+ years of experience building technology, data, and automation solutions across healthcare, software, and services. He's led teams in companies like Align Technology, Henry Schein Orthodontics, Straumann/ClearCorrect, Carl Zeiss Meditec, and several SaaS and data firms—always with the same focus: turn messy, manual workflows into clear, scalable systems that actually work in the real world.
-                  </p>
-
-                  <p>
-                    In previous roles, Ben built and led global teams across product, R&D, clinical affairs, and operations. He helped launch and scale digital platforms for clear aligners, treatment planning, and practice workflows, integrating everything from scanners and remote monitoring to CRM-style communication tools. Earlier in his career he worked in ASP/SaaS data platforms, finance tech, and digital agencies, giving him a broad perspective on how different industries move information and serve customers.
-                  </p>
-
-                  <p>
-                    Today, through FlowgenixAI, Ben helps dentists, local service businesses, and other specialized markets use AI to streamline intake, routing, and operations. His approach is practical and outcome-driven: start with the real workflow, automate what matters, and measure the impact in booked appointments, staff time saved, and better customer experiences.
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <div className="pt-16">
-        <CallToAction
-          title="Ready to see it in action?"
-          primary={{
-            label: "Talk to our AI front desk",
-            onClick: "openChat"
-          }}
-          secondary={{
-            label: "Book a 30-min consult",
-            href: "/strategy-call"
-          }}
+      {/* built lately */}
+      <section className="py-[clamp(72px,9vw,140px)]">
+        <div className="mx-auto max-w-container px-[var(--gutter)]">
+          <div className="mb-[clamp(32px,4vw,48px)] flex flex-wrap items-end justify-between gap-6">
+            <div className="flex flex-col gap-3">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+                Recent work
+              </span>
+              <h2 className="m-0 font-display text-[clamp(1.9rem,3.2vw,2.6rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong">
+                A few things I&apos;ve built lately.
+              </h2>
+            </div>
+            <Link
+              href="/work"
+              className="whitespace-nowrap text-[16px] font-semibold text-brand transition-colors hover:text-brand-hover"
+            >
+              See all work &rarr;
+            </Link>
+          </div>
+          <div className="flex flex-col border-t border-hairline">
+            {RECENT.map((item) => (
+              <Link
+                key={item.n}
+                href={`/work/${item.slug}`}
+                className="flex items-baseline gap-[18px] border-b border-hairline px-1 py-[22px] transition-colors hover:bg-white/[0.03]"
+              >
+                <span className="w-[34px] flex-none font-mono text-[13px] text-brand">{item.n}</span>
+                <div className="flex-1">
+                  <span className="font-display text-[clamp(1.3rem,2vw,1.6rem)] font-bold tracking-[-0.02em] text-text-strong">
+                    {item.title}
+                  </span>
+                  <span className="ml-[14px] text-[1rem] text-text-muted">{item.sub}</span>
+                </div>
+                <span className="flex-none text-[18px] text-text-faint">&rarr;</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative overflow-hidden border-t border-hairline bg-bg-deep py-[clamp(80px,11vw,160px)]">
+        <div className="pointer-events-none absolute inset-0 bg-glow-brand" />
+        <img
+          src="/brand/fgx-head.png"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute bottom-[-34%] left-[-8%] w-[min(520px,44vw)] opacity-[0.06]"
         />
-      </div>
+        <div className="relative mx-auto flex max-w-[820px] flex-col items-center gap-[26px] px-[var(--gutter)] text-center">
+          <h2 className="m-0 font-display text-[clamp(2.2rem,4.6vw,3.6rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-text-strong [text-wrap:balance]">
+            Let&apos;s build something that runs itself.
+          </h2>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-[14px] border border-transparent bg-brand px-9 py-[19px] text-[18px] font-semibold tracking-[-0.01em] text-[#06141D] transition-all duration-150 hover:bg-brand-hover hover:shadow-fgx-brand active:translate-y-px"
+          >
+            Book a strategy call
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
