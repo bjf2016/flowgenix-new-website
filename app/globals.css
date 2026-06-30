@@ -76,7 +76,30 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+}
+
+/* ── FlowGenixAI redesign globals ──────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Film-grain overlay (sits above page, never blocks interaction) */
+.fgx-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--grain);
+  opacity: 0.32;
+  mix-blend-mode: overlay;
+  z-index: 200;
+}
+
+/* Oversized outlined index numerals (01, 02, ...) */
+.fgx-index {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--hairline-strong);
 }

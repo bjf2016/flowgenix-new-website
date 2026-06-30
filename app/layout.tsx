@@ -1,23 +1,21 @@
+import './tokens.css';
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import ChatWidget from '@/components/chat/ChatWidget';
 
-
-const inter = Inter({ subsets: ['latin'] });
-
 export const metadata: Metadata = {
-  title: 'FlowGenixAI - AI that answers, qualifies, and books',
+  title: 'FlowGenixAI - AI systems, apps, and automation',
   description:
-    'AI-powered voice and chat solutions for Dentists and Local Services. Automated intake, qualification, and booking without exposing your calendar.',
+    'FlowGenixAI is an AI systems, apps, and automation studio. We answer every call, capture every lead, and run the busywork in the background, so you get to run the business instead of chasing it.',
   keywords: [
-    'AI voice bot',
-    'dental intake automation',
-    'local services',
-    'HVAC automation',
-    'restaurant booking',
+    'AI systems',
+    'AI automation',
+    'AI voice receptionist',
+    'lead intake automation',
+    'workflow automation',
+    'business automation studio',
   ],
 };
 
@@ -30,16 +28,23 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/brand/favicon.png" type="image/png" />
+        {/* Cabinet Grotesk (display) + General Sans (body) via Fontshare */}
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=general-sans@400,500,600,700&display=swap"
+        />
       </head>
-      <body
-        className={`${inter.className} min-h-screen bg-white text-black antialiased`}
-      >
+      <body className="min-h-screen bg-bg-base font-body text-text-body antialiased">
+        {/* Film-grain overlay over dark areas */}
+        <div aria-hidden className="fgx-grain" />
+
         {/* Global header for all pages */}
         <Header />
-      
+
         {/* Page content */}
         <main className="min-h-[60vh]">{children}</main>
-      
+
         {/* Global footer for all pages */}
         <Footer />
 

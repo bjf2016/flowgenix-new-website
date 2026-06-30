@@ -9,10 +9,28 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ['var(--font-display)'],
+        body: ['var(--font-body)'],
+        mono: ['var(--font-mono)'],
+      },
+      maxWidth: {
+        container: 'var(--container)',
+        'container-narrow': 'var(--container-narrow)',
+      },
+      boxShadow: {
+        'fgx-sm': 'var(--shadow-sm)',
+        'fgx-md': 'var(--shadow-md)',
+        'fgx-lg': 'var(--shadow-lg)',
+        'fgx-brand': 'var(--shadow-brand)',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'glow-brand': 'var(--glow-brand)',
+        'glow-soft': 'var(--glow-soft)',
+        grain: 'var(--grain)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -20,6 +38,26 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        /* FlowGenixAI brand tokens (CSS vars from app/tokens.css) */
+        'bg-deep': 'var(--bg-deep)',
+        'bg-base': 'var(--bg-base)',
+        'surface-card': 'var(--surface-card)',
+        'surface-raised': 'var(--surface-raised)',
+        brand: {
+          DEFAULT: 'var(--brand)',
+          hover: 'var(--brand-hover)',
+          press: 'var(--brand-press)',
+        },
+        silver: 'var(--silver)',
+        'text-strong': 'var(--text-strong)',
+        'text-body': 'var(--text-body)',
+        'text-muted': 'var(--text-muted)',
+        'text-faint': 'var(--text-faint)',
+        hairline: {
+          DEFAULT: 'var(--hairline)',
+          soft: 'var(--hairline-soft)',
+          strong: 'var(--hairline-strong)',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
