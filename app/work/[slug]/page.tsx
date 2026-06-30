@@ -87,7 +87,7 @@ export default function CaseStudyPage({ params }: Params) {
           >
             <div className="absolute inset-0 bg-glow-soft" />
             <span className="relative font-mono text-[13px] text-text-faint">
-              // hero screenshot — 1760×990
+              // hero screenshot 1760×990
             </span>
           </div>
         </section>

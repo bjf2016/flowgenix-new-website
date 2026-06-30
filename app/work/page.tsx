@@ -62,7 +62,7 @@ export default function WorkPage() {
               }`}
             >
               <div className={imageFirst ? 'md:order-1' : 'md:order-2'}>
-                <Placeholder caption={`${p.title} — 1600×1000`} />
+                <Placeholder caption={`${p.title} 1600×1000`} />
               </div>
               <div
                 className={`flex flex-col gap-5 ${imageFirst ? 'md:order-2' : 'md:order-1'}`}

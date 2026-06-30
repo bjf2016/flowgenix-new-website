@@ -275,7 +275,7 @@ export default function ServicesPage() {
                   }}
                 >
                   <span className="font-mono text-[13px] text-text-faint">
-                    // Cockpit dashboard — 1280×960
+                    // Cockpit dashboard 1280×960
                   </span>
                 </div>
                 <div
