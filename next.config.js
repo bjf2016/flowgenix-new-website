@@ -17,6 +17,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/strategy-call',
+        destination: '/contact',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
