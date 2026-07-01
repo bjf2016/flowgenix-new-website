@@ -4,6 +4,7 @@ export const LATEST_POSTS_QUERY = `
     "slug": slug.current,
     excerpt,
     publishedAt,
+    "readingChars": length(pt::text(content)),
     categories[]->{
       "title": title,
       "slug": slug.current
@@ -18,6 +19,7 @@ export const PAGED_POSTS_QUERY = `
   "slug": slug.current,
   excerpt,
   publishedAt,
+  "readingChars": length(pt::text(content)),
   categories[]->{"title": title, "slug": slug.current},
   mainImage{asset->{_id, url}, alt}
 }
@@ -37,6 +39,7 @@ export const POST_BY_SLUG_QUERY = `
     "slug": slug.current,
     excerpt,
     publishedAt,
+    "readingChars": length(pt::text(content)),
     categories[]->{"title": title, "slug": slug.current},
     "coverImage": mainImage{..., asset->},
     mainImage{asset->{_id, url}, alt},

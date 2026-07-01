@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, ArrowRight } from 'lucide-react';
 import type { PostListItem } from '@/lib/sanity/blog';
+import { readLabel, formatPostDate } from '@/lib/readTime';
 
 interface BlogCardProps {
   post: PostListItem;
 }
+
+const STRIPED =
+  'repeating-linear-gradient(135deg,rgba(255,255,255,0.035) 0 10px,transparent 10px 20px),var(--bg-deep)';
 
 export function BlogCard({ post }: BlogCardProps) {
   const imageUrl = post.mainImage?.asset?.url;
@@ -14,27 +17,32 @@ export function BlogCard({ post }: BlogCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group rounded-2xl bg-white overflow-hidden shadow-md border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="flex flex-col overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
     >
-      {imageUrl && (
-        <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100">
+      <div
+        className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-hairline"
+        style={{ background: STRIPED }}
+      >
+        {imageUrl ? (
           <Image
             src={imageUrl}
             alt={imageAlt}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-        </div>
-      )}
+        ) : (
+          <span className="font-mono text-[12px] text-text-faint">// cover 800×500</span>
+        )}
+      </div>
 
-      <div className="p-6">
+      <div className="flex flex-1 flex-col gap-[13px] p-6">
         {post.categories && post.categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-[7px]">
             {post.categories.map((cat) => (
               <span
                 key={cat.slug}
-                className="inline-block px-2 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-medium"
+                className="rounded-full border border-[var(--brand-40)] bg-[var(--brand-12)] px-[10px] py-1 text-[10.5px] font-semibold tracking-[0.04em] text-brand"
               >
                 {cat.title}
               </span>
@@ -42,32 +50,23 @@ export function BlogCard({ post }: BlogCardProps) {
           </div>
         )}
 
-        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#009CE3] transition-colors line-clamp-2">
+        <h3 className="m-0 font-display text-[1.3rem] font-bold leading-[1.22] tracking-[-0.02em] text-text-strong [text-wrap:pretty]">
           {post.title}
         </h3>
 
         {post.excerpt && (
-          <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
-            {post.excerpt}
-          </p>
+          <p className="m-0 text-[0.975rem] leading-[1.55] text-text-muted">{post.excerpt}</p>
         )}
 
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-          {post.publishedAt && (
-            <div className="flex items-center gap-2 text-xs text-gray-500">
-              <Calendar className="w-4 h-4" />
-              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-              })}
-            </div>
-          )}
-
-          <div className="flex items-center gap-1 text-sm font-semibold text-[#009CE3] group-hover:gap-2 transition-all">
-            Read more
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </div>
+        <div className="mt-auto flex items-center justify-between border-t border-hairline-soft pt-[14px]">
+          <span className="font-mono text-[12px] text-text-faint">
+            {formatPostDate(post.publishedAt)}
+          </span>
+          {post.readingChars ? (
+            <span className="font-mono text-[12px] text-text-faint">
+              {readLabel(post.readingChars)}
+            </span>
+          ) : null}
         </div>
       </div>
     </Link>

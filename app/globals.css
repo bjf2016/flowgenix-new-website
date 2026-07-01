@@ -103,3 +103,118 @@ html {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--hairline-strong);
 }
+
+/* Long-form blog body (portable text) */
+.fgx-prose {
+  font-size: 1.1875rem;
+  line-height: 1.75;
+  color: var(--text-body);
+}
+.fgx-prose p {
+  margin: 0 0 24px;
+}
+.fgx-prose > p:first-of-type {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--text-strong);
+}
+.fgx-prose h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.4vw, 1.95rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--text-strong);
+  margin: 48px 0 18px;
+}
+.fgx-prose h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+  margin: 36px 0 14px;
+}
+.fgx-prose a {
+  color: var(--brand);
+  text-decoration: none;
+  border-bottom: 1px solid var(--brand-40);
+}
+.fgx-prose a:hover {
+  color: var(--brand-hover);
+}
+.fgx-prose strong {
+  color: var(--text-strong);
+  font-weight: 600;
+}
+.fgx-prose em {
+  font-style: italic;
+}
+.fgx-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--brand);
+  background: var(--bg-deep);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+.fgx-prose ul,
+.fgx-prose ol {
+  margin: 0 0 24px;
+  padding-left: 4px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fgx-prose li {
+  position: relative;
+  padding-left: 26px;
+}
+.fgx-prose ul li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 12px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--brand);
+}
+.fgx-prose ol {
+  counter-reset: step;
+}
+.fgx-prose ol li {
+  counter-increment: step;
+}
+.fgx-prose ol li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brand);
+}
+.fgx-prose blockquote {
+  margin: 36px 0;
+  padding: 4px 0 4px 28px;
+  border-left: 2px solid var(--brand);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--text-strong);
+}
+.fgx-prose blockquote p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+.fgx-prose img {
+  border-radius: var(--radius-lg);
+  margin: 32px 0;
+}

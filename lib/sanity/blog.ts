@@ -8,6 +8,7 @@ export type PostListItem = {
   slug: string;
   excerpt?: string;
   publishedAt?: string;
+  readingChars?: number;
   categories?: CategoryRef[];
   mainImage?: { asset?: { _id: string; url?: string }; alt?: string };
 };
