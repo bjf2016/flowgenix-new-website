@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
+import Reveal from '@/components/Reveal';
 
 export const metadata: Metadata = {
   title: 'About - FlowGenixAI',
@@ -53,7 +54,7 @@ export default function AboutPage() {
           className="pointer-events-none absolute right-[-7%] top-[-12%] w-[min(560px,46vw)] opacity-[0.06] saturate-[0.9]"
         />
         <div className="relative mx-auto max-w-container px-[var(--gutter)]">
-          <div className="flex max-w-[900px] flex-col gap-[22px]">
+          <Reveal className="flex max-w-[900px] flex-col gap-[22px]">
             <span className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand">
               About
             </span>
@@ -64,14 +65,14 @@ export default function AboutPage() {
               FlowGenixAI is led by Ben Foroodian, twenty years of turning messy operations into
               systems that actually work.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* founder block */}
       <section className="pb-[clamp(72px,9vw,140px)] pt-[clamp(40px,5vw,72px)]">
         <div className="mx-auto grid max-w-container items-center gap-[clamp(32px,6vw,80px)] px-[var(--gutter)] md:grid-cols-[0.9fr_1.1fr]">
-          <div className="relative">
+          <Reveal className="relative">
             <div className="absolute inset-x-[6%] bottom-0 top-[6%] rounded-[var(--radius-xl)] bg-glow-soft" />
             <div className="relative flex aspect-square items-end justify-center overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md">
               <Image
@@ -82,8 +83,8 @@ export default function AboutPage() {
                 className="block w-[96%] saturate-[0.95]"
               />
             </div>
-          </div>
-          <div className="flex flex-col gap-6">
+          </Reveal>
+          <Reveal delay={120} className="flex flex-col gap-6">
             <div className="flex flex-col gap-1">
               <span className="font-display text-[clamp(1.5rem,2.4vw,2rem)] font-bold tracking-[-0.02em] text-text-strong">
                 Ben Foroodian
@@ -116,25 +117,26 @@ export default function AboutPage() {
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* how I work */}
       <section className="border-t border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
-          <div className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
+          <Reveal className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
               How I work
             </span>
             <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
               Four rules I build by.
             </h2>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {RULES.map((r) => (
-              <div
+            {RULES.map((r, i) => (
+              <Reveal
                 key={r.n}
+                delay={i * 80}
                 className="flex flex-col gap-[13px] rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(26px,3vw,34px)] shadow-fgx-md"
               >
                 <span className="font-mono text-[13px] text-brand">{r.n}</span>
@@ -142,7 +144,7 @@ export default function AboutPage() {
                   {r.title}
                 </h3>
                 <p className="m-0 text-[1rem] leading-[1.6] text-text-muted">{r.body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -151,7 +153,7 @@ export default function AboutPage() {
       {/* built lately */}
       <section className="py-[clamp(72px,9vw,140px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
-          <div className="mb-[clamp(32px,4vw,48px)] flex flex-wrap items-end justify-between gap-6">
+          <Reveal className="mb-[clamp(32px,4vw,48px)] flex flex-wrap items-end justify-between gap-6">
             <div className="flex flex-col gap-3">
               <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
                 Recent work
@@ -166,11 +168,11 @@ export default function AboutPage() {
             >
               See all work &rarr;
             </Link>
-          </div>
+          </Reveal>
           <div className="flex flex-col border-t border-hairline">
-            {RECENT.map((item) => (
+            {RECENT.map((item, i) => (
+              <Reveal key={item.n} delay={i * 80}>
               <Link
-                key={item.n}
                 href={`/work/${item.slug}`}
                 className="flex items-baseline gap-[18px] border-b border-hairline px-1 py-[22px] transition-colors hover:bg-white/[0.03]"
               >
@@ -183,6 +185,7 @@ export default function AboutPage() {
                 </div>
                 <span className="flex-none text-[18px] text-text-faint">&rarr;</span>
               </Link>
+              </Reveal>
             ))}
           </div>
         </div>

@@ -321,3 +321,19 @@ html {
   border-radius: 999px;
   background: var(--brand);
 }
+
+.fgx-reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); will-change:opacity,transform; }
+.fgx-reveal.is-in{ opacity:1; transform:none; }
+@keyframes fgx-rise{ from{opacity:0; transform:translateY(22px);} to{opacity:1; transform:none;} }
+@keyframes fgx-mask-up{ from{transform:translateY(105%);} to{transform:translateY(0);} }
+@keyframes fgx-head-drift{ 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-14px) scale(1.02);} }
+@keyframes fgx-glow-pulse{ 0%,100%{opacity:.55;} 50%{opacity:.9;} }
+.fgx-hero-item{ opacity:0; animation:fgx-rise .8s cubic-bezier(.16,1,.3,1) forwards; }
+.fgx-headline-mask{ overflow:hidden; }
+.fgx-headline-mask > span{ display:block; transform:translateY(105%); animation:fgx-mask-up .9s cubic-bezier(.16,1,.3,1) .12s forwards; }
+.fgx-head-drift{ animation:fgx-head-drift 14s ease-in-out infinite; }
+.fgx-glow-pulse{ animation:fgx-glow-pulse 8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce){
+  .fgx-reveal,.fgx-hero-item,.fgx-headline-mask > span{ opacity:1 !important; transform:none !important; animation:none !important; transition:none !important; }
+  .fgx-head-drift,.fgx-glow-pulse{ animation:none !important; }
+}

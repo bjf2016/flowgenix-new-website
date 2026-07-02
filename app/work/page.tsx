@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { WORK } from '@/lib/work';
+import Reveal from '@/components/Reveal';
 
 export const metadata: Metadata = {
   title: 'Work - FlowGenixAI',
@@ -35,7 +36,7 @@ export default function WorkPage() {
           className="pointer-events-none absolute right-[-7%] top-[-12%] w-[min(560px,46vw)] opacity-[0.06] saturate-[0.9]"
         />
         <div className="relative mx-auto max-w-container px-[var(--gutter)]">
-          <div className="flex max-w-[880px] flex-col gap-[22px]">
+          <Reveal className="flex max-w-[880px] flex-col gap-[22px]">
             <span className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand">
               Selected work
             </span>
@@ -46,7 +47,7 @@ export default function WorkPage() {
               A look at what we&apos;ve designed and built over the last two years. Apps, dashboards,
               automations, and sites, end to end.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -55,8 +56,9 @@ export default function WorkPage() {
         {WORK.map((p, idx) => {
           const imageFirst = idx % 2 === 0;
           return (
-            <div
+            <Reveal
               key={p.slug}
+              delay={(idx % 2) * 80}
               className={`grid items-center gap-[clamp(32px,5vw,80px)] border-t border-hairline py-[clamp(56px,7vw,104px)] md:grid-cols-2 ${
                 idx === WORK.length - 1 ? 'border-b' : ''
               }`}
@@ -116,7 +118,7 @@ export default function WorkPage() {
                   View case study &rarr;
                 </Link>
               </div>
-            </div>
+            </Reveal>
           );
         })}
       </section>

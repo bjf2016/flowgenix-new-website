@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import Reveal from '@/components/Reveal';
 
 export const metadata: Metadata = {
   title: 'Services - FlowGenixAI',
@@ -146,7 +147,7 @@ export default function ServicesPage() {
           className="pointer-events-none absolute right-[-7%] top-[-12%] w-[min(560px,46vw)] opacity-[0.06] saturate-[0.9]"
         />
         <div className="relative mx-auto max-w-container px-[var(--gutter)]">
-          <div className="flex max-w-[900px] flex-col gap-[22px]">
+          <Reveal className="flex max-w-[900px] flex-col gap-[22px]">
             <span className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand">
               Services
             </span>
@@ -157,24 +158,25 @@ export default function ServicesPage() {
               Three core systems, plus a flagship operations cockpit. We design them to your
               workflow, implement fast, and tune them as you grow.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* three systems */}
       <section className="mx-auto max-w-container px-[var(--gutter)]">
-        <div className="flex flex-col gap-[14px] pt-[clamp(40px,5vw,64px)]">
+        <Reveal className="flex flex-col gap-[14px] pt-[clamp(40px,5vw,64px)]">
           <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
             The three systems
           </span>
           <h2 className="m-0 max-w-[22ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
             Each one quietly carries part of the load.
           </h2>
-        </div>
+        </Reveal>
 
         {SYSTEMS.map((s, idx) => (
-          <div
+          <Reveal
             key={s.n}
+            delay={(idx % 2) * 80}
             className={`grid items-center gap-[clamp(32px,5vw,72px)] border-t border-hairline py-[clamp(48px,6vw,88px)] md:grid-cols-2 ${
               idx === 0 ? 'mt-[clamp(36px,5vw,56px)]' : ''
             } ${idx === SYSTEMS.length - 1 ? 'border-b' : ''}`}
@@ -216,7 +218,7 @@ export default function ServicesPage() {
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
         ))}
       </section>
 
@@ -298,18 +300,19 @@ export default function ServicesPage() {
       {/* how it works */}
       <section className="border-t border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
-          <div className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
+          <Reveal className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
               How it works
             </span>
             <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
               A short path from messy to running.
             </h2>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {STEPS.map((step) => (
-              <div
+            {STEPS.map((step, i) => (
+              <Reveal
                 key={step.n}
+                delay={i * 80}
                 className="flex flex-col gap-[14px] rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(28px,3vw,36px)] shadow-fgx-md"
               >
                 <span className="fgx-index text-[clamp(44px,5vw,64px)]">{step.n}</span>
@@ -317,7 +320,7 @@ export default function ServicesPage() {
                   {step.title}
                 </h3>
                 <p className="m-0 text-[1rem] leading-[1.6] text-text-muted">{step.body}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

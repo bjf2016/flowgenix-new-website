@@ -17,7 +17,7 @@ export function BlogCard({ post }: BlogCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="flex flex-col overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
+      className="flex h-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
     >
       <div
         className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-hairline"

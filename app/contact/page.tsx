@@ -3,6 +3,7 @@
 import { FormEvent, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Check, ChevronDown } from 'lucide-react';
+import Reveal from '@/components/Reveal';
 
 // Reuse the existing strategy-call lead endpoint so submissions land where they
 // do today. Prefer the env override (used by the old contact form); fall back to
@@ -155,7 +156,7 @@ export default function ContactPage() {
           className="pointer-events-none absolute right-[-7%] top-[-12%] w-[min(560px,46vw)] opacity-[0.06] saturate-[0.9]"
         />
         <div className="relative mx-auto max-w-container px-[var(--gutter)]">
-          <div className="flex max-w-[900px] flex-col gap-[22px]">
+          <Reveal className="flex max-w-[900px] flex-col gap-[22px]">
             <span className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand">
               Book a call
             </span>
@@ -166,7 +167,7 @@ export default function ContactPage() {
               A focused 30-minute call to find the highest-ROI automations in your business. No hard
               pitch, just practical next steps.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -174,7 +175,7 @@ export default function ContactPage() {
       <section className="mx-auto max-w-container px-[var(--gutter)] pb-[clamp(48px,6vw,72px)] pt-[clamp(8px,2vw,24px)]">
         <div className="grid items-start gap-[clamp(32px,5vw,72px)] lg:grid-cols-[0.85fr_1.15fr]">
           {/* LEFT */}
-          <div className="flex flex-col gap-[clamp(28px,3vw,40px)]">
+          <Reveal className="flex flex-col gap-[clamp(28px,3vw,40px)]">
             <div className="flex flex-col gap-[18px]">
               <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
                 What to expect
@@ -229,9 +230,10 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* RIGHT: form card */}
+          <Reveal delay={120} className="block">
           <div
             id="book-form"
             className="relative overflow-hidden rounded-[var(--radius-xl)] border border-hairline-strong bg-surface-card p-[clamp(28px,3.5vw,44px)] shadow-fgx-lg"
@@ -400,6 +402,7 @@ export default function ContactPage() {
               </form>
             )}
           </div>
+          </Reveal>
         </div>
       </section>
 
@@ -409,14 +412,14 @@ export default function ContactPage() {
         className="mx-auto max-w-container px-[var(--gutter)] pb-[clamp(72px,9vw,140px)]"
       >
         <div className="flex flex-col gap-[18px]">
-          <div className="flex flex-col gap-2">
+          <Reveal className="flex flex-col gap-2">
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
               Choose a time
             </span>
             <h2 className="m-0 font-display text-[clamp(1.7rem,3vw,2.4rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong">
               Then pick a time.
             </h2>
-          </div>
+          </Reveal>
 
           {isSuccess && calSrc ? (
             <div className="overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md">

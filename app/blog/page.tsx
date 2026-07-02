@@ -5,6 +5,7 @@ import { fetchPosts, fetchCategories, PostListItem } from '@/lib/sanity/blog';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { NewsletterBand } from '@/components/blog/NewsletterBand';
 import { readLabel, formatPostDate } from '@/lib/readTime';
+import Reveal from '@/components/Reveal';
 
 export const revalidate = 60;
 
@@ -80,7 +81,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           className="pointer-events-none absolute right-[-7%] top-[-12%] w-[min(560px,46vw)] opacity-[0.06] saturate-[0.9]"
         />
         <div className="relative mx-auto max-w-container px-[var(--gutter)]">
-          <div className="flex max-w-[900px] flex-col gap-[22px]">
+          <Reveal className="flex max-w-[900px] flex-col gap-[22px]">
             <span className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand">
               Blog
             </span>
@@ -90,7 +91,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             <p className="m-0 max-w-[62ch] text-[clamp(1.1rem,1.5vw,1.3rem)] leading-[1.6] text-text-body">
               Practical takes on AI and automation, written for owners, not engineers.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -195,7 +196,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         <>
           {/* featured post */}
           {featured && (
-            <section className="mx-auto max-w-container px-[var(--gutter)] pt-[clamp(40px,5vw,64px)]">
+            <Reveal as="section" className="mx-auto block max-w-container px-[var(--gutter)] pt-[clamp(40px,5vw,64px)]">
               <Link
                 href={`/blog/${featured.slug}`}
                 className="group block overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong hover:shadow-fgx-lg"
@@ -264,15 +265,17 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                   </div>
                 </div>
               </Link>
-            </section>
+            </Reveal>
           )}
 
           {/* post grid */}
           {rest.length > 0 && (
             <section className="mx-auto max-w-container px-[var(--gutter)] pt-[clamp(28px,3vw,40px)]">
               <div className="grid grid-cols-1 gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
-                {rest.map((post: PostListItem) => (
-                  <BlogCard key={post.slug} post={post} />
+                {rest.map((post: PostListItem, i) => (
+                  <Reveal key={post.slug} delay={i * 80} className="h-full">
+                    <BlogCard post={post} />
+                  </Reveal>
                 ))}
               </div>
             </section>

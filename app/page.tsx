@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { fetchLatestPosts } from '@/lib/sanity';
+import Reveal from '@/components/Reveal';
+import CountUp from '@/components/CountUp';
 
 export const revalidate = 60;
 
@@ -50,11 +52,19 @@ const WHO_WE_HELP = [
   { n: '06', title: 'Other businesses', sub: "If it's repetitive, we can probably automate it." },
 ];
 
-const COCKPIT = [
+type CockpitMetric = {
+  value: string;
+  label: string;
+  accent: boolean;
+  unit?: string;
+  count?: { to: number; decimals?: number; prefix?: string };
+};
+
+const COCKPIT: CockpitMetric[] = [
   { value: '24/7', label: 'Calls answered', accent: false },
   { value: '0', label: 'Calls missed', accent: false },
-  { value: '+14', label: 'Leads captured today', accent: true },
-  { value: '9.5', unit: 'hrs', label: 'Hours saved', accent: false },
+  { value: '+14', label: 'Leads captured today', accent: true, count: { to: 14, prefix: '+' } },
+  { value: '9.5', unit: 'hrs', label: 'Hours saved', accent: false, count: { to: 9.5, decimals: 1 } },
 ];
 
 const EXPERIENCE = ['Align Technology', 'Henry Schein', 'Straumann', 'Carl Zeiss'];
@@ -69,26 +79,37 @@ export default async function Home() {
     <div className="relative overflow-x-hidden bg-bg-base font-body text-text-body">
       {/* ===== 1 · HERO ===== */}
       <section className="relative overflow-hidden pb-[clamp(60px,7vw,96px)] pt-[clamp(70px,9vw,130px)]">
-        <div className="pointer-events-none absolute inset-0 bg-glow-brand" />
+        <div className="fgx-glow-pulse pointer-events-none absolute inset-0 bg-glow-brand" />
         <img
           src="/brand/fgx-head.png"
           alt=""
           aria-hidden
-          className="pointer-events-none absolute right-[-7%] top-[-6%] w-[min(680px,54vw)] opacity-[0.07] saturate-[0.9]"
+          className="fgx-head-drift pointer-events-none absolute right-[-7%] top-[-6%] w-[min(680px,54vw)] opacity-[0.07] saturate-[0.9]"
         />
         <div className="relative mx-auto max-w-container px-[var(--gutter)]">
           <div className="flex max-w-[940px] flex-col gap-7">
-            <span className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand">
+            <span
+              className="fgx-hero-item text-[13px] font-semibold uppercase tracking-[0.18em] text-brand"
+              style={{ animationDelay: '0.05s' }}
+            >
               AI systems, apps &amp; automation
             </span>
-            <h1 className="m-0 font-display text-[clamp(3rem,6.6vw,5.75rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-text-strong [text-wrap:balance]">
-              Run your business like it <span className="text-brand">runs itself.</span>
+            <h1
+              className="fgx-hero-item fgx-headline-mask m-0 font-display text-[clamp(3rem,6.6vw,5.75rem)] font-extrabold leading-[1.0] tracking-[-0.035em] text-text-strong [text-wrap:balance]"
+              style={{ animationDelay: '0.15s' }}
+            >
+              <span>
+                Run your business like it <span className="text-brand">runs itself.</span>
+              </span>
             </h1>
-            <p className="m-0 max-w-[60ch] text-[clamp(1.1rem,1.5vw,1.35rem)] leading-[1.6] text-text-body">
+            <p
+              className="fgx-hero-item m-0 max-w-[60ch] text-[clamp(1.1rem,1.5vw,1.35rem)] leading-[1.6] text-text-body"
+              style={{ animationDelay: '0.30s' }}
+            >
               We answer every call, capture every lead, and handle the busywork in the background. So
               you get to run the business instead of chasing it.
             </p>
-            <div className="mt-1.5 flex flex-wrap gap-[14px]">
+            <div className="fgx-hero-item mt-1.5 flex flex-wrap gap-[14px]" style={{ animationDelay: '0.42s' }}>
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-[14px] border border-transparent bg-brand px-[30px] py-[17px] text-[17px] font-semibold tracking-[-0.01em] text-[#06141D] transition-all duration-150 hover:bg-brand-hover hover:shadow-fgx-brand active:translate-y-px"
@@ -105,7 +126,10 @@ export default async function Home() {
           </div>
 
           {/* built with strip */}
-          <div className="mt-[clamp(48px,6vw,84px)] border-t border-hairline pt-[26px]">
+          <div
+            className="fgx-hero-item mt-[clamp(48px,6vw,84px)] border-t border-hairline pt-[26px]"
+            style={{ animationDelay: '0.55s' }}
+          >
             <div className="mb-[18px] font-mono text-[12px] uppercase tracking-[0.1em] text-text-faint">
               Built with
             </div>
@@ -136,17 +160,19 @@ export default async function Home() {
       {/* ===== 2 · STATEMENT BAND ===== */}
       <section className="border-y border-hairline bg-bg-deep py-[clamp(72px,10vw,140px)]">
         <div className="mx-auto max-w-[1000px] px-[var(--gutter)]">
-          <p className="m-0 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-bold leading-[1.18] tracking-[-0.025em] text-text-muted [text-wrap:balance]">
-            You didn&apos;t start your business to chase missed calls and dead-end emails.{' '}
-            <span className="text-brand">We build the system that catches them all.</span>
-          </p>
+          <Reveal>
+            <p className="m-0 font-display text-[clamp(1.9rem,3.6vw,3rem)] font-bold leading-[1.18] tracking-[-0.025em] text-text-muted [text-wrap:balance]">
+              You didn&apos;t start your business to chase missed calls and dead-end emails.{' '}
+              <span className="text-brand">We build the system that catches them all.</span>
+            </p>
+          </Reveal>
         </div>
       </section>
 
       {/* ===== 3 · SELECTED WORK ===== */}
       <section id="work" className="py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
-          <div className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
+          <Reveal className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
             <div className="fgx-index text-[clamp(56px,8vw,88px)]">01</div>
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
               Selected work
@@ -154,10 +180,10 @@ export default async function Home() {
             <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
               Systems we&apos;ve shipped, running in the real world.
             </h2>
-          </div>
+          </Reveal>
 
           {/* featured */}
-          <div className="group overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong hover:shadow-fgx-lg">
+          <Reveal className="group block overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong hover:shadow-fgx-lg">
             <div className="grid md:grid-cols-[1.15fr_1fr]">
               <div
                 className="relative flex min-h-[340px] items-center justify-center border-b border-hairline md:border-b-0 md:border-r"
@@ -187,13 +213,14 @@ export default async function Home() {
                 </Link>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* grid of four */}
           <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {WORK_GRID.map((item) => (
-              <div
+            {WORK_GRID.map((item, i) => (
+              <Reveal
                 key={item.title}
+                delay={i * 80}
                 className="overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
               >
                 <div
@@ -211,7 +238,7 @@ export default async function Home() {
                   </h3>
                   <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">{item.blurb}</p>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -220,7 +247,7 @@ export default async function Home() {
       {/* ===== 4 · WHAT WE BUILD ===== */}
       <section className="border-t border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
-          <div className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
+          <Reveal className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
             <div className="fgx-index text-[clamp(56px,8vw,88px)]">02</div>
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
               What we build
@@ -228,11 +255,11 @@ export default async function Home() {
             <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
               Three systems that quietly carry the load.
             </h2>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {/* voice receptionist */}
-            <div className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-6 shadow-fgx-md">
+            <Reveal delay={0} className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-6 shadow-fgx-md">
               <div className="flex flex-col gap-[14px] rounded-[14px] border border-hairline bg-bg-deep p-[18px]">
                 <div className="flex items-center gap-2">
                   <span
@@ -260,10 +287,10 @@ export default async function Home() {
                   out.
                 </p>
               </div>
-            </div>
+            </Reveal>
 
             {/* lead intake */}
-            <div className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-6 shadow-fgx-md">
+            <Reveal delay={80} className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-6 shadow-fgx-md">
               <div className="flex flex-col gap-[10px] rounded-[14px] border border-hairline bg-bg-deep p-[14px]">
                 {[
                   { w1: '60%', w2: '38%', tag: 'Sales', active: true },
@@ -302,10 +329,10 @@ export default async function Home() {
                   Every enquiry captured, tagged, and sent to the right place. No lead slips through.
                 </p>
               </div>
-            </div>
+            </Reveal>
 
             {/* workflow automation */}
-            <div className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-6 shadow-fgx-md">
+            <Reveal delay={160} className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-6 shadow-fgx-md">
               <div className="flex flex-col gap-4 rounded-[14px] border border-hairline bg-bg-deep p-[18px]">
                 <div className="flex items-center gap-1.5">
                   <span className="h-3 w-3 rounded-full border-2 border-brand" />
@@ -335,7 +362,7 @@ export default async function Home() {
                   The busywork runs on rails, and you get a clean report on what happened.
                 </p>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -343,7 +370,7 @@ export default async function Home() {
       {/* ===== 5 · WHO WE HELP ===== */}
       <section className="py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto grid max-w-container items-start gap-[clamp(32px,6vw,72px)] px-[var(--gutter)] lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="flex flex-col gap-[14px]">
+          <Reveal className="flex flex-col gap-[14px]">
             <div className="fgx-index text-[clamp(56px,8vw,88px)]">03</div>
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
               Who we help
@@ -355,11 +382,12 @@ export default async function Home() {
               If a missed call is a missed job, we&apos;re built for you. Industry neutral, outcome
               obsessed.
             </p>
-          </div>
+          </Reveal>
           <div className="flex flex-col">
             {WHO_WE_HELP.map((item, i) => (
-              <div
+              <Reveal
                 key={item.n}
+                delay={i * 80}
                 className={`flex items-baseline gap-[18px] border-t border-hairline py-6 ${
                   i === WHO_WE_HELP.length - 1 ? 'border-b' : ''
                 }`}
@@ -371,7 +399,7 @@ export default async function Home() {
                   </div>
                   <div className="mt-1 text-[1rem] text-text-muted">{item.sub}</div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -391,23 +419,31 @@ export default async function Home() {
               aria-hidden
               className="pointer-events-none absolute bottom-[-30%] right-[-4%] w-[min(420px,38vw)] opacity-[0.06]"
             />
-            <div className="relative mb-[clamp(28px,4vw,48px)] flex flex-col gap-2">
+            <Reveal className="relative mb-[clamp(28px,4vw,48px)] flex flex-col gap-2">
               <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
                 AI operations cockpit
               </span>
               <h2 className="m-0 max-w-[22ch] font-display text-[clamp(1.8rem,3vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
                 The whole operation, on one quiet screen.
               </h2>
-            </div>
+            </Reveal>
             <div className="relative grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline md:grid-cols-4">
-              {COCKPIT.map((m) => (
-                <div key={m.label} className="flex flex-col gap-2 bg-bg-deep p-7">
+              {COCKPIT.map((m, i) => (
+                <Reveal key={m.label} delay={i * 80} className="flex flex-col gap-2 bg-bg-deep p-7">
                   <div
                     className={`font-display text-[clamp(2.4rem,4vw,3.4rem)] font-extrabold leading-none tracking-[-0.03em] ${
                       m.accent ? 'text-brand' : 'text-text-strong'
                     }`}
                   >
-                    {m.value}
+                    {m.count ? (
+                      <CountUp
+                        to={m.count.to}
+                        decimals={m.count.decimals ?? 0}
+                        prefix={m.count.prefix ?? ''}
+                      />
+                    ) : (
+                      m.value
+                    )}
                     {m.unit && (
                       <span className="ml-1 text-[0.42em] font-semibold text-text-muted">
                         {m.unit}
@@ -415,7 +451,7 @@ export default async function Home() {
                     )}
                   </div>
                   <div className="text-[14px] text-text-muted">{m.label}</div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -428,7 +464,7 @@ export default async function Home() {
         className="border-y border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]"
       >
         <div className="mx-auto grid max-w-container items-center gap-[clamp(32px,6vw,80px)] px-[var(--gutter)] md:grid-cols-[0.9fr_1.1fr]">
-          <div className="relative">
+          <Reveal className="relative">
             <div className="absolute inset-x-[6%] bottom-0 top-[6%] rounded-[var(--radius-xl)] bg-glow-soft" />
             <div className="relative flex aspect-square items-end justify-center overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card">
               <Image
@@ -439,8 +475,8 @@ export default async function Home() {
                 className="block w-[96%] saturate-[0.95]"
               />
             </div>
-          </div>
-          <div className="flex flex-col gap-[22px]">
+          </Reveal>
+          <Reveal delay={120} className="flex flex-col gap-[22px]">
             <div className="fgx-index text-[clamp(56px,8vw,88px)]">04</div>
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
               About
@@ -468,14 +504,14 @@ export default async function Home() {
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ===== 8 · FROM THE BLOG ===== */}
       <section id="blog" className="border-t border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
-          <div className="mb-[clamp(36px,5vw,56px)] flex flex-wrap items-end justify-between gap-6">
+          <Reveal className="mb-[clamp(36px,5vw,56px)] flex flex-wrap items-end justify-between gap-6">
             <div className="flex flex-col gap-3">
               <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
                 From the blog
@@ -490,15 +526,15 @@ export default async function Home() {
             >
               All posts &rarr;
             </Link>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {posts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="flex flex-col overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
-              >
+            {posts.map((post, i) => (
+              <Reveal key={post.slug} delay={i * 80} className="h-full">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="flex h-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
+                >
                 <div
                   className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border-b border-hairline"
                   style={{
@@ -539,7 +575,8 @@ export default async function Home() {
                     {post.title}
                   </h3>
                 </div>
-              </Link>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -557,7 +594,7 @@ export default async function Home() {
           aria-hidden
           className="pointer-events-none absolute bottom-[-34%] left-[-8%] w-[min(560px,46vw)] opacity-[0.06]"
         />
-        <div className="relative mx-auto flex max-w-[860px] flex-col items-center gap-7 px-[var(--gutter)] text-center">
+        <Reveal className="relative mx-auto flex max-w-[860px] flex-col items-center gap-7 px-[var(--gutter)] text-center">
           <h2 className="m-0 font-display text-[clamp(2.4rem,5vw,4rem)] font-extrabold leading-[1.04] tracking-[-0.035em] text-text-strong [text-wrap:balance]">
             Let&apos;s build the system your business runs on.
           </h2>
@@ -571,7 +608,7 @@ export default async function Home() {
           >
             Book a strategy call
           </Link>
-        </div>
+        </Reveal>
       </section>
     </div>
   );
