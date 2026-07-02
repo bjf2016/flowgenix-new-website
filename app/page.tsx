@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { fetchLatestPosts } from '@/lib/sanity';
 import Reveal from '@/components/Reveal';
 import CountUp from '@/components/CountUp';
+import HeroPlasma from '@/components/HeroPlasma';
 
 export const revalidate = 60;
 
@@ -79,14 +80,23 @@ export default async function Home() {
     <div className="relative overflow-x-hidden bg-bg-base font-body text-text-body">
       {/* ===== 1 · HERO ===== */}
       <section className="relative overflow-hidden pb-[clamp(60px,7vw,96px)] pt-[clamp(70px,9vw,130px)]">
-        <div className="fgx-glow-pulse pointer-events-none absolute inset-0 bg-glow-brand" />
+        <HeroPlasma />
+        <div className="fgx-glow-pulse pointer-events-none absolute inset-0 z-[1] bg-glow-brand opacity-70" />
         <img
           src="/brand/fgx-head.png"
           alt=""
           aria-hidden
-          className="fgx-head-drift pointer-events-none absolute right-[-7%] top-[-6%] w-[min(680px,54vw)] opacity-[0.07] saturate-[0.9]"
+          className="fgx-head-drift pointer-events-none absolute right-[-7%] top-[-6%] z-[1] w-[min(680px,54vw)] opacity-[0.07] saturate-[0.9]"
         />
-        <div className="relative mx-auto max-w-container px-[var(--gutter)]">
+        {/* scrim: keep the headline readable and blend the plasma into the section */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[1]"
+          style={{
+            background:
+              'linear-gradient(to right, rgba(30,40,50,0.85), transparent 12%, transparent 88%, rgba(30,40,50,0.85)), linear-gradient(to bottom, transparent 45%, var(--bg-base))',
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-container px-[var(--gutter)]">
           <div className="flex max-w-[940px] flex-col gap-7">
             <span
               className="fgx-hero-item text-[13px] font-semibold uppercase tracking-[0.18em] text-brand"
