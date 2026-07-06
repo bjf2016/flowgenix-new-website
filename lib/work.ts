@@ -24,6 +24,8 @@ export interface CaseStudy {
   galleryImages?: string[];
   /** Real hero screenshot (public path). When set, it renders instead of the striped placeholder. */
   heroImage?: string;
+  /** Full-length screenshot (public path) for the interactive scrolling hero frame. Takes priority over heroImage. */
+  heroScrollImage?: string;
   outcome: { heading: string; metrics: CaseMetric[]; note: string };
   stackTools: string[];
 }
@@ -47,51 +49,79 @@ export const WORK: WorkProject[] = [
   {
     slug: 'ai-operations-dashboard',
     index: '01',
-    category: 'Client build · Operations',
+    category: 'Flagship build · Operations',
     title: 'AI Operations Dashboard',
+    titleNote: 'the dashboard we run FlowGenixAI on, and deploy for clients',
     summary:
-      "A secure, private operations cockpit that put a multi-venture founder's entire business on one quiet screen.",
+      'One private screen that gives a busy owner a birds-eye view of the entire operating day, every inbox and calendar across every provider, plus news, priorities, and research, with the ability to drill into anything and let AI handle the busywork.',
     problem:
-      'A founder running multiple ventures was drowning in email, calls, and proposals spread across disconnected tools, with no single place to see what actually needed her attention.',
+      "CEOs and owners of small and mid-sized businesses don't run on one inbox and one calendar. They run on several: multiple email accounts, a stack of calendars, news they can't afford to fall behind on, deadlines, decisions, and a dozen other things scattered across tools that were never built to talk to each other. There's no single place to stand and see it all, so the important work hides behind the noise and the best hours of the day go to hunting for it.",
     whatWeBuilt:
-      'A secure, private operations cockpit on her own infrastructure: a morning briefing dashboard, AI email triage, voice-to-action capture, and proposal insight scoring, one quiet screen for the whole operation.',
-    stack: ['Supabase', 'n8n', 'Google Cloud', 'AI agents'],
+      "A private operations dashboard that puts the whole operating day on one screen: every inbox and calendar across every provider, the news that matters, priorities, decisions, and anything slipping, all sorted by what needs the owner first. Custom connectors tie it together past the limits of the native integrations, and the AI triages, drafts, captures voice notes into to-dos, reviews newsletters, and sorts research. It's the same build FlowGenixAI runs internally and deploys, private and branded, for clients.",
+    stack: ['Custom connectors', 'n8n', 'Claude', 'Self-hosted'],
+    cardImage: '/work/ai-operations-dashboard/card.png',
     caseStudy: {
-      tags: ['Operations', 'Dashboard', 'AI Agents'],
+      heroScrollImage: '/work/ai-operations-dashboard/dashboard-full.png',
+      galleryImages: [
+        '/work/ai-operations-dashboard/gallery-1.png',
+        '/work/ai-operations-dashboard/gallery-2.png',
+        '/work/ai-operations-dashboard/gallery-3.png',
+      ],
+      tags: ['Operations dashboard', 'Multi-account triage', 'AI actions', 'Self-hosted'],
       meta: [
         { label: 'Role', value: 'Design & build, end to end' },
-        { label: 'Timeline', value: '8 weeks' },
-        { label: 'Platform', value: 'Private web app' },
-        { label: 'Stack', value: 'Supabase, n8n' },
+        { label: 'Platform', value: 'Self-hosted web app' },
+        { label: 'Stack', value: 'n8n, Claude, Supabase' },
+        { label: 'Use', value: 'Daily, internal and client' },
       ],
       challenge: {
-        heading: 'Too many tools, no single source of truth.',
-        body: 'A founder running several ventures was managing email, calls, proposals, and tasks across a dozen disconnected tools. Nothing talked to anything else, and the most important work was buried under the noise. There was no single place to see what actually needed her attention, and the cost of context switching was eating her best hours.',
+        heading: 'Multiple inboxes, calendars, and tools, no single place to see it all.',
+        body: "CEOs and owners of small and mid-sized businesses don't run on one inbox and one calendar. They run on several: multiple email accounts, a stack of calendars, news they can't afford to fall behind on, deadlines, decisions, and a dozen other things scattered across tools that were never built to talk to each other. There's no single place to stand and see it all, so the important work hides behind the noise and the best hours of the day go to hunting for it. What they need is simple to say and hard to build: a birds-eye view of everything the moment they sit down, with any detail one click away, and the routine work already handled.",
       },
       built: {
-        heading: 'One cockpit, running on her own infrastructure.',
+        heading: 'One screen for the whole operating day.',
         intro: [
-          'We designed and built a private command center that pulls every signal into a single view. It opens to a morning briefing, surfaces what changed overnight, and lets her act without leaving the screen. Everything runs on infrastructure she controls, so her data never leaves her hands.',
-          'Under the hood, a set of AI agents and automations handle the heavy lifting, triaging email, capturing spoken tasks, and scoring proposals, while the interface stays calm and uncluttered.',
+          "We built it, and we run our own business on it. The dashboard pulls every inbox and calendar together, no matter how many or which providers, with the news that matters, the priorities, the decisions, and anything quietly slipping, then sorts it all by what genuinely needs the owner first. Custom connectors tie it together past the limits of the platforms' native integrations, so accounts that normally can't live together sit side by side and stay in sync, flawlessly. It's the same build FlowGenixAI runs internally and deploys, private and branded, for the CEOs and owners we work with.",
+          "Here's the part that separates a slick-looking dashboard from one you'd trust with your morning. It's self-hosted on infrastructure the owner controls, with the app services locked to the machine and a reverse proxy handling security, so no secret ever reaches the browser. The AI reads, sorts, and drafts, but nothing acts on its own. New capabilities go in as isolated modules that roll back in a single step, and a demo mode with entirely fake data lets the same screens be shown safely.",
         ],
         features: [
-          { title: 'Morning dashboard', body: 'Your day, your numbers, and what needs attention, first thing.' },
-          { title: 'Email triage', body: 'AI sorts, summarizes, and drafts so the inbox stays clear.' },
-          { title: 'Voice-to-action', body: 'Speak a task and it gets captured, routed, and done.' },
-          { title: 'Proposal insights', body: 'See which proposals are moving and which need a nudge.' },
+          {
+            title: 'Every account, no matter the provider',
+            body: 'Custom connectors tie it all into one screen, past the limits of the native integrations. A real setup we run: a personal Yahoo account, two Google Workspace business accounts, two private company accounts, and a personal Apple iCloud account, six inboxes and calendars across four providers, unified and in sync.',
+          },
+          {
+            title: 'Birds-eye view, real drilldown',
+            body: 'The whole day at a glance, and every tile opens up: read the full thread, expand the reasoning behind a decision, edit a line in place. Nothing is a dead end.',
+          },
+          {
+            title: 'Voice to action',
+            body: 'Speak a note and it becomes to-dos, captured and routed across every part of your world, work and personal, without opening another app.',
+          },
+          {
+            title: 'AI inbox triage and drafts',
+            body: 'Watchlists sort your inboxes so the people and threads that matter rise to the top, action items get pulled out, and replies come pre-drafted, ready to send or edit.',
+          },
+          {
+            title: 'Newsletter review and article extraction',
+            body: "It reads the newsletters you'd never get through, pulls out the pieces worth your time, and drops them into the dashboard as highlighted, clickable links.",
+          },
+          {
+            title: 'Research triage',
+            body: 'Paste a link or a batch and each one gets read, filtered for hype, and sorted into worth-pursuing or junk, with a takeaway and the reasoning on tap. Investment reads are decision-support, grounded and never autonomous.',
+          },
         ],
       },
-      gallery: ['// dashboard view', '// email triage', '// proposal insights'],
+      gallery: ['// inbox triage + draft', '// newsletter extraction', '// voice to action'],
       outcome: {
-        heading: 'Less noise, more signal, hours back.',
+        heading: 'Two hours a day back, and nothing slips.',
         metrics: [
-          { value: '9.5', unit: 'hrs/wk', label: 'Hours saved every week on admin and triage.', accent: true },
-          { value: '1', label: 'One screen replaced a dozen disconnected tools.' },
-          { value: '100%', label: 'Of her data stays on infrastructure she controls.' },
+          { value: '2+', unit: 'hrs/day', label: 'Time the owner gets back every day, off admin and triage.', accent: true },
+          { value: '12→1', label: 'A dozen disconnected tools replaced by one screen.' },
+          { value: '6', unit: 'accounts', label: 'Personal and business inboxes and calendars across four providers, unified.' },
         ],
-        note: 'Replace with real metrics or qualitative wins per project.',
+        note: "This is the dashboard FlowGenixAI runs its own operation on, and the same build we deploy for clients. The time-saved figure is the owner's own estimate from daily use.",
       },
-      stackTools: ['Next.js', 'Supabase', 'n8n', 'Retell', 'Google Cloud', 'OpenAI'],
+      stackTools: ['Self-hosted Linux', 'Docker', 'Custom connectors', 'Caddy', 'FastAPI', 'n8n', 'Anthropic Claude', 'Supabase'],
     },
   },
   {

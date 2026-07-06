@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { WORK, getProject, getNextProject } from '@/lib/work';
+import ScrollingShot from '@/components/ScrollingShot';
 
 interface Params {
   params: { slug: string };
@@ -78,28 +79,36 @@ export default function CaseStudyPage({ params }: Params) {
 
         {/* hero screenshot */}
         <section className="mx-auto mt-[clamp(32px,4vw,52px)] max-w-[1120px] px-[var(--gutter)]">
-          <div
-            className="relative flex aspect-[16/9] items-center justify-center overflow-hidden rounded-[var(--radius-xl)] border border-hairline shadow-fgx-lg"
-            style={{
-              background:
-                'repeating-linear-gradient(135deg,rgba(255,255,255,0.035) 0 12px,transparent 12px 24px),var(--bg-deep)',
-            }}
-          >
-            {cs?.heroImage ? (
-              <img
-                src={cs.heroImage}
-                alt={`${project.title} screenshot`}
-                className="absolute inset-0 h-full w-full object-cover object-top"
-              />
-            ) : (
-              <>
-                <div className="absolute inset-0 bg-glow-soft" />
-                <span className="relative font-mono text-[13px] text-text-faint">
-                  // hero screenshot 1760×990
-                </span>
-              </>
-            )}
-          </div>
+          {cs?.heroScrollImage ? (
+            <ScrollingShot
+              src={cs.heroScrollImage}
+              alt={`${project.title}, full dashboard`}
+              frameLabel="dashboard.flowgenixai.com"
+            />
+          ) : (
+            <div
+              className="relative flex aspect-[16/9] items-center justify-center overflow-hidden rounded-[var(--radius-xl)] border border-hairline shadow-fgx-lg"
+              style={{
+                background:
+                  'repeating-linear-gradient(135deg,rgba(255,255,255,0.035) 0 12px,transparent 12px 24px),var(--bg-deep)',
+              }}
+            >
+              {cs?.heroImage ? (
+                <img
+                  src={cs.heroImage}
+                  alt={`${project.title} screenshot`}
+                  className="absolute inset-0 h-full w-full object-cover object-top"
+                />
+              ) : (
+                <>
+                  <div className="absolute inset-0 bg-glow-soft" />
+                  <span className="relative font-mono text-[13px] text-text-faint">
+                    // hero screenshot 1760×990
+                  </span>
+                </>
+              )}
+            </div>
+          )}
         </section>
 
         {/* meta strip */}
