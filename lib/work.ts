@@ -149,6 +149,86 @@ export const WORK: WorkProject[] = [
       'Full Next.js websites and web apps, designed and shipped end to end on a Vercel and Supabase stack, fast, clean, and built to convert.',
     stack: ['Next.js', 'Vercel', 'Supabase'],
   },
+  {
+    slug: 'restate',
+    index: '07',
+    category: 'Personal build · AI study platform',
+    title: 'Restate',
+    titleNote: 'built for a returning student',
+    summary:
+      'A personal AI study companion that takes someone from "I haven\'t studied in years" to ready for the first day of law school, then quietly runs their whole study system all semester.',
+    problem:
+      "A career changer heading back for an intense graduate program, seven weeks out, with cold study habits and no tool that fit. Generic study apps don't know the calendar, don't teach the workflow, and their AI invents facts, which is a dealbreaker when one made-up citation can sink you.",
+    whatWeBuilt:
+      "A complete, installable study platform, live before prep even started: a dated 7-week ramp, flashcards, quizzes, case briefs, cold-call drills, outlines, a planner, and a deadline tracker on the school's real calendar. The AI is genuinely useful and deliberately fenced in, it works only from the student's own notes, so it can't invent law.",
+    stack: ['Next.js', 'Supabase', 'OpenAI', 'PWA'],
+    caseStudy: {
+      tags: ['AI study platform', 'PWA', 'Spaced repetition', 'Education'],
+      meta: [
+        { label: 'Role', value: 'Design & build, end to end' },
+        { label: 'Platform', value: 'Installable web app (PWA)' },
+        { label: 'Stack', value: 'Next.js, Supabase' },
+        { label: 'Timeline', value: 'Spec to live in about 2 days' },
+      ],
+      challenge: {
+        heading: "Generic study apps don't know your deadline, and their AI makes things up.",
+        body: "The person behind this is a career changer, a few good years into full-time work and now heading back for an intense graduate program with a hard start date about seven weeks out. The study muscles had gone soft, and the program expects skills nobody hands you in advance: reading dense cases, briefing them, holding your own in a cold call, turning notes into an outline you can pass an exam with. Off-the-shelf apps are generic flashcard tools. They don't know your calendar, they don't teach the workflow, and their AI will cheerfully make things up, which is a dealbreaker in a field where one invented citation can sink you.",
+      },
+      built: {
+        heading: 'A real platform, fenced in on purpose.',
+        intro: [
+          "So we built the thing that should have existed: a complete, installable study platform, live before the prep window even opened. It opens with a dated 7-week ramp that rebuilds study stamina one honest step at a time, then hands the student off to the semester with flashcards, quizzes, case briefs, cold-call drills, outlines, a planner, and a deadline tracker already loaded with the school's real academic calendar.",
+          "The part that separates a weekend prototype from something you'd trust with your career sits under the hood. Every AI call runs server-side behind auth, so the key never reaches the browser, and every prompt is grounded in the student's own notes, so the AI can help but it can't invent law. Each user's data is walled off at the database itself. None of that shows on screen, and all of it is why the thing holds up.",
+        ],
+        features: [
+          {
+            title: 'A 7-week ramp that meets you where you are',
+            body: 'A dated, day-by-day plan that rebuilds study stamina, from short reading blocks in week one to full mock class days by week six, then a deliberate taper.',
+          },
+          {
+            title: 'AI that helps without making things up',
+            body: 'Flashcards, quizzes, and briefs built only from your own notes, with a hard rule against invented citations. The most important guardrail in the product, baked into the prompt layer.',
+          },
+          {
+            title: 'Spaced repetition done properly',
+            body: 'A real SM-2 scheduler with four-grade review, ease factors, and lapse tracking, not a remind-me-tomorrow timer dressed up to look smart.',
+          },
+          {
+            title: 'Cold-call drills on demand',
+            body: 'Professor-style questions fired straight from your own briefs, so the tensest moment of a first-year classroom is something you can rehearse.',
+          },
+          {
+            title: 'A dashboard that runs the day',
+            body: "Countdowns, cards due, a streak worth protecting, this week's tasks, and deadlines on one screen you can install to your phone.",
+          },
+        ],
+      },
+      gallery: ['// today dashboard', '// 7-week ramp', '// cold-call drill'],
+      outcome: {
+        heading: 'Built to be trusted, and live in days.',
+        metrics: [
+          {
+            value: '11',
+            unit: 'tables',
+            label: 'Each isolated per user with database-level security, not just hidden in the UI.',
+            accent: true,
+          },
+          {
+            value: '10',
+            unit: 'modules',
+            label: 'A full study system shipped in v1, from the ramp to the dashboard.',
+          },
+          {
+            value: '~2',
+            unit: 'days',
+            label: 'From written spec to a live, installable app. Fast because it is built on proven ground.',
+          },
+        ],
+        note: 'Live in production as of July 2026. Adoption and usage numbers are left off on purpose until there is real data to stand behind.',
+      },
+      stackTools: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Supabase', 'OpenAI', 'Vercel', 'PWA'],
+    },
+  },
 ];
 
 export function getProject(slug: string): WorkProject | undefined {
