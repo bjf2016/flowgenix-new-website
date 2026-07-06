@@ -85,10 +85,20 @@ export default function CaseStudyPage({ params }: Params) {
                 'repeating-linear-gradient(135deg,rgba(255,255,255,0.035) 0 12px,transparent 12px 24px),var(--bg-deep)',
             }}
           >
-            <div className="absolute inset-0 bg-glow-soft" />
-            <span className="relative font-mono text-[13px] text-text-faint">
-              // hero screenshot 1760×990
-            </span>
+            {cs?.heroImage ? (
+              <img
+                src={cs.heroImage}
+                alt={`${project.title} screenshot`}
+                className="absolute inset-0 h-full w-full object-cover object-top"
+              />
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-glow-soft" />
+                <span className="relative font-mono text-[13px] text-text-faint">
+                  // hero screenshot 1760×990
+                </span>
+              </>
+            )}
           </div>
         </section>
 
@@ -158,15 +168,26 @@ export default function CaseStudyPage({ params }: Params) {
         {/* gallery */}
         <section className="mx-auto mt-[clamp(40px,5vw,64px)] max-w-[1120px] px-[var(--gutter)]">
           <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
-            {gallery.map((cap, i) => (
-              <div
-                key={i}
-                className="flex aspect-[4/3] items-center justify-center rounded-[var(--radius-lg)] border border-hairline shadow-fgx-md"
-                style={{ background: STRIPED_DEEP }}
-              >
-                <span className="font-mono text-[12px] text-text-faint">{cap}</span>
-              </div>
-            ))}
+            {gallery.map((cap, i) => {
+              const img = cs?.galleryImages?.[i];
+              return (
+                <div
+                  key={i}
+                  className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[var(--radius-lg)] border border-hairline shadow-fgx-md"
+                  style={{ background: STRIPED_DEEP }}
+                >
+                  {img ? (
+                    <img
+                      src={img}
+                      alt={`${project.title} screen ${i + 1}`}
+                      className="absolute inset-0 h-full w-full object-cover object-top"
+                    />
+                  ) : (
+                    <span className="font-mono text-[12px] text-text-faint">{cap}</span>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -250,13 +271,23 @@ export default function CaseStudyPage({ params }: Params) {
                 <span className="mt-1 text-[16px] font-semibold text-brand">View project &rarr;</span>
               </div>
               <div
-                className="relative flex min-h-[260px] items-center justify-center border-t border-hairline md:border-l md:border-t-0"
+                className="relative flex min-h-[260px] items-center justify-center overflow-hidden border-t border-hairline md:border-l md:border-t-0"
                 style={{ background: STRIPED_DEEP }}
               >
-                <div className="absolute inset-0 bg-glow-soft" />
-                <span className="relative font-mono text-[12px] text-text-faint">
-                  // {next.title} screenshot
-                </span>
+                {next.cardImage ?? next.caseStudy?.heroImage ? (
+                  <img
+                    src={next.cardImage ?? next.caseStudy?.heroImage}
+                    alt={`${next.title} screenshot`}
+                    className="absolute inset-0 h-full w-full object-cover object-top"
+                  />
+                ) : (
+                  <>
+                    <div className="absolute inset-0 bg-glow-soft" />
+                    <span className="relative font-mono text-[12px] text-text-faint">
+                      // {next.title} screenshot
+                    </span>
+                  </>
+                )}
               </div>
             </div>
           </Link>

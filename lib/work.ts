@@ -20,6 +20,10 @@ export interface CaseStudy {
   challenge: { heading: string; body: string };
   built: { heading: string; intro: string[]; features: CaseFeature[] };
   gallery: string[];
+  /** Real gallery screenshots (public paths). When set, these render instead of the striped placeholders. */
+  galleryImages?: string[];
+  /** Real hero screenshot (public path). When set, it renders instead of the striped placeholder. */
+  heroImage?: string;
   outcome: { heading: string; metrics: CaseMetric[]; note: string };
   stackTools: string[];
 }
@@ -34,6 +38,8 @@ export interface WorkProject {
   problem: string;
   whatWeBuilt: string;
   stack: string[];
+  /** Real card image (public path) for the Work index and next-project thumbnail. */
+  cardImage?: string;
   caseStudy?: CaseStudy;
 }
 
@@ -162,7 +168,14 @@ export const WORK: WorkProject[] = [
     whatWeBuilt:
       "A complete, installable study platform, live before prep even started: a dated 7-week ramp, flashcards, quizzes, case briefs, cold-call drills, outlines, a planner, and a deadline tracker on the school's real calendar. The AI is genuinely useful and deliberately fenced in, it works only from the student's own notes, so it can't invent law.",
     stack: ['Next.js', 'Supabase', 'OpenAI', 'PWA'],
+    cardImage: '/work/restate/hero.png',
     caseStudy: {
+      heroImage: '/work/restate/hero.png',
+      galleryImages: [
+        '/work/restate/gallery-1.png',
+        '/work/restate/gallery-2.png',
+        '/work/restate/gallery-3.png',
+      ],
       tags: ['AI study platform', 'PWA', 'Spaced repetition', 'Education'],
       meta: [
         { label: 'Role', value: 'Design & build, end to end' },
@@ -203,7 +216,7 @@ export const WORK: WorkProject[] = [
           },
         ],
       },
-      gallery: ['// today dashboard', '// 7-week ramp', '// cold-call drill'],
+      gallery: ['// 7-week ramp', '// case briefs', '// cold-call drill'],
       outcome: {
         heading: 'Built to be trusted, and live in days.',
         metrics: [

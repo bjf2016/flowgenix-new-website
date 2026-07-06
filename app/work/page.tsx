@@ -12,7 +12,17 @@ export const metadata: Metadata = {
 const STRIPED =
   'repeating-linear-gradient(135deg,rgba(255,255,255,0.035) 0 11px,transparent 11px 22px),var(--bg-deep)';
 
-function Placeholder({ caption }: { caption: string }) {
+function Placeholder({ caption, image }: { caption: string; image?: string }) {
+  if (image) {
+    return (
+      <div
+        className="relative aspect-[16/10] overflow-hidden rounded-[var(--radius-xl)] border border-hairline shadow-fgx-md"
+        style={{ background: STRIPED }}
+      >
+        <img src={image} alt={caption} className="absolute inset-0 h-full w-full object-cover object-top" />
+      </div>
+    );
+  }
   return (
     <div
       className="flex aspect-[16/10] items-center justify-center rounded-[var(--radius-xl)] border border-dashed border-hairline-strong shadow-fgx-md"
@@ -64,7 +74,7 @@ export default function WorkPage() {
               }`}
             >
               <div className={imageFirst ? 'md:order-1' : 'md:order-2'}>
-                <Placeholder caption={`${p.title} 1600×1000`} />
+                <Placeholder caption={`${p.title} 1600×1000`} image={p.cardImage} />
               </div>
               <div
                 className={`flex flex-col gap-5 ${imageFirst ? 'md:order-2' : 'md:order-1'}`}
