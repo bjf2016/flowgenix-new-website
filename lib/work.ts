@@ -58,7 +58,7 @@ export const WORK: WorkProject[] = [
       "CEOs and owners of small and mid-sized businesses don't run on one inbox and one calendar. They run on several: multiple email accounts, a stack of calendars, news they can't afford to fall behind on, deadlines, decisions, and a dozen other things scattered across tools that were never built to talk to each other. There's no single place to stand and see it all, so the important work hides behind the noise and the best hours of the day go to hunting for it.",
     whatWeBuilt:
       "A private operations dashboard that puts the whole operating day on one screen: every inbox and calendar across every provider, the news that matters, priorities, decisions, and anything slipping, all sorted by what needs the owner first. Custom connectors tie it together past the limits of the native integrations, and the AI triages, drafts, captures voice notes into to-dos, reviews newsletters, and sorts research. It's the same build FlowGenixAI runs internally and deploys, private and branded, for clients.",
-    stack: ['Custom connectors', 'n8n', 'Claude', 'Self-hosted'],
+    stack: ['Custom connectors', 'FastAPI', 'Claude', 'Self-hosted'],
     cardImage: '/work/ai-operations-dashboard/card.png',
     caseStudy: {
       heroScrollImage: '/work/ai-operations-dashboard/dashboard-full.png',
@@ -71,7 +71,7 @@ export const WORK: WorkProject[] = [
       meta: [
         { label: 'Role', value: 'Design & build, end to end' },
         { label: 'Platform', value: 'Self-hosted web app' },
-        { label: 'Stack', value: 'n8n, Claude, Supabase' },
+        { label: 'Stack', value: 'FastAPI, Claude, self-hosted' },
         { label: 'Use', value: 'Daily, internal and client' },
       ],
       challenge: {
@@ -121,7 +121,7 @@ export const WORK: WorkProject[] = [
         ],
         note: "This is the dashboard FlowGenixAI runs its own operation on, and the same build we deploy for clients. The time-saved figure is the owner's own estimate from daily use.",
       },
-      stackTools: ['Self-hosted Linux', 'Docker', 'Custom connectors', 'Caddy', 'FastAPI', 'n8n', 'Anthropic Claude', 'Supabase'],
+      stackTools: ['Python', 'FastAPI', 'Anthropic Claude', 'Gmail & Calendar API', 'IMAP + CalDAV', 'Caddy', 'Docker', 'Self-hosted Linux'],
     },
   },
   {
