@@ -8,16 +8,29 @@ import HeroPlasma from '@/components/HeroPlasma';
 export const revalidate = 60;
 
 const BUILT_WITH = [
-  'Retell',
-  'n8n',
-  'Supabase',
-  'Vercel',
-  'Google Cloud',
-  'OpenAI',
-  'Next.js',
+  'Answers every call',
+  'Captures every lead',
+  'Books jobs 24/7',
+  'Drafts your replies',
+  'Runs the busywork',
+  'Reports back daily',
 ];
 
 const WORK_GRID = [
+  {
+    tag: 'Voice AI',
+    title: 'AI Voice Agents',
+    blurb: 'Receptionists and intake agents that answer, qualify, and book around the clock.',
+    img: '/work/ai-voice-agents/card.png',
+    href: '/work',
+  },
+  {
+    tag: 'Automation',
+    title: 'Workflow Automation',
+    blurb: 'Connected pipelines that move work between your tools, with clean reporting.',
+    img: '/work/n8n-workflow-automation/card.png',
+    href: '/work',
+  },
   {
     tag: 'Consumer SaaS',
     title: 'Almanac Leaf',
@@ -32,20 +45,12 @@ const WORK_GRID = [
     img: '/work/eversage/card.png',
     href: '/work/eversage',
   },
-  {
-    tag: 'AI study platform',
-    title: 'Restate',
-    blurb: 'A personal AI study companion, spec to live in about two days.',
-    img: '/work/restate/hero.png',
-    href: '/work/restate',
-  },
-  {
-    tag: 'Voice AI',
-    title: 'AI Voice Agents',
-    blurb: 'Receptionists and intake agents that answer, qualify, and book around the clock.',
-    img: '/work/ai-voice-agents/card.png',
-    href: '/work',
-  },
+];
+
+// Add real client quotes here and the "In their words" section appears automatically.
+// Leave empty and it renders nothing (no placeholder text ships).
+const TESTIMONIALS: { quote: string; who: string }[] = [
+  // { quote: 'Since we turned it on, we stopped missing after-hours calls.', who: 'First name, trade, city' },
 ];
 
 const WHO_WE_HELP = [
@@ -53,7 +58,7 @@ const WHO_WE_HELP = [
   { n: '02', title: 'Professional services', sub: "Firms billing time they can't afford to lose." },
   { n: '03', title: 'Health & wellness', sub: 'Clinics and practices with full front desks.' },
   { n: '04', title: 'Real estate', sub: "Agents who can't let a lead go cold." },
-  { n: '05', title: 'Busy owners & founders', sub: 'Wearing every hat, out of hours to do it.' },
+  { n: '05', title: 'Busy owners & founders', sub: 'Wearing every hat, across one business or several.' },
   { n: '06', title: 'Other businesses', sub: "If it's repetitive, we can probably automate it." },
 ];
 
@@ -120,15 +125,16 @@ export default async function Home() {
               className="fgx-hero-item m-0 max-w-[60ch] text-[clamp(1.1rem,1.5vw,1.35rem)] leading-[1.6] text-text-body"
               style={{ animationDelay: '0.30s' }}
             >
-              We answer every call, capture every lead, and handle the busywork in the background. So
-              you get to run the business instead of chasing it.
+              You wear every hat, maybe across more than one business. We build the AI that answers
+              your calls and makes the outbound ones, books the jobs, automates the manual work, and
+              puts the whole operation on one screen you can actually act on.
             </p>
             <div className="fgx-hero-item mt-1.5 flex flex-wrap gap-[14px]" style={{ animationDelay: '0.42s' }}>
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-[14px] border border-transparent bg-brand px-[30px] py-[17px] text-[17px] font-semibold tracking-[-0.01em] text-[#06141D] transition-all duration-150 hover:bg-brand-hover hover:shadow-fgx-brand active:translate-y-px"
               >
-                Book a strategy call
+                Book a free strategy call
               </Link>
               <Link
                 href="/work"
@@ -137,6 +143,13 @@ export default async function Home() {
                 See the work
               </Link>
             </div>
+            <p
+              className="fgx-hero-item m-0 mt-1 font-mono text-[13px] text-text-faint"
+              style={{ animationDelay: '0.5s' }}
+            >
+              30 minutes, no pitch. You&apos;ll leave with a clear read on where AI can win back your
+              time, whether or not you hire us.
+            </p>
           </div>
 
           {/* built with strip */}
@@ -145,7 +158,7 @@ export default async function Home() {
             style={{ animationDelay: '0.55s' }}
           >
             <div className="mb-[18px] font-mono text-[12px] uppercase tracking-[0.1em] text-text-faint">
-              Built with
+              What it does for you
             </div>
             <div
               className="relative overflow-hidden"
@@ -183,6 +196,56 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ===== 2b · WHY US ===== */}
+      <section className="py-[clamp(72px,10vw,150px)]">
+        <div className="mx-auto max-w-container px-[var(--gutter)]">
+          <Reveal className="mb-[clamp(40px,5vw,64px)] flex max-w-[820px] flex-col gap-[14px]">
+            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+              Why us
+            </span>
+            <h2 className="m-0 font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
+              You&apos;re hiring an operator, not an agency.
+            </h2>
+            <p className="m-0 mt-1.5 text-[1.1875rem] leading-[1.65] text-text-body">
+              Most AI help falls into two buckets: agencies that hand you a slide deck, or freelancers
+              who ship a slick demo that breaks the first real week and then go quiet. We&apos;re
+              neither. Twenty years running real operations at companies that live and die on process,
+              now building AI systems the same way, to actually hold up.
+            </p>
+          </Reveal>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {[
+              {
+                title: 'Real engineering, not a weekend demo',
+                body:
+                  "The parts you don't see are the parts that matter: your logins and data stay locked down, nothing acts on its own, and every piece can be rolled back in one step. Built to run every day, not just to look good in a call.",
+              },
+              {
+                title: 'We run this ourselves',
+                body:
+                  "Our own operations dashboard is a system we use to run FlowGenixAI, every day. We don't ship you anything we wouldn't stake our own week on.",
+              },
+              {
+                title: 'One person who owns it end to end',
+                body:
+                  'You talk to the person who designs, builds, and stands behind the work. No account manager, no handoff, no vanishing act.',
+              },
+            ].map((c, i) => (
+              <Reveal
+                key={c.title}
+                delay={i * 80}
+                className="flex flex-col gap-3 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[26px] shadow-fgx-md"
+              >
+                <h3 className="m-0 font-display text-[1.35rem] font-bold tracking-[-0.02em] text-text-strong">
+                  {c.title}
+                </h3>
+                <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">{c.body}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ===== 3 · SELECTED WORK ===== */}
       <section id="work" className="py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
@@ -217,8 +280,8 @@ export default async function Home() {
                   AI Operations Dashboard
                 </h3>
                 <p className="m-0 max-w-[42ch] text-[1.1875rem] leading-[1.6] text-text-muted">
-                  One screen where every call, lead, and job lives. Real time, no spreadsheets, no
-                  tab juggling.
+                  The command center we run FlowGenixAI on, and deploy, private and branded, for
+                  owners who are done juggling tabs. Every call, lead, and job on one screen.
                 </p>
                 <Link
                   href="/work/ai-operations-dashboard"
@@ -264,6 +327,36 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ===== 3b · PROOF (renders only when TESTIMONIALS has entries) ===== */}
+      {TESTIMONIALS.length > 0 && (
+        <section className="border-t border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]">
+          <div className="mx-auto max-w-container px-[var(--gutter)]">
+            <Reveal className="mb-[clamp(40px,5vw,64px)] flex flex-col gap-[14px]">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+                In their words
+              </span>
+              <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
+                What owners say after the busywork stops.
+              </h2>
+            </Reveal>
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              {TESTIMONIALS.map((t, i) => (
+                <Reveal
+                  key={i}
+                  delay={i * 80}
+                  className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(28px,3vw,40px)] shadow-fgx-md"
+                >
+                  <p className="m-0 font-display text-[clamp(1.2rem,1.8vw,1.5rem)] font-medium leading-[1.5] text-text-strong">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <span className="font-mono text-[13px] text-text-muted">{t.who}</span>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ===== 4 · WHAT WE BUILD ===== */}
       <section className="border-t border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
@@ -273,7 +366,7 @@ export default async function Home() {
               What we build
             </span>
             <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
-              Three systems that quietly carry the load.
+              The systems that quietly carry the load.
             </h2>
           </Reveal>
 
@@ -300,11 +393,11 @@ export default async function Home() {
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="m-0 font-display text-[1.35rem] font-bold tracking-[-0.02em] text-text-strong">
-                  AI voice receptionist
+                  Inbound and outbound voice agents
                 </h3>
                 <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">
-                  Answers every call, day or night. Books jobs, takes messages, never lets one ring
-                  out.
+                  Answers every call, and makes the outbound ones too: reminders, follow-ups, and
+                  rebookings. Books the job while the caller&apos;s still on the line.
                 </p>
               </div>
             </Reveal>
@@ -343,10 +436,11 @@ export default async function Home() {
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="m-0 font-display text-[1.35rem] font-bold tracking-[-0.02em] text-text-strong">
-                  Lead intake &amp; routing
+                  Booking and lead capture
                 </h3>
                 <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">
-                  Every enquiry captured, tagged, and sent to the right place. No lead slips through.
+                  Every enquiry captured, qualified, and booked straight onto your calendar. No lead
+                  goes cold in an inbox.
                 </p>
               </div>
             </Reveal>
@@ -376,10 +470,11 @@ export default async function Home() {
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="m-0 font-display text-[1.35rem] font-bold tracking-[-0.02em] text-text-strong">
-                  Workflow automation &amp; reporting
+                  Automation and customer support
                 </h3>
                 <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">
-                  The busywork runs on rails, and you get a clean report on what happened.
+                  The repetitive work and the routine customer questions run in the background, and
+                  you get one clear report on what got done.
                 </p>
               </div>
             </Reveal>
@@ -441,7 +536,7 @@ export default async function Home() {
             />
             <Reveal className="relative mb-[clamp(28px,4vw,48px)] flex flex-col gap-2">
               <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
-                AI operations cockpit
+                AI operations dashboard
               </span>
               <h2 className="m-0 max-w-[22ch] font-display text-[clamp(1.8rem,3vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
                 The whole operation, on one quiet screen.
@@ -474,6 +569,9 @@ export default async function Home() {
                 </Reveal>
               ))}
             </div>
+            <p className="relative mt-5 font-mono text-[12px] text-text-faint">
+              Illustrative view. What a live dashboard surfaces on a typical day.
+            </p>
           </div>
         </div>
       </section>
@@ -619,8 +717,8 @@ export default async function Home() {
             Let&apos;s build the system your business runs on.
           </h2>
           <p className="m-0 max-w-[46ch] text-[clamp(1.1rem,1.5vw,1.3rem)] leading-[1.6] text-text-body">
-            A 30 minute strategy call, no pitch deck. You&apos;ll leave knowing exactly what&apos;s
-            worth automating first.
+            A 30 minute call, no pitch. You&apos;ll leave with a clear read on where AI can win back
+            your time, across one business or several, whether or not you hire us.
           </p>
           <Link
             href="/contact"

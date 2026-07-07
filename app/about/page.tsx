@@ -35,7 +35,7 @@ const RULES = [
 ];
 
 const RECENT = [
-  { n: '01', title: 'AI Operations Dashboard', sub: 'The cockpit we run FlowGenixAI on, and deploy for clients', slug: 'ai-operations-dashboard' },
+  { n: '01', title: 'AI Operations Dashboard', sub: 'The dashboard we run FlowGenixAI on, and deploy for clients', slug: 'ai-operations-dashboard' },
   { n: '02', title: 'Almanac Leaf', sub: 'Governed-AI family journaling platform, web and mobile', slug: 'almanac-leaf' },
   { n: '03', title: 'EverSage', sub: 'Voice-first AI assistant for iPhone', slug: 'eversage' },
   { n: '04', title: 'Restate', sub: 'Personal AI study companion, built in days', slug: 'restate' },

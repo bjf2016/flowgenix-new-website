@@ -5,7 +5,7 @@ import Reveal from '@/components/Reveal';
 export const metadata: Metadata = {
   title: 'Services - FlowGenixAI',
   description:
-    'Three core systems plus a flagship operations cockpit. We design them to your workflow, implement fast, and tune them as you grow.',
+    'Three core systems plus a flagship operations dashboard. We design them to your workflow, implement fast, and tune them as you grow.',
 };
 
 const FEATURE_DOT = 'flex items-center gap-[9px] text-[15px] text-text-body';
@@ -155,8 +155,13 @@ export default function ServicesPage() {
               The systems that run your business.
             </h1>
             <p className="m-0 max-w-[62ch] text-[clamp(1.1rem,1.5vw,1.3rem)] leading-[1.6] text-text-body">
-              Three core systems, plus a flagship operations cockpit. We design them to your
+              Three core systems, plus a flagship operations dashboard. We design them to your
               workflow, implement fast, and tune them as you grow.
+            </p>
+            <p className="m-0 max-w-[62ch] text-[1.0625rem] leading-[1.6] text-text-muted">
+              Every project is quoted up front, fixed price or hourly, whichever fits the work. You
+              get a firm number on the call before you commit to anything. No surprises, and no
+              retainer you can&apos;t see the value of.
             </p>
           </Reveal>
         </div>
@@ -242,7 +247,7 @@ export default function ServicesPage() {
                   Flagship
                 </span>
                 <h2 className="m-0 max-w-[18ch] font-display text-[clamp(1.9rem,3.2vw,2.7rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
-                  The AI Operations Cockpit
+                  The AI Operations Dashboard
                 </h2>
                 <p className="m-0 max-w-[48ch] text-[1.0625rem] leading-[1.6] text-text-body">
                   A secure, private command center for busy owners and founders. Your whole operation
@@ -269,16 +274,12 @@ export default function ServicesPage() {
                 </div>
               </div>
               <div className="flex flex-col gap-[14px]">
-                <div
-                  className="flex aspect-[4/3] items-center justify-center rounded-[var(--radius-lg)] border border-dashed border-hairline-strong shadow-fgx-md"
-                  style={{
-                    background:
-                      'repeating-linear-gradient(135deg,rgba(255,255,255,0.04) 0 11px,transparent 11px 22px),rgba(16,23,29,0.7)',
-                  }}
-                >
-                  <span className="font-mono text-[13px] text-text-faint">
-                    // Cockpit dashboard 1280×960
-                  </span>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] border border-hairline shadow-fgx-md">
+                  <img
+                    src="/work/ai-operations-dashboard/card.png"
+                    alt="AI Operations Dashboard"
+                    className="absolute inset-0 h-full w-full object-cover object-top"
+                  />
                 </div>
                 <div
                   className="flex items-center gap-[10px] rounded-[12px] border border-hairline px-4 py-[13px]"

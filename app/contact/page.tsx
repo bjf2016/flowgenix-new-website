@@ -24,9 +24,9 @@ const BUSINESS_TYPES = [
 ];
 
 const EXPECT = [
+  'Book instantly, no waiting on a callback.',
   '30 minutes on Zoom or phone, whatever suits you.',
-  'A quick look at your current workflows.',
-  '1 to 3 specific automations you could turn on.',
+  '1 to 3 specific automations you could turn on first.',
   "Honest answers, and if we're not a fit, we'll say so.",
 ];
 
@@ -249,8 +249,8 @@ export default function ContactPage() {
                   Request received.
                 </h2>
                 <p className="m-0 max-w-[38ch] text-[1.0625rem] leading-[1.6] text-text-muted">
-                  Thanks. We&apos;ll be in touch within one business day to lock in a time. Pick a
-                  slot below to move faster.
+                  You&apos;re all set. Pick a time below and it&apos;s booked, instantly, on our
+                  calendar. You&apos;ll get a confirmation right away.
                 </p>
                 <button
                   type="button"

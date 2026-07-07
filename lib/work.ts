@@ -81,8 +81,8 @@ export const WORK: WorkProject[] = [
       built: {
         heading: 'One screen for the whole operating day.',
         intro: [
-          "We built it, and we run our own business on it. The dashboard pulls every inbox and calendar together, no matter how many or which providers, with the news that matters, the priorities, the decisions, and anything quietly slipping, then sorts it all by what genuinely needs the owner first. Custom connectors tie it together past the limits of the platforms' native integrations, so accounts that normally can't live together sit side by side and stay in sync, flawlessly. It's the same build FlowGenixAI runs internally and deploys, private and branded, for the CEOs and owners we work with.",
-          "Here's the part that separates a slick-looking dashboard from one you'd trust with your morning. It's self-hosted on infrastructure the owner controls, with the app services locked to the machine and a reverse proxy handling security, so no secret ever reaches the browser. The AI reads, sorts, and drafts, but nothing acts on its own. New capabilities go in as isolated modules that roll back in a single step, and a demo mode with entirely fake data lets the same screens be shown safely.",
+          "We built it, and we run our own business on it. The dashboard pulls every inbox and calendar together, no matter how many or which providers, with the news that matters, the priorities, the decisions, and anything quietly slipping, then sorts it all by what genuinely needs the owner first. Custom connectors tie it together past the limits of the platforms' native integrations, so accounts that normally can't live together sit side by side and stay in sync. It's the same build FlowGenixAI runs internally and deploys, private and branded, for the CEOs and owners we work with.",
+          "Here's the part that separates a slick-looking dashboard from one you'd trust with your morning. It's self-hosted on infrastructure the owner controls, locked down so no login or key ever reaches the browser. The AI reads, sorts, and drafts, but nothing acts on its own. New features go in cleanly and can be pulled back in one step if anything's off, and a demo mode with entirely fake data lets the same screens be shown safely.",
         ],
         features: [
           {
@@ -159,7 +159,7 @@ export const WORK: WorkProject[] = [
       built: {
         heading: 'An assistant you talk to, that actually does things.',
         intro: [
-          "EverSage is a native iOS assistant you hold a real conversation with. Tap the orb, speak, and it acts: it turns a spoken note into tasks, sets native alarms and reminders, pulls your inboxes into one triaged list and drafts the replies, opens a text prefilled and waits for your tap, lays out today's agenda, and proposes new meeting times. Every single action is a typed tool with a strict contract, so the same thing the voice does today, a background assistant can do for you later without a rewrite.",
+          "EverSage is a native iOS assistant you hold a real conversation with. Tap the orb, speak, and it acts: it turns a spoken note into tasks, sets native alarms and reminders, pulls your inboxes into one triaged list and drafts the replies, opens a text prefilled and waits for your tap, lays out today's agenda, and proposes new meeting times. Every action it takes is a single, well-defined command, so the same thing the voice does today, a background assistant can do for you later without a rebuild.",
           "The difference between a demo and something you'd run your day on is all in the parts you don't see. It's local-first, and every provider key and login token stays server-side and encrypted, so the phone never holds a secret. A spend cap runs on the server before any paid AI call. And the guardrails are enforced in code, not a doc: freeform email is drafts-only, texts wait for your tap, and there are hard lines it will never cross, money, contracts, deletes, messaging strangers, anything bulk or irreversible.",
         ],
         features: [
@@ -393,7 +393,7 @@ export const WORK: WorkProject[] = [
           },
           {
             title: 'Spaced repetition done properly',
-            body: 'A real SM-2 scheduler with four-grade review, ease factors, and lapse tracking, not a remind-me-tomorrow timer dressed up to look smart.',
+            body: "Spaced repetition that actually works. It tracks what you're about to forget and puts it back in front of you at the right moment, not a remind-me-tomorrow timer dressed up to look smart.",
           },
           {
             title: 'Cold-call drills on demand',
@@ -410,15 +410,15 @@ export const WORK: WorkProject[] = [
         heading: 'Built to be trusted, and live in days.',
         metrics: [
           {
-            value: '11',
-            unit: 'tables',
-            label: 'Each isolated per user with database-level security, not just hidden in the UI.',
+            value: 'Private',
+            unit: 'by design',
+            label: "Every user's data walled off at the database itself, not just hidden in the interface.",
             accent: true,
           },
           {
             value: '10',
             unit: 'modules',
-            label: 'A full study system shipped in v1, from the ramp to the dashboard.',
+            label: 'A complete study system in v1, from the 7-week ramp to the daily dashboard.',
           },
           {
             value: '~2',
