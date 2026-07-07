@@ -213,15 +213,86 @@ export const WORK: WorkProject[] = [
   {
     slug: 'almanac-leaf',
     index: '03',
-    category: 'iOS app · Consumer',
+    category: 'Flagship build · Consumer SaaS',
     title: 'Almanac Leaf',
-    titleNote: 'formerly Legacy Loop',
-    summary: 'A warm, calm consumer iOS app for capturing and preserving family stories.',
+    titleNote: 'rebuilt and rebranded from Legacy Loop',
+    summary:
+      'A complete family-legacy journaling platform: parents capture stories, voice notes, and reflections for their children, share them now or lock them to unlock later, and a governed AI reflects it all back in the mentor voice they choose.',
     problem:
-      'Family stories live scattered across photos, voicemails, and memory, and quietly disappear with each generation. The original Legacy Loop had the idea but not the feel.',
+      "The stories a parent most wants to pass on are the ones that slip away, scattered across phones, never written down. Generic journaling apps can't carry that weight, can't hand a message to a child years later, and can't safely let AI help in a domain where a careless tool does real harm.",
     whatWeBuilt:
-      'A warm, calm iOS app for capturing and preserving family stories and memories, rebuilt and rebranded from Legacy Loop into something people genuinely want to come back to.',
-    stack: ['React Native', 'Supabase'],
+      "A full, live SaaS across web and mobile. Parents journal by voice (recorded, transcribed, summarized), text, or photo, share entries through a private child portal or seal them as time capsules that unlock by date or age, and a governed AI reflects back in one of several mentor voices, always inside a trauma-aware safety layer. Underneath: per-user isolation, private media, a plan and admin model, and a security-audited backend.",
+    stack: ['Next.js', 'Supabase', 'OpenAI', 'Expo'],
+    cardImage: '/work/almanac-leaf/card.png',
+    caseStudy: {
+      heroImage: '/work/almanac-leaf/hero.png',
+      galleryImages: [
+        '/work/almanac-leaf/gallery-1.png',
+        '/work/almanac-leaf/gallery-2.png',
+      ],
+      tags: ['Consumer SaaS', 'Governed AI', 'Web + mobile', 'Family legacy'],
+      meta: [
+        { label: 'Role', value: 'Design & build, end to end' },
+        { label: 'Platform', value: 'Web + mobile (PWA + iOS)' },
+        { label: 'Stack', value: 'Next.js, Supabase' },
+        { label: 'Status', value: 'Live in production' },
+      ],
+      challenge: {
+        heading: "A family's memory deserves a real product, not a notes app.",
+        body: "The stories and guidance a parent most wants to pass on are exactly the ones that slip away, scattered across phones, half-remembered, never written down. Generic journaling apps don't carry that weight. They can't hand a message to a child on their eighteenth birthday, they don't safely let AI help a parent reflect, and AI plus children plus grief is a place where a careless tool does real harm. This needed to be a real product: a private, durable home for a family's memory, an AI that helps without ever taking over or saying the wrong thing, and the full backbone of a SaaS underneath it.",
+      },
+      built: {
+        heading: 'A whole product, with an AI layer you can trust.',
+        intro: [
+          "A full, live SaaS across web and mobile. Parents keep several kinds of journals and capture entries by voice (recorded, transcribed, and summarized), or by text and photo, and add a reflection. They share an entry with a specific family member through a private child portal, or seal it as a time capsule that opens on a date or when a child reaches a certain age. A governed AI reflects on entries and suggests gentle rules of life, always in one of several mentor voices the parent picks.",
+          "The AI layer is the part most builders get wrong, so it's the part we engineered hardest. A canonical catalog is the single source of truth for who each mentor is; a separate governed layer holds how each one talks and reasons; and above all of them sits one trauma-aware safety policy that no persona's style can override. The rest is built with the same care: per-user isolation on every table, media kept private and served through short-lived signed links, a server-side finalize step so an entry never ends up as audio with no transcript, and a capability model where plans map to real entitlements, not scattered feature flags.",
+        ],
+        features: [
+          {
+            title: 'A governed AI persona engine',
+            body: "Six distinct mentor voices on an engine that separates who a persona is from how it behaves, with per-persona guardrails, versioning, and a safety layer that never bends. The tone can change. The safety can't.",
+          },
+          {
+            title: 'Voice journaling with AI reflection',
+            body: "Record an entry and it's transcribed, summarized, and reflected back, with a server-owned finalize path so a memory never ends up saved as audio with no words.",
+          },
+          {
+            title: 'Legacy sharing and time capsules',
+            body: 'Share an entry with one family member through a private, read-only child portal, or lock it as a time capsule that opens on a chosen date or age.',
+          },
+          {
+            title: 'A real SaaS backbone',
+            body: 'Multiple journal types, custom journals, a capability-based plan model, and an admin dashboard with versioned releases, AI draft assist, and audited overrides.',
+          },
+          {
+            title: 'Web and mobile, private by design',
+            body: 'A Next.js web app and an Expo mobile app, installable as a PWA, with per-user isolation, private media served by signed links, and a completed security audit.',
+          },
+        ],
+      },
+      gallery: ['// AI mentor personas', '// live product metrics'],
+      outcome: {
+        heading: 'A governed AI product, live on web and mobile.',
+        metrics: [
+          {
+            value: '6',
+            unit: 'AI personas',
+            label: 'Distinct mentor voices on a governed engine, with a trauma-aware safety layer that outranks every one.',
+            accent: true,
+          },
+          {
+            value: 'Web + mobile',
+            label: 'One product across a Next.js web app and an Expo mobile app, installable as a PWA.',
+          },
+          {
+            value: 'Private',
+            label: 'Per-user data isolation, media served by signed links, security-audited.',
+          },
+        ],
+        note: "A complete SaaS product FlowGenixAI designed, built, and shipped, live in production on web and mobile. Adoption and pricing figures are left off until there's real data to stand behind.",
+      },
+      stackTools: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Supabase', 'OpenAI', 'Zod', 'Vercel', 'Expo', 'PWA'],
+    },
   },
   {
     slug: 'n8n-workflow-automation',
