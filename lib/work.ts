@@ -127,14 +127,81 @@ export const WORK: WorkProject[] = [
   {
     slug: 'eversage',
     index: '02',
-    category: 'iOS app · Voice AI',
+    category: 'Flagship build · Voice AI',
     title: 'EverSage',
-    summary: 'A voice-first personal assistant for iPhone that runs your day by voice.',
+    titleNote: 'a voice-first iOS assistant we built for ourselves',
+    summary:
+      'A voice-first assistant for iPhone that you talk to like a chief of staff, it captures tasks, sets native alarms and reminders, triages and drafts your email, sends confirm-first texts, reads your day, and moves your meetings, all by voice.',
     problem:
-      'Managing a calendar, inbox, and task list by hand eats the hours that should go to real work, and tapping through apps to do it is slower than just saying what you need.',
+      "Running your day by hand, tapping through a calendar, three inboxes, a task list, and your messages, eats the exact hours that should go to real work. And the voice assistants that come on your phone are shallow: they'll set a timer, but they can't triage your inbox, draft a reply that sounds like you, or move a meeting and tell the other person.",
     whatWeBuilt:
-      'A voice-first iPhone assistant you talk to like a chief of staff. It reads your day, drafts replies, and books the admin, hands-free, with real-time voice and persistent memory of context.',
-    stack: ['React Native', 'WebRTC', 'Supabase', 'OpenAI'],
+      "A native iOS assistant you hold a real conversation with. Tap the orb, speak, and it acts: it turns a spoken note into tasks, sets true native alarms and reminders, pulls your inboxes into one triaged list and drafts the replies, opens a text prefilled and waits for your tap, reads your day, and proposes new meeting times. Every action is a typed tool, so what the voice does today a background assistant can do later. Multi-user from day one, and built so your logins and data never sit on the phone.",
+    stack: ['React Native', 'Supabase', 'OpenAI Realtime', 'Claude'],
+    caseStudy: {
+      tags: ['Voice-first', 'iOS', 'Realtime voice', 'Multi-user'],
+      meta: [
+        { label: 'Role', value: 'Design & build, end to end' },
+        { label: 'Platform', value: 'Native iOS (Expo)' },
+        { label: 'Stack', value: 'React Native, Supabase' },
+        { label: 'Voice', value: 'Realtime, on-device' },
+      ],
+      challenge: {
+        heading: "Phone assistants set timers. They don't run your day.",
+        body: "Running your day by hand, tapping through a calendar, three inboxes, a task list, and your messages, eats the exact hours that should go to real work. And the voice assistants that come on your phone are shallow: they'll set a timer, but they can't triage your inbox, draft a reply that sounds like you, or move a meeting and tell the other person. What's missing is an assistant you actually talk to, that takes real actions across the apps that run your life, and never sends anything in your name without you seeing it first.",
+      },
+      built: {
+        heading: 'An assistant you talk to, that actually does things.',
+        intro: [
+          "So we built one, and we use it. EverSage is a native iOS assistant you hold a real conversation with. Tap the orb, speak, and it acts: it turns a spoken note into tasks, sets native alarms and reminders, pulls your inboxes into one triaged list and drafts the replies, opens a text prefilled and waits for your tap, lays out today's agenda, and proposes new meeting times. Every single action is a typed tool with a strict contract, so the same thing the voice does today, a background assistant can do for you later without a rewrite.",
+          "The difference between a demo and something you'd run your day on is all in the parts you don't see. It's local-first, and every provider key and login token stays server-side and encrypted, so the phone never holds a secret. A spend cap runs on the server before any paid AI call. And the guardrails are enforced in code, not a doc: freeform email is drafts-only, texts wait for your tap, and there are hard lines it will never cross, money, contracts, deletes, messaging strangers, anything bulk or irreversible.",
+        ],
+        features: [
+          {
+            title: 'A real conversation, on your phone',
+            body: 'A live voice loop: speak, watch the transcript, see each action confirm, running on an actual iPhone, multilingual, not a scripted list of commands.',
+          },
+          {
+            title: 'Voice to tasks, alarms, and reminders',
+            body: 'Speak a note and it becomes tasks plus true native alarms and reminders, the OS-level kind that actually go off.',
+          },
+          {
+            title: 'Inbox triage and drafting',
+            body: 'Your inboxes pulled into one sorted list, with replies drafted for you. Freeform email is drafts-only, so nothing sends itself.',
+          },
+          {
+            title: 'Confirm-first texting',
+            body: 'Say who and what, and it opens Messages prefilled and waits for you to hit send. It never texts a stranger or fires on its own.',
+          },
+          {
+            title: 'Reads your day, moves your meetings',
+            body: "A one-payload morning brief (agenda, inbox, what's slipping) plus calendar agenda and propose-slots, with reschedule wired behind the same typed-tool seam.",
+          },
+        ],
+      },
+      gallery: ['// voice conversation', '// unified inbox', '// daily brief'],
+      outcome: {
+        heading: 'Real actions, and you control every send.',
+        metrics: [
+          {
+            value: '$0.06',
+            unit: '/session',
+            label: 'What a full voice session costs on the cheap realtime tier, with a hard spend cap server-side.',
+            accent: true,
+          },
+          {
+            value: '0',
+            unit: 'on device',
+            label: 'Provider keys and login tokens live only in server functions, never on the phone.',
+          },
+          {
+            value: 'Confirm-first',
+            label: 'Freeform email is drafts-only and texts wait for your tap. Enforced in code, not policy.',
+          },
+        ],
+        note: "EverSage is a system FlowGenixAI built for its own use first, multi-user from day one and extensible to clients. It runs on a real iPhone today. Adoption and App Store status are left off until there's something real to point to.",
+      },
+      stackTools: ['Expo', 'React Native', 'TypeScript', 'Supabase', 'OpenAI Realtime', 'WebRTC', 'Anthropic Claude', 'AlarmKit + EventKit', 'openWakeWord'],
+    },
   },
   {
     slug: 'almanac-leaf',
