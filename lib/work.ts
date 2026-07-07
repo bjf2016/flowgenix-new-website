@@ -229,6 +229,10 @@ export const WORK: WorkProject[] = [
       galleryImages: [
         '/work/almanac-leaf/gallery-1.png',
         '/work/almanac-leaf/gallery-2.png',
+        '/work/almanac-leaf/gallery-3.png',
+        '/work/almanac-leaf/gallery-4.png',
+        '/work/almanac-leaf/gallery-5.png',
+        '/work/almanac-leaf/gallery-6.png',
       ],
       tags: ['Consumer SaaS', 'Governed AI', 'Web + mobile', 'Family legacy'],
       meta: [
@@ -270,7 +274,14 @@ export const WORK: WorkProject[] = [
           },
         ],
       },
-      gallery: ['// AI mentor personas', '// live product metrics'],
+      gallery: [
+        '// AI mentor personas',
+        '// time capsule',
+        '// AI reflection',
+        '// journals hub',
+        '// rules of life',
+        '// admin metrics',
+      ],
       outcome: {
         heading: 'A governed AI product, live on web and mobile.',
         metrics: [
