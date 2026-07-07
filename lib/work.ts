@@ -129,7 +129,7 @@ export const WORK: WorkProject[] = [
     index: '02',
     category: 'Flagship build · Voice AI',
     title: 'EverSage',
-    titleNote: 'a voice-first iOS assistant we built for ourselves',
+    titleNote: 'a voice-first iOS assistant for busy owners',
     summary:
       'A voice-first assistant for iPhone that you talk to like a chief of staff, it captures tasks, sets native alarms and reminders, triages and drafts your email, sends confirm-first texts, reads your day, and moves your meetings, all by voice.',
     problem:
@@ -137,7 +137,14 @@ export const WORK: WorkProject[] = [
     whatWeBuilt:
       "A native iOS assistant you hold a real conversation with. Tap the orb, speak, and it acts: it turns a spoken note into tasks, sets true native alarms and reminders, pulls your inboxes into one triaged list and drafts the replies, opens a text prefilled and waits for your tap, reads your day, and proposes new meeting times. Every action is a typed tool, so what the voice does today a background assistant can do later. Multi-user from day one, and built so your logins and data never sit on the phone.",
     stack: ['React Native', 'Supabase', 'OpenAI Realtime', 'Claude'],
+    cardImage: '/work/eversage/card.png',
     caseStudy: {
+      heroImage: '/work/eversage/hero.png',
+      galleryImages: [
+        '/work/eversage/gallery-1.png',
+        '/work/eversage/gallery-2.png',
+        '/work/eversage/gallery-3.png',
+      ],
       tags: ['Voice-first', 'iOS', 'Realtime voice', 'Multi-user'],
       meta: [
         { label: 'Role', value: 'Design & build, end to end' },
@@ -152,7 +159,7 @@ export const WORK: WorkProject[] = [
       built: {
         heading: 'An assistant you talk to, that actually does things.',
         intro: [
-          "So we built one, and we use it. EverSage is a native iOS assistant you hold a real conversation with. Tap the orb, speak, and it acts: it turns a spoken note into tasks, sets native alarms and reminders, pulls your inboxes into one triaged list and drafts the replies, opens a text prefilled and waits for your tap, lays out today's agenda, and proposes new meeting times. Every single action is a typed tool with a strict contract, so the same thing the voice does today, a background assistant can do for you later without a rewrite.",
+          "EverSage is a native iOS assistant you hold a real conversation with. Tap the orb, speak, and it acts: it turns a spoken note into tasks, sets native alarms and reminders, pulls your inboxes into one triaged list and drafts the replies, opens a text prefilled and waits for your tap, lays out today's agenda, and proposes new meeting times. Every single action is a typed tool with a strict contract, so the same thing the voice does today, a background assistant can do for you later without a rewrite.",
           "The difference between a demo and something you'd run your day on is all in the parts you don't see. It's local-first, and every provider key and login token stays server-side and encrypted, so the phone never holds a secret. A spend cap runs on the server before any paid AI call. And the guardrails are enforced in code, not a doc: freeform email is drafts-only, texts wait for your tap, and there are hard lines it will never cross, money, contracts, deletes, messaging strangers, anything bulk or irreversible.",
         ],
         features: [
@@ -178,7 +185,7 @@ export const WORK: WorkProject[] = [
           },
         ],
       },
-      gallery: ['// voice conversation', '// unified inbox', '// daily brief'],
+      gallery: ['// unified inbox', '// calendar', '// spend cap'],
       outcome: {
         heading: 'Real actions, and you control every send.',
         metrics: [
@@ -198,7 +205,7 @@ export const WORK: WorkProject[] = [
             label: 'Freeform email is drafts-only and texts wait for your tap. Enforced in code, not policy.',
           },
         ],
-        note: "EverSage is a system FlowGenixAI built for its own use first, multi-user from day one and extensible to clients. It runs on a real iPhone today. Adoption and App Store status are left off until there's something real to point to.",
+        note: "A voice-first iOS assistant built for owners and operators, multi-user and private by design. Adoption and App Store status are left off until there's something real to point to.",
       },
       stackTools: ['Expo', 'React Native', 'TypeScript', 'Supabase', 'OpenAI Realtime', 'WebRTC', 'Anthropic Claude', 'AlarmKit + EventKit', 'openWakeWord'],
     },
