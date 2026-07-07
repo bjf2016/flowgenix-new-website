@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { WORK } from '@/lib/work';
+import { orderedWork } from '@/lib/work';
 import Reveal from '@/components/Reveal';
 
 export const metadata: Metadata = {
@@ -63,14 +63,14 @@ export default function WorkPage() {
 
       {/* case blocks */}
       <section className="mx-auto max-w-container px-[var(--gutter)]">
-        {WORK.map((p, idx) => {
+        {orderedWork().map((p, idx, arr) => {
           const imageFirst = idx % 2 === 0;
           return (
             <Reveal
               key={p.slug}
               delay={(idx % 2) * 80}
               className={`grid items-center gap-[clamp(32px,5vw,80px)] border-t border-hairline py-[clamp(56px,7vw,104px)] md:grid-cols-2 ${
-                idx === WORK.length - 1 ? 'border-b' : ''
+                idx === arr.length - 1 ? 'border-b' : ''
               }`}
             >
               <div className={imageFirst ? 'md:order-1' : 'md:order-2'}>
@@ -121,12 +121,14 @@ export default function WorkPage() {
                     ))}
                   </div>
                 </div>
-                <Link
-                  href={`/work/${p.slug}`}
-                  className="mt-1 self-start text-[16px] font-semibold text-brand transition-colors hover:text-brand-hover"
-                >
-                  View case study &rarr;
-                </Link>
+                {p.caseStudy && (
+                  <Link
+                    href={`/work/${p.slug}`}
+                    className="mt-1 self-start text-[16px] font-semibold text-brand transition-colors hover:text-brand-hover"
+                  >
+                    View case study &rarr;
+                  </Link>
+                )}
               </div>
             </Reveal>
           );

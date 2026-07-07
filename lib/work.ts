@@ -126,7 +126,7 @@ export const WORK: WorkProject[] = [
   },
   {
     slug: 'eversage',
-    index: '02',
+    index: '03',
     category: 'Flagship build · Voice AI',
     title: 'EverSage',
     titleNote: 'a voice-first iOS assistant for busy owners',
@@ -212,7 +212,7 @@ export const WORK: WorkProject[] = [
   },
   {
     slug: 'almanac-leaf',
-    index: '03',
+    index: '02',
     category: 'Flagship build · Consumer SaaS',
     title: 'Almanac Leaf',
     titleNote: 'rebuilt and rebranded from Legacy Loop',
@@ -307,15 +307,16 @@ export const WORK: WorkProject[] = [
   },
   {
     slug: 'n8n-workflow-automation',
-    index: '04',
+    index: '07',
     category: 'Automation',
-    title: 'n8n Workflow Automation',
+    title: 'Workflow Automation',
     summary: 'Custom multi-step workflows that move work automatically between your tools.',
     problem:
       "Teams lose hours every week to manual handoffs, copying data between CRMs, sheets, and inboxes, and the work that falls through the cracks is invisible until it's too late.",
     whatWeBuilt:
       'Custom multi-step workflows that connect CRMs, sheets, voice agents, and AI to move work automatically between tools, with clean reporting on every run, so nothing is invisible.',
     stack: ['n8n', 'APIs', 'Supabase'],
+    cardImage: '/work/n8n-workflow-automation/card.png',
   },
   {
     slug: 'ai-voice-agents',
@@ -328,6 +329,7 @@ export const WORK: WorkProject[] = [
     whatWeBuilt:
       'Retell-powered receptionists and intake agents that answer, qualify, and book across phone and web, day or night, never a ring-out, handing every booking straight to the calendar.',
     stack: ['Retell', 'n8n'],
+    cardImage: '/work/ai-voice-agents/card.png',
   },
   {
     slug: 'web-app-development',
@@ -340,10 +342,11 @@ export const WORK: WorkProject[] = [
     whatWeBuilt:
       'Full Next.js websites and web apps, designed and shipped end to end on a Vercel and Supabase stack, fast, clean, and built to convert.',
     stack: ['Next.js', 'Vercel', 'Supabase'],
+    cardImage: '/work/web-app-development/card.png',
   },
   {
     slug: 'restate',
-    index: '07',
+    index: '04',
     category: 'Personal build · AI study platform',
     title: 'Restate',
     titleNote: 'built for a returning student',
@@ -434,7 +437,20 @@ export function getProject(slug: string): WorkProject | undefined {
   return WORK.find((p) => p.slug === slug);
 }
 
+/** Projects that have a full case study, in display order. */
+export function caseStudies(): WorkProject[] {
+  return [...WORK].filter((p) => p.caseStudy).sort((a, b) => a.index.localeCompare(b.index));
+}
+
+/** All projects in display order (by index). */
+export function orderedWork(): WorkProject[] {
+  return [...WORK].sort((a, b) => a.index.localeCompare(b.index));
+}
+
 export function getNextProject(slug: string): WorkProject {
-  const i = WORK.findIndex((p) => p.slug === slug);
-  return WORK[(i + 1) % WORK.length];
+  // "Next" cycles only through projects that have a case study (the ones with detail pages).
+  const list = caseStudies();
+  const i = list.findIndex((p) => p.slug === slug);
+  if (i === -1) return list[0];
+  return list[(i + 1) % list.length];
 }

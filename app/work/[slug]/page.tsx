@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { WORK, getProject, getNextProject } from '@/lib/work';
+import { caseStudies, getProject, getNextProject } from '@/lib/work';
 import ScrollingShot from '@/components/ScrollingShot';
 
 interface Params {
@@ -9,7 +9,7 @@ interface Params {
 }
 
 export function generateStaticParams() {
-  return WORK.map((p) => ({ slug: p.slug }));
+  return caseStudies().map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }: Params): Metadata {
@@ -29,7 +29,7 @@ const sectionLabel =
 
 export default function CaseStudyPage({ params }: Params) {
   const project = getProject(params.slug);
-  if (!project) notFound();
+  if (!project || !project.caseStudy) notFound();
 
   const cs = project.caseStudy;
   const next = getNextProject(project.slug);

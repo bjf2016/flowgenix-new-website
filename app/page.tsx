@@ -19,28 +19,32 @@ const BUILT_WITH = [
 
 const WORK_GRID = [
   {
-    tag: 'AI assistant app',
-    title: 'EverSage',
-    blurb: 'A personal AI assistant that remembers context and acts on it.',
-    caption: '// EverSage app',
-  },
-  {
-    tag: 'Brand & site',
+    tag: 'Consumer SaaS',
     title: 'Almanac Leaf',
-    blurb: 'Identity and a fast marketing site, built to convert.',
-    caption: '// Almanac Leaf site',
+    blurb: 'A governed-AI family journaling platform, on web and mobile.',
+    img: '/work/almanac-leaf/card.png',
+    href: '/work/almanac-leaf',
   },
   {
-    tag: 'Automation',
-    title: 'n8n workflows',
-    blurb: 'Connected pipelines that move work between your tools.',
-    caption: '// n8n workflow map',
+    tag: 'Voice AI · iOS',
+    title: 'EverSage',
+    blurb: 'A voice-first iPhone assistant that runs the day, and you control every send.',
+    img: '/work/eversage/card.png',
+    href: '/work/eversage',
   },
   {
-    tag: 'Voice',
-    title: 'AI voice agents & sites',
-    blurb: 'Agents that answer, qualify, and book. Plus the site behind them.',
-    caption: '// voice agent + site',
+    tag: 'AI study platform',
+    title: 'Restate',
+    blurb: 'A personal AI study companion, spec to live in about two days.',
+    img: '/work/restate/hero.png',
+    href: '/work/restate',
+  },
+  {
+    tag: 'Voice AI',
+    title: 'AI Voice Agents',
+    blurb: 'Receptionists and intake agents that answer, qualify, and book around the clock.',
+    img: '/work/ai-voice-agents/card.png',
+    href: '/work',
   },
 ];
 
@@ -196,13 +200,14 @@ export default async function Home() {
           <Reveal className="group block overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong hover:shadow-fgx-lg">
             <div className="grid md:grid-cols-[1.15fr_1fr]">
               <div
-                className="relative flex min-h-[340px] items-center justify-center border-b border-hairline md:border-b-0 md:border-r"
+                className="relative min-h-[340px] overflow-hidden border-b border-hairline md:border-b-0 md:border-r"
                 style={{ background: STRIPED }}
               >
-                <div className="absolute inset-0 bg-glow-soft" />
-                <span className="relative font-mono text-[13px] text-text-faint">
-                  // AI Operations Dashboard screenshot
-                </span>
+                <img
+                  src="/work/ai-operations-dashboard/card.png"
+                  alt="AI Operations Dashboard"
+                  className="absolute inset-0 h-full w-full object-cover object-top"
+                />
               </div>
               <div className="flex flex-col justify-center gap-[18px] p-[clamp(28px,3.5vw,48px)]">
                 <span className="self-start rounded-full border border-[var(--brand-40)] bg-[var(--brand-12)] px-3 py-[5px] text-[12px] font-semibold tracking-[0.04em] text-brand">
@@ -216,10 +221,10 @@ export default async function Home() {
                   tab juggling.
                 </p>
                 <Link
-                  href="/work"
+                  href="/work/ai-operations-dashboard"
                   className="mt-1.5 self-start text-[16px] font-semibold text-brand transition-colors hover:text-brand-hover"
                 >
-                  View project &rarr;
+                  View case study &rarr;
                 </Link>
               </div>
             </div>
@@ -228,26 +233,31 @@ export default async function Home() {
           {/* grid of four */}
           <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {WORK_GRID.map((item, i) => (
-              <Reveal
-                key={item.title}
-                delay={i * 80}
-                className="overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
-              >
-                <div
-                  className="flex aspect-[4/3] items-center justify-center border-b border-hairline"
-                  style={{ background: STRIPED }}
+              <Reveal key={item.title} delay={i * 80} className="h-full">
+                <Link
+                  href={item.href}
+                  className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
                 >
-                  <span className="font-mono text-[12px] text-text-faint">{item.caption}</span>
-                </div>
-                <div className="flex flex-col gap-3 p-[26px]">
-                  <span className="self-start rounded-full border border-hairline-strong px-[11px] py-1 text-[11px] font-semibold tracking-[0.04em] text-silver">
-                    {item.tag}
-                  </span>
-                  <h3 className="m-0 font-display text-[1.4rem] font-bold tracking-[-0.02em] text-text-strong">
-                    {item.title}
-                  </h3>
-                  <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">{item.blurb}</p>
-                </div>
+                  <div
+                    className="relative aspect-[4/3] overflow-hidden border-b border-hairline"
+                    style={{ background: STRIPED }}
+                  >
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      className="absolute inset-0 h-full w-full object-cover object-top"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-3 p-[26px]">
+                    <span className="self-start rounded-full border border-hairline-strong px-[11px] py-1 text-[11px] font-semibold tracking-[0.04em] text-silver">
+                      {item.tag}
+                    </span>
+                    <h3 className="m-0 font-display text-[1.4rem] font-bold tracking-[-0.02em] text-text-strong">
+                      {item.title}
+                    </h3>
+                    <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">{item.blurb}</p>
+                  </div>
+                </Link>
               </Reveal>
             ))}
           </div>
