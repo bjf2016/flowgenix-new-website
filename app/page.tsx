@@ -196,56 +196,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ===== 2b · WHY US ===== */}
-      <section className="py-[clamp(72px,10vw,150px)]">
-        <div className="mx-auto max-w-container px-[var(--gutter)]">
-          <Reveal className="mb-[clamp(40px,5vw,64px)] flex max-w-[820px] flex-col gap-[14px]">
-            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
-              Why us
-            </span>
-            <h2 className="m-0 font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
-              You&apos;re hiring an operator, not an agency.
-            </h2>
-            <p className="m-0 mt-1.5 text-[1.1875rem] leading-[1.65] text-text-body">
-              Most AI help falls into two buckets: agencies that hand you a slide deck, or freelancers
-              who ship a slick demo that breaks the first real week and then go quiet. We&apos;re
-              neither. Twenty years running real operations at companies that live and die on process,
-              now building AI systems the same way, to actually hold up.
-            </p>
-          </Reveal>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {[
-              {
-                title: 'Real engineering, not a weekend demo',
-                body:
-                  "The parts you don't see are the parts that matter: your logins and data stay locked down, nothing acts on its own, and every piece can be rolled back in one step. Built to run every day, not just to look good in a call.",
-              },
-              {
-                title: 'We run this ourselves',
-                body:
-                  "Our own operations dashboard is a system we use to run FlowGenixAI, every day. We don't ship you anything we wouldn't stake our own week on.",
-              },
-              {
-                title: 'One person who owns it end to end',
-                body:
-                  'You talk to the person who designs, builds, and stands behind the work. No account manager, no handoff, no vanishing act.',
-              },
-            ].map((c, i) => (
-              <Reveal
-                key={c.title}
-                delay={i * 80}
-                className="flex flex-col gap-3 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[26px] shadow-fgx-md"
-              >
-                <h3 className="m-0 font-display text-[1.35rem] font-bold tracking-[-0.02em] text-text-strong">
-                  {c.title}
-                </h3>
-                <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">{c.body}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ===== 3 · SELECTED WORK ===== */}
       <section id="work" className="py-[clamp(72px,10vw,150px)]">
         <div className="mx-auto max-w-container px-[var(--gutter)]">
@@ -600,12 +550,12 @@ export default async function Home() {
               About
             </span>
             <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.85rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
-              Twenty years turning messy operations into systems that work.
+              Over three decades building the systems companies run on.
             </h2>
             <p className="m-0 max-w-[50ch] text-[1.1875rem] leading-[1.65] text-text-body">
-              We&apos;ve sat in the operator&apos;s seat at companies that live and die on process.
-              Now we build that same discipline into AI systems for businesses that can&apos;t afford
-              to drop the ball.
+              We&apos;ve spent a career inside companies where process is everything, building the
+              systems they depend on. Now we bring that same discipline to AI for businesses that
+              can&apos;t afford to drop the ball.
             </p>
             <div className="mt-2 flex flex-col gap-[14px]">
               <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-text-faint">

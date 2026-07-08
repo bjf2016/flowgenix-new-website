@@ -14,6 +14,9 @@ const LEAD_WEBHOOK_URL =
 
 const CAL_LINK = 'https://cal.com/b.foroodian/30-min-ai-strategy-call';
 
+// Tenant key passed to the AI callback workflow (the Retell trigger lives in n8n).
+const TENANT = 'flowgenixai';
+
 const BUSINESS_TYPES = [
   'Home & field services',
   'Professional services',
@@ -24,7 +27,7 @@ const BUSINESS_TYPES = [
 ];
 
 const EXPECT = [
-  'Book instantly, no waiting on a callback.',
+  'Call me now, or pick a time. Your choice.',
   '30 minutes on Zoom or phone, whatever suits you.',
   '1 to 3 specific automations you could turn on first.',
   "Honest answers, and if we're not a fit, we'll say so.",
@@ -33,20 +36,24 @@ const EXPECT = [
 type FormState = {
   fullName: string;
   email: string;
+  phone: string;
   businessName: string;
   website: string;
   businessType: string;
   needs: string;
+  contactPreference: string; // 'call_now' | 'book_time'
   company_code: string; // honeypot
 };
 
 const initialState: FormState = {
   fullName: '',
   email: '',
+  phone: '',
   businessName: '',
   website: '',
   businessType: BUSINESS_TYPES[0],
   needs: '',
+  contactPreference: 'call_now',
   company_code: '',
 };
 
@@ -61,7 +68,12 @@ export default function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [submitError, setSubmitError] = useState('');
-  const [booked, setBooked] = useState<{ name: string; email: string } | null>(null);
+  const [booked, setBooked] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    callingNow: boolean;
+  } | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
 
   const isSubmitting = status === 'submitting';
@@ -86,6 +98,11 @@ export default function ContactPage() {
     else if (!emailRegex.test(formData.email.trim())) next.email = 'Enter a valid email address.';
     if (!formData.businessName.trim()) next.businessName = 'Business name is required.';
     if (!formData.needs.trim()) next.needs = 'Please tell us what you need help with.';
+    if (formData.contactPreference === 'call_now') {
+      if (!formData.phone.trim()) next.phone = 'Phone is required for an instant call.';
+      else if (formData.phone.replace(/\D/g, '').length < 10)
+        next.phone = 'Enter a valid phone number.';
+    }
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -102,17 +119,21 @@ export default function ContactPage() {
     setSubmitError('');
     setStatus('submitting');
 
+    const callingNow = formData.contactPreference === 'call_now';
     const payload = {
       fullName: formData.fullName,
       email: formData.email,
+      phone: formData.phone,
       businessName: formData.businessName,
       website: formData.website,
       businessType: formData.businessType,
       aiHelp: formData.needs,
+      contactPreference: formData.contactPreference,
       source: 'contact_form',
     };
 
     try {
+      // 1) Always log the lead to the existing intake webhook.
       const res = await fetch(LEAD_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -120,7 +141,29 @@ export default function ContactPage() {
       });
       if (!res.ok) throw new Error('Non-2xx response');
 
-      setBooked({ name: formData.fullName, email: formData.email });
+      // 2) If they chose an instant call, trigger the AI callback. Best-effort,
+      // it never blocks the calendar fallback below.
+      if (callingNow) {
+        fetch('/api/callback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tenant: TENANT,
+            phone: formData.phone,
+            name: formData.fullName,
+            bestTime: 'now',
+            context: { source: 'contact_form', page: '/contact' },
+            intent: 'callback',
+          }),
+        }).catch(() => {});
+      }
+
+      setBooked({
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        callingNow,
+      });
       setStatus('success');
       setTimeout(() => {
         calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -246,11 +289,12 @@ export default function ContactPage() {
                   <Check size={26} className="text-brand" strokeWidth={3} />
                 </span>
                 <h2 className="m-0 font-display text-[clamp(1.5rem,2.4vw,2rem)] font-bold tracking-[-0.02em] text-text-strong">
-                  Request received.
+                  {booked?.callingNow ? "We're calling you now." : 'Request received.'}
                 </h2>
-                <p className="m-0 max-w-[38ch] text-[1.0625rem] leading-[1.6] text-text-muted">
-                  You&apos;re all set. Pick a time below and it&apos;s booked, instantly, on our
-                  calendar. You&apos;ll get a confirmation right away.
+                <p className="m-0 max-w-[42ch] text-[1.0625rem] leading-[1.6] text-text-muted">
+                  {booked?.callingNow
+                    ? `Our AI assistant is calling you at ${booked.phone} in about a minute to answer your questions and get you booked. Prefer to schedule instead? Pick a time below.`
+                    : "You're all set. Pick a time below and it's booked, instantly, on our calendar. You'll get a confirmation right away."}
                 </p>
                 <button
                   type="button"
@@ -346,6 +390,29 @@ export default function ContactPage() {
                 </div>
 
                 <label className="flex flex-col gap-[7px]">
+                  <span className={labelText}>
+                    Phone{' '}
+                    {formData.contactPreference === 'call_now' ? (
+                      <span className="text-brand">*</span>
+                    ) : (
+                      <span className="font-normal text-text-faint">optional</span>
+                    )}
+                  </span>
+                  <input
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder="(555) 123-4567"
+                    className={fieldClass}
+                    value={formData.phone}
+                    onChange={(e) => setField('phone')(e.target.value)}
+                    aria-invalid={Boolean(errors.phone)}
+                  />
+                  {errors.phone && (
+                    <span className="text-[12px] text-[var(--danger)]">{errors.phone}</span>
+                  )}
+                </label>
+
+                <label className="flex flex-col gap-[7px]">
                   <span className={labelText}>Business type</span>
                   <div className="relative flex items-center">
                     <select
@@ -383,6 +450,59 @@ export default function ContactPage() {
                   )}
                 </label>
 
+                <div className="flex flex-col gap-[10px]">
+                  <span className={labelText}>How would you like to connect?</span>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {(
+                      [
+                        {
+                          key: 'call_now',
+                          title: 'Call me now',
+                          sub: 'Our AI assistant calls you in about a minute to answer questions and book you in.',
+                        },
+                        {
+                          key: 'book_time',
+                          title: 'Pick a time',
+                          sub: 'Choose a slot from the calendar and we will meet then.',
+                        },
+                      ] as const
+                    ).map((opt) => {
+                      const active = formData.contactPreference === opt.key;
+                      return (
+                        <button
+                          type="button"
+                          key={opt.key}
+                          onClick={() => setField('contactPreference')(opt.key)}
+                          aria-pressed={active}
+                          className={`flex flex-col gap-1 rounded-[12px] border p-[15px] text-left transition-colors ${
+                            active
+                              ? 'border-[var(--brand-40)] bg-[var(--brand-12)]'
+                              : 'border-hairline-strong bg-bg-deep hover:border-hairline'
+                          }`}
+                        >
+                          <span className="flex items-center gap-2 text-[15px] font-semibold text-text-strong">
+                            <span
+                              className={`flex h-[16px] w-[16px] flex-none items-center justify-center rounded-full border ${
+                                active ? 'border-brand bg-brand' : 'border-hairline-strong'
+                              }`}
+                            >
+                              {active && <Check size={10} className="text-[#06141D]" strokeWidth={3} />}
+                            </span>
+                            {opt.title}
+                          </span>
+                          <span className="text-[13px] leading-[1.45] text-text-muted">{opt.sub}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {formData.contactPreference === 'call_now' && (
+                    <span className="text-[12px] leading-[1.45] text-text-faint">
+                      By choosing this, you agree to receive an automated call from our AI assistant at
+                      the number above.
+                    </span>
+                  )}
+                </div>
+
                 <div className="flex items-center gap-[9px]">
                   <span className="h-1.5 w-1.5 flex-none rounded-full bg-text-faint" />
                   <span className="text-[13px] text-text-muted">
@@ -397,7 +517,11 @@ export default function ContactPage() {
                   disabled={isSubmitting}
                   className="mt-1 inline-flex items-center justify-center rounded-[13px] border border-transparent bg-brand px-[30px] py-4 text-[17px] font-semibold tracking-[-0.01em] text-[#06141D] transition-all duration-150 hover:bg-brand-hover hover:shadow-fgx-brand active:translate-y-px disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  {isSubmitting ? 'Sending...' : 'Request my call'}
+                  {isSubmitting
+                    ? 'Sending...'
+                    : formData.contactPreference === 'call_now'
+                      ? 'Call me now'
+                      : 'Get my times'}
                 </button>
               </form>
             )}
@@ -417,7 +541,7 @@ export default function ContactPage() {
               Choose a time
             </span>
             <h2 className="m-0 font-display text-[clamp(1.7rem,3vw,2.4rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong">
-              Then pick a time.
+              Or pick a time.
             </h2>
           </Reveal>
 

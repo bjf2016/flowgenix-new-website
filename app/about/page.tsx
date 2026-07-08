@@ -6,7 +6,7 @@ import Reveal from '@/components/Reveal';
 export const metadata: Metadata = {
   title: 'About - FlowGenixAI',
   description:
-    'FlowGenixAI is led by Ben Foroodian, twenty years of turning messy operations into systems that actually work.',
+    'FlowGenixAI is led by Ben Foroodian. Over three decades building the systems companies run on.',
 };
 
 const EXPERIENCE = ['Align Technology', 'Henry Schein', 'Straumann', 'Carl Zeiss'];
@@ -59,11 +59,11 @@ export default function AboutPage() {
               About
             </span>
             <h1 className="m-0 font-display text-[clamp(2.8rem,6vw,5rem)] font-extrabold leading-[1.02] tracking-[-0.035em] text-text-strong [text-wrap:balance]">
-              Built by an operator, not an agency.
+              Built by a builder, not an agency.
             </h1>
             <p className="m-0 max-w-[62ch] text-[clamp(1.1rem,1.5vw,1.3rem)] leading-[1.6] text-text-body">
-              FlowGenixAI is led by Ben Foroodian, twenty years of turning messy operations into
-              systems that actually work.
+              FlowGenixAI is led by Ben Foroodian. Over three decades building the systems companies
+              run on, now brought to your business.
             </p>
           </Reveal>
         </div>
