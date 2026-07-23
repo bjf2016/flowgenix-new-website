@@ -1,15 +1,16 @@
 'use client';
 
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Check, ChevronDown } from 'lucide-react';
+import Cal, { getCalApi } from '@calcom/embed-react';
 import Reveal from '@/components/Reveal';
 
 // The unified intake workflow: logs the lead, spam-gates, and (for "call me now")
 // triggers the Retell outbound call itself.
 const LEAD_WEBHOOK_URL = 'https://n8n.flowgenixai.com/webhook/fgx-intake';
 
-const CAL_LINK = 'https://cal.com/b.foroodian/30min';
+const CAL_LINK_PATH = 'b.foroodian/30min';
 
 const BUSINESS_TYPES = [
   'Home & field services',
@@ -69,6 +70,24 @@ export default function ContactPage() {
     callingNow: boolean;
   } | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [calBooked, setCalBooked] = useState(false);
+
+  // Listen for a successful Cal.com booking and swap to our own confirmation.
+  useEffect(() => {
+    (async () => {
+      const cal = await getCalApi();
+      cal('on', {
+        action: 'bookingSuccessful',
+        callback: () => {
+          setCalBooked(true);
+          setTimeout(() => {
+            calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        },
+      });
+    })();
+  }, []);
 
   const isSubmitting = status === 'submitting';
   const isSuccess = status === 'success';
@@ -142,10 +161,16 @@ export default function ContactPage() {
         phone: formData.phone,
         callingNow,
       });
+      // Self-serve path shows the calendar right away; callback path hides it
+      // behind a "prefer to pick a time yourself?" link so it doesn't compete
+      // with the incoming call.
+      setShowCalendar(!callingNow);
       setStatus('success');
-      setTimeout(() => {
-        calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+      if (!callingNow) {
+        setTimeout(() => {
+          calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
     } catch (error) {
       console.error('Failed to submit contact form', error);
       setStatus('idle');
@@ -159,11 +184,9 @@ export default function ContactPage() {
     setBooked(null);
     setStatus('idle');
     setSubmitError('');
+    setShowCalendar(false);
+    setCalBooked(false);
   };
-
-  const calSrc = booked
-    ? `${CAL_LINK}?name=${encodeURIComponent(booked.name)}&email=${encodeURIComponent(booked.email)}`
-    : '';
 
   return (
     <div className="relative overflow-x-hidden bg-bg-base font-body text-text-body">
@@ -271,16 +294,32 @@ export default function ContactPage() {
                 </h2>
                 <p className="m-0 max-w-[42ch] text-[1.0625rem] leading-[1.6] text-text-muted">
                   {booked?.callingNow
-                    ? `Our AI assistant is calling you at ${booked.phone} in about a minute to answer your questions and get you booked. Prefer to schedule instead? Pick a time below.`
+                    ? `Our AI assistant is calling you at ${booked.phone} in about a minute to answer your questions and get you booked.`
                     : "You're all set. Pick a time below and it's booked, instantly, on our calendar. You'll get a confirmation right away."}
                 </p>
-                <button
-                  type="button"
-                  onClick={resetForm}
-                  className="mt-1.5 font-body text-[15px] font-semibold text-brand transition-colors hover:text-brand-hover"
-                >
-                  Send another request
-                </button>
+                <div className="mt-1.5 flex flex-col items-center gap-2">
+                  {booked?.callingNow && !showCalendar && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowCalendar(true);
+                        setTimeout(() => {
+                          calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 100);
+                      }}
+                      className="font-body text-[15px] font-semibold text-brand transition-colors hover:text-brand-hover"
+                    >
+                      Prefer to pick a time yourself?
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={resetForm}
+                    className="font-body text-[15px] font-semibold text-text-muted transition-colors hover:text-text-strong"
+                  >
+                    Send another request
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="relative flex flex-col gap-5">
@@ -508,7 +547,8 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* choose a time (gated calendar) */}
+      {/* choose a time (gated calendar) — hidden on the callback path until requested */}
+      {(!isSuccess || showCalendar) && (
       <section
         ref={calendarRef}
         className="mx-auto max-w-container px-[var(--gutter)] pb-[clamp(72px,9vw,140px)]"
@@ -523,13 +563,31 @@ export default function ContactPage() {
             </h2>
           </Reveal>
 
-          {isSuccess && calSrc ? (
-            <div className="overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md">
-              <iframe
-                src={calSrc}
-                title="Book a strategy call with FlowGenixAI"
-                className="h-[clamp(560px,80vh,760px)] w-full border-0"
-                allow="clipboard-write; fullscreen"
+          {calBooked ? (
+            <div className="relative flex flex-col items-center gap-4 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(32px,5vw,56px)] text-center shadow-fgx-md">
+              <span className="flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[var(--brand-40)] bg-[var(--brand-12)]">
+                <Check size={26} className="text-brand" strokeWidth={3} />
+              </span>
+              <h3 className="m-0 font-display text-[clamp(1.5rem,2.4vw,2rem)] font-bold tracking-[-0.02em] text-text-strong">
+                You&apos;re booked.
+              </h3>
+              <p className="m-0 max-w-[44ch] text-[1.0625rem] leading-[1.6] text-text-muted">
+                Check your email for the calendar invite and your Jitsi video link. See you then.
+              </p>
+              <button
+                type="button"
+                onClick={resetForm}
+                className="mt-1 inline-flex items-center justify-center rounded-[13px] border border-transparent bg-brand px-8 py-[14px] text-[16px] font-semibold text-[#06141D] transition-all duration-150 hover:bg-brand-hover hover:shadow-fgx-brand active:translate-y-px"
+              >
+                Done
+              </button>
+            </div>
+          ) : isSuccess ? (
+            <div className="h-[clamp(560px,80vh,760px)] overflow-hidden rounded-[var(--radius-xl)] border border-hairline bg-surface-card shadow-fgx-md">
+              <Cal
+                calLink={CAL_LINK_PATH}
+                style={{ width: '100%', height: '100%', overflow: 'scroll' }}
+                config={{ name: booked?.name ?? '', email: booked?.email ?? '' }}
               />
             </div>
           ) : (
@@ -559,6 +617,7 @@ export default function ContactPage() {
           )}
         </div>
       </section>
+      )}
     </div>
   );
 }
