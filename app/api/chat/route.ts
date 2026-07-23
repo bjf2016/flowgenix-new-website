@@ -55,7 +55,10 @@ Guardrails (important):
 - Be concise, warm, and plain. Use contractions. No hype, no jargon, no em dashes.
 
 Helping a visitor connect:
-When a visitor wants to talk to the team, be called, or book time, collect their full name and email. Ask whether they'd like an immediate AI callback (they'll also need to give a phone number) or to pick a time themselves. Once you have what you need, call the capture_lead tool. After it succeeds: for an immediate call, tell them our AI assistant will call in about a minute; for booking, give them the booking link the tool returns and invite them to pick a time. Keep it natural, don't interrogate; one or two questions at a time.`;
+When a visitor wants to talk to the team, be called, or book time, collect their details ONE question at a time. Ask a single question, wait for their answer, then ask the next. Never ask for two or more fields in one message.
+- For an immediate AI callback: ask full name, then email, then phone number, in that order, one at a time.
+- For booking a time themselves: ask full name, then email, one at a time.
+If you don't already know which they want, ask that first (call me now, or pick a time). Once you have every field for their choice, call the capture_lead tool. After it succeeds: for an immediate call, tell them our AI assistant will call in about a minute; for booking, give them the booking link the tool returns and invite them to pick a time. Keep it warm and natural.`;
 
 const IN_DOMAIN_KEYWORDS = [
   "ai", "automation", "workflow", "chatbot", "voice agent", "voice", "agent",
@@ -292,7 +295,11 @@ export async function POST(req: NextRequest) {
   const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
   const userQuery = lastUserMessage?.content ?? "";
 
-  if (!isInDomain(userQuery)) {
+  // Only gate the opening message. Once a conversation is underway, replies like a
+  // name, email, or phone number won't contain topic keywords and must pass through.
+  const userTurns = messages.filter((m) => m.role === "user").length;
+
+  if (userTurns <= 1 && !isInDomain(userQuery)) {
     await logOOD(userQuery);
     return Response.json({
       ok: true,
