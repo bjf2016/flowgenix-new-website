@@ -5,17 +5,11 @@ import Link from 'next/link';
 import { Check, ChevronDown } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 
-// Reuse the existing strategy-call lead endpoint so submissions land where they
-// do today. Prefer the env override (used by the old contact form); fall back to
-// the hardcoded strategy-call webhook (used by the old strategy-call page).
-const LEAD_WEBHOOK_URL =
-  process.env.NEXT_PUBLIC_N8N_STRATEGY_CALL_WEBHOOK_URL ||
-  'https://n8n.flowgenixai.com/webhook/fgx-strategy-call';
+// The unified intake workflow: logs the lead, spam-gates, and (for "call me now")
+// triggers the Retell outbound call itself.
+const LEAD_WEBHOOK_URL = 'https://n8n.flowgenixai.com/webhook/fgx-intake';
 
-const CAL_LINK = 'https://cal.com/b.foroodian/30-min-ai-strategy-call';
-
-// Tenant key passed to the AI callback workflow (the Retell trigger lives in n8n).
-const TENANT = 'flowgenixai';
+const CAL_LINK = 'https://cal.com/b.foroodian/30min';
 
 const BUSINESS_TYPES = [
   'Home & field services',
@@ -121,42 +115,26 @@ export default function ContactPage() {
 
     const callingNow = formData.contactPreference === 'call_now';
     const payload = {
-      fullName: formData.fullName,
+      name: formData.fullName,
       email: formData.email,
       phone: formData.phone,
-      businessName: formData.businessName,
+      business: formData.businessName,
       website: formData.website,
       businessType: formData.businessType,
       aiHelp: formData.needs,
       contactPreference: formData.contactPreference,
-      source: 'contact_form',
+      company_url: formData.company_code, // honeypot passthrough for the n8n spam gate
     };
 
     try {
-      // 1) Always log the lead to the existing intake webhook.
+      // Log the lead to the intake workflow. For "call me now" the workflow itself
+      // triggers the Retell outbound call, so no separate callback request is needed.
       const res = await fetch(LEAD_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Non-2xx response');
-
-      // 2) If they chose an instant call, trigger the AI callback. Best-effort,
-      // it never blocks the calendar fallback below.
-      if (callingNow) {
-        fetch('/api/callback', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            tenant: TENANT,
-            phone: formData.phone,
-            name: formData.fullName,
-            bestTime: 'now',
-            context: { source: 'contact_form', page: '/contact' },
-            intent: 'callback',
-          }),
-        }).catch(() => {});
-      }
 
       setBooked({
         name: formData.fullName,
