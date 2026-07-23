@@ -11,9 +11,9 @@ type Message = {
 };
 
 const QUICK_QUESTIONS = [
-  "What does FlowGenixAI do?",
-  "How do your AI receptionists work?",
-  "Can you help automate my intake workflow?",
+  "What does FlowGenixAI build?",
+  "Can you build a custom web or mobile app?",
+  "Can someone call me or book a quick call?",
 ];
 
 export default function ChatWidget() {
@@ -21,7 +21,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi, I'm the FlowGenixAI Assistant. Ask me anything about our AI voice, intake, and workflow automation.",
+      content: "Hi, I'm the FlowGenixAI Assistant. Ask about what we build, our past work, or pricing, and I can get you a call booked right here.",
     },
   ]);
   const [input, setInput] = useState('');
@@ -134,13 +134,13 @@ export default function ChatWidget() {
         {/* Quick Questions - only show at start */}
         {messages.length === 1 && (
           <div className="space-y-2 pb-2 border-b border-slate-200">
-            <p className="text-xs text-slate-600 font-medium">Quick questions:</p>
+            <p className="text-xs text-slate-700 font-semibold">Quick questions:</p>
             {QUICK_QUESTIONS.map((question, idx) => (
               <button
                 key={idx}
                 onClick={() => handleQuickQuestion(question)}
                 disabled={isLoading}
-                className="w-full text-left text-sm px-3 py-2 rounded-lg border border-slate-300 hover:border-[#009CE3] hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full text-left text-sm font-medium text-slate-800 px-3 py-2 rounded-lg border border-slate-300 hover:border-[#009CE3] hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {question}
               </button>
@@ -191,7 +191,7 @@ export default function ChatWidget() {
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask me anything..."
             disabled={isLoading}
-            className="flex-1 bg-white"
+            className="flex-1 bg-white text-slate-900 placeholder:text-slate-500"
           />
           <Button
             type="submit"
