@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 type Message = {
   role: 'user' | 'assistant';
   content: string;
+  cta?: 'book' | null;
 };
 
 const QUICK_QUESTIONS = [
@@ -76,6 +77,7 @@ export default function ChatWidget() {
       const assistantMessage: Message = {
         role: 'assistant',
         content: data.message || "I'm having trouble responding right now. Please try again.",
+        cta: data.cta ?? null,
       };
 
       setMessages([...updatedMessages, assistantMessage]);
@@ -150,19 +152,29 @@ export default function ChatWidget() {
 
         {/* Messages */}
         {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            <div
-              className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
-                msg.role === 'user'
-                  ? 'bg-[#009CE3] text-white'
-                  : 'bg-slate-100 text-slate-900'
-              }`}
-            >
-              {msg.content}
+          <div key={idx} className="space-y-2">
+            <div className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div
+                className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
+                  msg.role === 'user'
+                    ? 'bg-[#009CE3] text-white'
+                    : 'bg-slate-100 text-slate-900'
+                }`}
+              >
+                {msg.content}
+              </div>
             </div>
+            {msg.role === 'assistant' && msg.cta === 'book' && (
+              <div className="flex justify-start">
+                <a
+                  href="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className="inline-flex items-center rounded-lg bg-[#009CE3] px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#0082C4]"
+                >
+                  Book a call
+                </a>
+              </div>
+            )}
           </div>
         ))}
 
