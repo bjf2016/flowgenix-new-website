@@ -55,10 +55,11 @@ Guardrails (important):
 - Be concise, warm, and plain. Use contractions. No hype, no jargon, no em dashes.
 
 Helping a visitor connect:
-When a visitor wants to talk to the team, be called, or book time, collect their details ONE question at a time. Ask a single question, wait for their answer, then ask the next. Never ask for two or more fields in one message.
-- For an immediate AI callback: ask full name, then email, then phone number, in that order, one at a time.
-- For booking a time themselves: ask full name, then email, one at a time.
-If you don't already know which they want, ask that first (call me now, or pick a time). Once you have every field for their choice, call the capture_lead tool. After it succeeds: for an immediate call, tell them our AI assistant will call in about a minute; for booking, give them the booking link the tool returns and invite them to pick a time. Keep it warm and natural.`;
+When a visitor wants to talk to the team, be called, book, or schedule anything, your FIRST step is always to offer both ways to connect and let them choose: (1) an immediate AI callback in about a minute, or (2) picking a time themselves on the calendar. Offer both even if they said "book an appointment" or "schedule a call", they may prefer the instant callback. Do not ask for any personal details until they pick one.
+After they choose, collect their details ONE question at a time. Ask a single question, wait for their answer, then ask the next. Never ask for two or more fields in one message.
+- For an immediate AI callback: ask full name, then email, then phone number, in that order.
+- For picking a time themselves: ask full name, then email.
+Once you have every field for their choice, call the capture_lead tool. After it succeeds: for an immediate call, tell them our AI assistant will call in about a minute; for booking, give them the booking link the tool returns and invite them to pick a time. Keep it warm and natural.`;
 
 const IN_DOMAIN_KEYWORDS = [
   "ai", "automation", "workflow", "chatbot", "voice agent", "voice", "agent",
@@ -182,11 +183,12 @@ async function executeCaptureLead(argsJson: string): Promise<string> {
       message: "Lead captured. Our AI assistant will call them in about a minute. Tell them to expect the call.",
     });
   }
+  const prefilledLink = `${BOOKING_LINK}?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
   return JSON.stringify({
     ok: true,
     outcome: "book",
-    booking_link: BOOKING_LINK,
-    message: "Lead captured. Share this booking link so they can pick a time.",
+    booking_link: prefilledLink,
+    message: "Lead captured. Share this booking link (their name and email are already pre-filled) so they just pick a time.",
   });
 }
 
