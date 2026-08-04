@@ -299,6 +299,7 @@ export default function ProductsPage() {
                 </p>
               </div>
               <ProductLeadForm
+                leadLabel="FGX Assist early access (from /products)"
                 intent="assist-waitlist"
                 source="products-page-assist"
                 cta="Join the early-access list"
