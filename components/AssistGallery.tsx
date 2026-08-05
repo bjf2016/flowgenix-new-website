@@ -43,9 +43,9 @@ export default function AssistGallery({ shots }: { shots: Shot[] }) {
 
   return (
     <>
-      <div className="-mx-[var(--gutter)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5">
         {shots.map((shot, i) => (
-          <Reveal key={shot.src} delay={i * 70} className="min-w-[70%] shrink-0 snap-start sm:min-w-0">
+          <Reveal key={shot.src} delay={i * 70}>
             <button
               type="button"
               onClick={() => setOpen(i)}
