@@ -69,6 +69,25 @@ const ASSIST_FEATURES = [
   },
 ];
 
+const ASSIST_LIVE = [
+  'Voice-first capture: say it once, it turns into action',
+  'Inbox triage, with replies drafted in your voice',
+  'Agentic scheduling: proposes the times, drafts the invite, closes the loop',
+  'Approval controls: you set what runs on its own, and what waits for you',
+  'A full audit trail of every action, with undo',
+  'Time saved, tallied from what it actually did, in hours and dollars',
+  'Across every inbox, calendar, and business you run',
+];
+
+const ASSIST_SHOTS = [
+  { src: 'talk', alt: 'Voice capture, tap to talk and say what needs doing', cap: 'Say it once' },
+  { src: 'draft-approve', alt: 'An AI-drafted reply waiting on your approval before anything sends', cap: 'Approve before it sends' },
+  { src: 'connected-redacted', alt: 'Connected accounts: mail, calendar, and Google Workspace', cap: 'Every account connected' },
+  { src: 'ledger', alt: 'Ledger, every action on the record', cap: 'Every action logged' },
+  { src: 'today-brief', alt: 'Morning briefing with the items that need you', cap: 'Morning brief' },
+  { src: 'routine', alt: 'Calm mode, a quiet morning routine', cap: 'Calm mode' },
+];
+
 const FAQ = [
   {
     q: 'Is FGX Dash available now?',
@@ -129,7 +148,7 @@ export default function ProductsPage() {
                 href="#assist"
                 className="inline-flex items-center justify-center rounded-[14px] border border-hairline bg-transparent px-[30px] py-[17px] text-[17px] font-semibold tracking-[-0.01em] text-text-strong transition-all duration-150 hover:border-hairline-strong hover:bg-white/[0.06]"
               >
-                Get early access to FGX Assist
+                Explore FGX Assist
               </Link>
             </div>
           </div>
@@ -248,16 +267,16 @@ export default function ProductsPage() {
               <Reveal className="flex flex-col gap-[14px]">
                 <div className="fgx-index text-[clamp(56px,8vw,88px)]">02</div>
                 <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
-                  FGX Assist · Coming soon
+                  FGX Assist · Tailored to your business
                 </span>
                 <h2 className="m-0 max-w-[20ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
                   Your voice-first AI Chief of Staff.
                 </h2>
                 <p className="m-0 max-w-[58ch] text-[1.1875rem] leading-[1.6] text-text-muted">
                   Speak or type what needs doing and FGX Assist does the legwork, up to a line you
-                  set. Its flagship is a full closed scheduling loop: it finds the time, drafts the
-                  invite, and follows through, and it never crosses into money, contracts, or
-                  anything irreversible without your say-so.
+                  set. We build it around your business: your inboxes, your calendars, your
+                  workflows, with the capabilities that matter most to you. It never crosses into
+                  money, contracts, or anything irreversible without your say-so.
                 </p>
               </Reveal>
 
@@ -288,24 +307,80 @@ export default function ProductsPage() {
             <Reveal className="lg:sticky lg:top-24 flex h-fit flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(28px,3vw,40px)] shadow-fgx-lg">
               <div className="flex flex-col gap-2">
                 <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
-                  Early access
+                  Get started
                 </span>
                 <h3 className="m-0 font-display text-[1.6rem] font-bold tracking-[-0.02em] text-text-strong">
-                  Be first when Assist ships.
+                  Bring FGX Assist to your business.
                 </h3>
                 <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">
-                  Join the list and you will get access before it opens up, plus a say in what we
-                  build next.
+                  Tell us how you work and we'll set up a walkthrough tailored to your inboxes,
+                  calendars, and priorities.
                 </p>
               </div>
               <ProductLeadForm
-                leadLabel="FGX Assist early access (from /products)"
-                intent="assist-waitlist"
+                leadLabel="FGX Assist demo request (from /products)"
+                intent="assist-demo"
                 source="products-page-assist"
-                cta="Join the early-access list"
-                note="We'll send one update when it's ready. No spam."
+                cta="Request a demo"
+                note="We'll reply within one business day."
               />
             </Reveal>
+          </div>
+
+          {/* what works today */}
+          <Reveal className="mt-[clamp(48px,6vw,80px)] rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(28px,3.5vw,48px)] shadow-fgx-md">
+            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+              What FGX Assist does
+            </span>
+            <ul className="mt-5 grid list-none grid-cols-1 gap-x-8 gap-y-3 p-0 sm:grid-cols-2">
+              {ASSIST_LIVE.map((item) => (
+                <li key={item} className="flex items-start gap-3 text-[1.0625rem] leading-[1.5] text-text-body">
+                  <span
+                    className="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-brand"
+                    style={{ boxShadow: '0 0 8px var(--brand)' }}
+                    aria-hidden
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="m-0 mt-6 text-[0.95rem] leading-[1.55] text-text-muted">
+              Built around your business. We tailor the capabilities and the connections to the way
+              you actually work, and nothing acts on its own unless you allow it.
+            </p>
+          </Reveal>
+
+          {/* current build gallery */}
+          <div className="mt-[clamp(44px,5vw,72px)]">
+            <Reveal className="mb-7 flex flex-col gap-[10px]">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+                A look inside FGX Assist
+              </span>
+              <h3 className="m-0 font-display text-[clamp(1.5rem,2.4vw,2rem)] font-bold tracking-[-0.02em] text-text-strong">
+                Real screens, real work.
+              </h3>
+              <p className="m-0 font-mono text-[13px] text-text-faint">
+                Tailored and branded to your business on delivery.
+              </p>
+            </Reveal>
+            <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
+              {ASSIST_SHOTS.map((shot, i) => (
+                <Reveal
+                  key={shot.src}
+                  delay={i * 70}
+                  className="overflow-hidden rounded-[var(--radius-lg)] border border-hairline bg-bg-base shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
+                >
+                  <img
+                    src={`/products/assist/${shot.src}.png`}
+                    alt={shot.alt}
+                    className="block h-auto w-full"
+                  />
+                  <p className="m-0 px-3 py-[10px] text-center font-mono text-[12px] text-text-muted">
+                    {shot.cap}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
