@@ -401,12 +401,12 @@ export default function ProductsPage() {
                 Tailored and branded to your business on delivery.
               </p>
             </Reveal>
-            <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
+            <div className="-mx-[var(--gutter)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0">
               {ASSIST_SHOTS.map((shot, i) => (
                 <Reveal
                   key={shot.src}
                   delay={i * 70}
-                  className="overflow-hidden rounded-[var(--radius-lg)] border border-hairline bg-bg-base shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong"
+                  className="min-w-[70%] shrink-0 snap-start overflow-hidden rounded-[var(--radius-lg)] border border-hairline bg-bg-base shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong sm:min-w-0"
                 >
                   <img
                     src={`/products/assist/${shot.src}.png`}
@@ -569,7 +569,13 @@ export default function ProductsPage() {
             ))}
           </div>
 
-          <p className="m-0 mt-6 font-mono text-[13px] text-text-faint">
+          <p className="m-0 mt-8 max-w-[80ch] text-[1rem] leading-[1.6] text-text-muted">
+            Stored credentials are encrypted at rest, and your email and calendar data stay on your
+            own server. AI processing runs through our providers, Anthropic and OpenAI. Support
+            happens on your server, with your permission, and you can revoke access or delete your
+            data any time. We'll sign a data-processing agreement on request.
+          </p>
+          <p className="m-0 mt-4 font-mono text-[13px] text-text-faint">
             Connectors are private and token-protected, not open to the internet. Every action is
             logged and reversible where possible.
           </p>
