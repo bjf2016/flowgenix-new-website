@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Reveal from '@/components/Reveal';
 import CountUp from '@/components/CountUp';
 import ProductLeadForm from '@/components/ProductLeadForm';
+import AssistGallery from '@/components/AssistGallery';
 
 export const metadata: Metadata = {
   title: 'FGX Dash & FGX Assist - FlowGenixAI Products',
@@ -398,27 +399,10 @@ export default function ProductsPage() {
                 Real screens, real work.
               </h3>
               <p className="m-0 font-mono text-[13px] text-text-faint">
-                Tailored and branded to your business on delivery.
+                Tailored and branded to your business on delivery. Tap any screen to enlarge.
               </p>
             </Reveal>
-            <div className="-mx-[var(--gutter)] flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0">
-              {ASSIST_SHOTS.map((shot, i) => (
-                <Reveal
-                  key={shot.src}
-                  delay={i * 70}
-                  className="min-w-[70%] shrink-0 snap-start overflow-hidden rounded-[var(--radius-lg)] border border-hairline bg-bg-base shadow-fgx-md transition-all duration-300 hover:-translate-y-[3px] hover:border-hairline-strong sm:min-w-0"
-                >
-                  <img
-                    src={`/products/assist/${shot.src}.png`}
-                    alt={shot.alt}
-                    className="block h-auto w-full"
-                  />
-                  <p className="m-0 px-3 py-[10px] text-center font-mono text-[12px] text-text-muted">
-                    {shot.cap}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
+            <AssistGallery shots={ASSIST_SHOTS} />
           </div>
         </div>
       </section>
