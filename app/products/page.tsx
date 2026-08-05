@@ -7,7 +7,7 @@ import ProductLeadForm from '@/components/ProductLeadForm';
 export const metadata: Metadata = {
   title: 'FGX Dash & FGX Assist - FlowGenixAI Products',
   description:
-    'Two FlowGenixAI products that run the busywork. FGX Dash puts your whole operating day on one private screen, live today. FGX Assist is a voice-first AI Chief of Staff, in early access.',
+    'Two FlowGenixAI products that run the busywork. FGX Dash puts your whole operating day on one private screen, live today. FGX Assist is a voice-first AI Chief of Staff for iPhone, tailored to your business.',
   keywords: [
     'FGX Dash',
     'FGX Assist',
@@ -24,33 +24,23 @@ const STRIPED =
 const DASH_FEATURES = [
   {
     n: '01',
-    title: 'Every account, any provider',
-    body: 'Custom connectors tie six inboxes and calendars across four providers into one screen, past the limits of the native integrations.',
+    title: 'Every account in one place',
+    body: "Every inbox and calendar you've got, work and personal, on one screen. No more tab-hopping to see your day.",
   },
   {
     n: '02',
-    title: 'Birds-eye view, real drilldown',
-    body: 'The whole day at a glance, and every tile opens up. Read the full thread, expand the reasoning, edit a line in place. Nothing is a dead end.',
+    title: 'See your whole day, open any piece',
+    body: 'The day at a glance, and every tile opens up. Read the full thread, expand the reasoning, edit a line in place. Nothing is a dead end.',
   },
   {
     n: '03',
-    title: 'Voice to action',
-    body: 'Speak a note and it becomes to-dos, captured and routed across your work and personal world, without opening another app.',
-  },
-  {
-    n: '04',
     title: 'AI inbox triage and drafts',
     body: 'Watchlists surface the people and threads that matter, pull out the action items, and pre-draft replies ready to send or edit.',
   },
   {
-    n: '05',
+    n: '04',
     title: 'Newsletter and research triage',
-    body: 'It reads the newsletters and links you would never get through, keeps what is worth your time, and drops it in as clickable highlights.',
-  },
-  {
-    n: '06',
-    title: 'Private by design',
-    body: 'Self-hosted on infrastructure you control, locked down so no login or key reaches the browser, with a demo mode on fake data.',
+    body: "It reads the newsletters and links you'd never get through, keeps what's worth your time, and drops it in as clickable highlights.",
   },
 ];
 
@@ -60,8 +50,8 @@ const ASSIST_FEATURES = [
     body: 'Voice or text in, real actions out, captured and routed across your whole world, work and personal.',
   },
   {
-    title: 'You set the autonomy',
-    body: 'A dial per task: ask first, notify after, or full auto. Ships all-ask, with a global pause and a full audit log.',
+    title: 'You stay in control',
+    body: 'A simple choice per task: ask me first, tell me after, or just handle it. It starts by asking for everything, and you can pause it all with one tap.',
   },
   {
     title: 'Works with Dash',
@@ -72,11 +62,11 @@ const ASSIST_FEATURES = [
 const ASSIST_LIVE = [
   'Voice-first capture: say it once, it turns into action',
   'Inbox triage, with replies drafted in your voice',
-  'Agentic scheduling: proposes the times, drafts the invite, closes the loop',
-  'Approval controls: you set what runs on its own, and what waits for you',
-  'A full audit trail of every action, with undo',
+  'Scheduling that finds the time, drafts the invite, and closes the loop',
+  'You decide what it does on its own, and what waits for your yes',
+  'A running record of everything it did, with undo',
   'Time saved, tallied from what it actually did, in hours and dollars',
-  'Across every inbox, calendar, and business you run',
+  'Across every inbox and calendar, work and personal',
 ];
 
 const ASSIST_SHOTS = [
@@ -91,19 +81,52 @@ const ASSIST_SHOTS = [
 const FAQ = [
   {
     q: 'Is FGX Dash available now?',
-    a: 'Yes. It is live and deployed privately for owners today. Request a walkthrough to see it on your own accounts.',
+    a: "Yes. It's live, deployed privately for owners right now. Request a walkthrough to see it on your own accounts.",
   },
   {
-    q: 'When does FGX Assist launch?',
-    a: 'It is in active development. Join the early-access list and we will tell you first.',
+    q: 'Is FGX Assist available?',
+    a: 'Yes. It runs on iPhone today, and we set it up tailored to your business. Request a demo to see it on your world.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'FGX Assist starts at $5,000 setup + $500/month, which includes 25 hours of voice. Heavier voice use is billed by the minute or moves to a higher plan, and you can set a monthly cap so there are no surprise bills. FGX Dash and custom builds are scoped by quote.',
   },
   {
     q: 'Is my data safe?',
-    a: 'Dash is self-hosted on infrastructure you control. No login or key touches the browser, and the AI never acts on its own.',
+    a: "Yes, and it's built for it. Everything runs on your own server, and you grant Google access yourself during setup, so we never hold your password. The assistant reads and drafts, it never sends or changes anything without you, and you can revoke access any time. See the Security section for detail.",
   },
   {
     q: 'Can I get both?',
-    a: 'Yes. They are built to work together, one studio and one standard.',
+    a: "Yes. They're built to work together.",
+  },
+];
+
+const ASSIST_PRICE_INCLUDES = [
+  'A tailored build and full setup, done for you',
+  'Ongoing support and updates, we keep it running',
+  'Unlimited typed requests, email triage, and scheduling',
+  '25 hours of voice a month, about 50 minutes a day',
+  'Private and self-hostable, your data stays yours',
+];
+
+const COST_COMPARE = [
+  { label: 'FGX Assist', cost: '$11,000 year one, then $6,000/yr', highlight: true },
+  { label: 'Full-time executive assistant', cost: '~$88,000/yr', highlight: false },
+  { label: 'Chief of staff', cost: '~$234,000/yr', highlight: false },
+];
+
+const SECURITY = [
+  {
+    title: 'Runs on your own server',
+    body: 'Your dashboard and the connectors that reach your email and calendar live on infrastructure you control, not ours. Every client is fully separate.',
+  },
+  {
+    title: 'You grant access, not us',
+    body: "During setup you approve access on Google's own sign-in screen. We never see or hold your password, and you can revoke it yourself any time from your Google account.",
+  },
+  {
+    title: 'Read and draft, nothing more',
+    body: 'It reads your mail and calendar and prepares drafts. Any access it has, you grant, and it never sends, deletes, or changes anything without your yes.',
   },
 ];
 
@@ -133,22 +156,25 @@ export default function ProductsPage() {
               <span className="text-brand">you don&apos;t.</span>
             </h1>
             <p className="m-0 max-w-[62ch] text-[clamp(1.1rem,1.5vw,1.35rem)] leading-[1.6] text-text-body">
-              One studio, two products that talk to each other. FGX Dash gives you your whole
-              operating day on one private screen. FGX Assist turns your voice into work that gets
-              done.
+              It reads your inbox, sorts your day, drafts your replies, and books your meetings. You
+              approve, it does the work. We build it around your business and set it up for you.
+            </p>
+            <p className="m-0 font-mono text-[0.95rem] text-text-muted">
+              From <span className="font-semibold text-text-strong">$5,000 setup + $500/month</span>,
+              about <span className="text-brand">$77,000 a year less</span> than a full-time EA.
             </p>
             <div className="mt-1.5 flex flex-wrap gap-[14px]">
               <Link
-                href="#dash"
+                href="/contact"
                 className="inline-flex items-center justify-center rounded-[14px] bg-brand px-[30px] py-[17px] text-[17px] font-semibold tracking-[-0.01em] text-[#06141D] transition-all duration-150 hover:bg-brand-hover hover:shadow-fgx-brand active:translate-y-px"
               >
-                See FGX Dash
+                Book a strategy call
               </Link>
               <Link
                 href="#assist"
                 className="inline-flex items-center justify-center rounded-[14px] border border-hairline bg-transparent px-[30px] py-[17px] text-[17px] font-semibold tracking-[-0.01em] text-text-strong transition-all duration-150 hover:border-hairline-strong hover:bg-white/[0.06]"
               >
-                Explore FGX Assist
+                See it in action
               </Link>
             </div>
           </div>
@@ -178,16 +204,16 @@ export default function ProductsPage() {
               One screen for the whole operating day.
             </h2>
             <p className="m-0 max-w-[64ch] text-[1.1875rem] leading-[1.6] text-text-muted">
-              Your inboxes and calendars pull together, no matter how many or which providers, with
+              Your inboxes and calendars pull together, no matter how many or which providers. Add
               the news that matters, your priorities, and anything quietly slipping, all sorted by
-              what needs you first. It is self-hosted on infrastructure you control, so no login or
-              key ever reaches the browser. The AI reads, sorts, and drafts, but nothing acts on its
-              own.
+              what needs you first. It&apos;s self-hosted on infrastructure you control, so no login
+              or key ever reaches the browser. The AI reads, sorts, and drafts, but nothing acts on
+              its own.
             </p>
           </Reveal>
 
           {/* feature grid */}
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {DASH_FEATURES.map((f, i) => (
               <Reveal
                 key={f.n}
@@ -243,6 +269,9 @@ export default function ProductsPage() {
               <p className="m-0 mt-2 text-[1rem] text-text-muted">accounts unified across four providers</p>
             </Reveal>
           </div>
+          <p className="m-0 mt-4 text-center font-mono text-[12px] text-text-faint">
+            The 2+ hours is the owner&apos;s own estimate from daily use.
+          </p>
 
           {/* dash CTA */}
           <Reveal className="mt-[clamp(40px,5vw,64px)] flex flex-col items-start gap-3">
@@ -250,10 +279,10 @@ export default function ProductsPage() {
               href="/contact"
               className="inline-flex items-center justify-center rounded-[14px] bg-brand px-[30px] py-[17px] text-[17px] font-semibold tracking-[-0.01em] text-[#06141D] transition-all duration-150 hover:bg-brand-hover hover:shadow-fgx-brand active:translate-y-px"
             >
-              Request a Dash walkthrough
+              Book a strategy call
             </Link>
             <p className="m-0 font-mono text-[13px] text-text-faint">
-              A private, branded deployment on infrastructure you control.
+              A private, branded deployment on infrastructure you control. Priced by quote.
             </p>
           </Reveal>
         </div>
@@ -274,9 +303,11 @@ export default function ProductsPage() {
                 </h2>
                 <p className="m-0 max-w-[58ch] text-[1.1875rem] leading-[1.6] text-text-muted">
                   Speak or type what needs doing and FGX Assist does the legwork, up to a line you
-                  set. We build it around your business: your inboxes, your calendars, your
-                  workflows, with the capabilities that matter most to you. It never crosses into
-                  money, contracts, or anything irreversible without your say-so.
+                  set. We build it around your world: your inboxes and calendars, work and personal,
+                  your mornings, your priorities, and the sources you actually read. It never crosses
+                  into money, contracts, or anything irreversible without your say-so. It drafts in
+                  your voice and shows you everything before it acts, so you fix a word, not clean up
+                  a mess.
                 </p>
               </Reveal>
 
@@ -303,7 +334,7 @@ export default function ProductsPage() {
               </div>
             </div>
 
-            {/* early access panel */}
+            {/* demo request panel */}
             <Reveal className="lg:sticky lg:top-24 flex h-fit flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(28px,3vw,40px)] shadow-fgx-lg">
               <div className="flex flex-col gap-2">
                 <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
@@ -313,21 +344,21 @@ export default function ProductsPage() {
                   Bring FGX Assist to your business.
                 </h3>
                 <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">
-                  Tell us how you work and we'll set up a walkthrough tailored to your inboxes,
-                  calendars, and priorities.
+                  Tell us how you work and we&apos;ll set up a walkthrough tailored to your inboxes,
+                  calendars, and priorities. Priced by quote.
                 </p>
               </div>
               <ProductLeadForm
                 leadLabel="FGX Assist demo request (from /products)"
                 intent="assist-demo"
                 source="products-page-assist"
-                cta="Request a demo"
+                cta="Get my walkthrough"
                 note="We'll reply within one business day."
               />
             </Reveal>
           </div>
 
-          {/* what works today */}
+          {/* what it does */}
           <Reveal className="mt-[clamp(48px,6vw,80px)] rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(28px,3.5vw,48px)] shadow-fgx-md">
             <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
               What FGX Assist does
@@ -347,6 +378,13 @@ export default function ProductsPage() {
             <p className="m-0 mt-6 text-[0.95rem] leading-[1.55] text-text-muted">
               Built around your business. We tailor the capabilities and the connections to the way
               you actually work, and nothing acts on its own unless you allow it.
+            </p>
+            <p className="m-0 mt-4 flex items-center gap-2 font-mono text-[13px] text-text-faint">
+              <span
+                className="inline-block h-[6px] w-[6px] rounded-full bg-brand"
+                aria-hidden
+              />
+              Currently available on iPhone (iOS).
             </p>
           </Reveal>
 
@@ -385,6 +423,159 @@ export default function ProductsPage() {
         </div>
       </section>
 
+      {/* ===== PRICING ===== */}
+      <section id="pricing" className="scroll-mt-24 border-t border-hairline py-[clamp(72px,10vw,150px)]">
+        <div className="mx-auto max-w-container px-[var(--gutter)]">
+          <Reveal className="mb-[clamp(36px,5vw,60px)] flex flex-col gap-[14px]">
+            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+              Pricing
+            </span>
+            <h2 className="m-0 max-w-[24ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
+              Priced to replace a hire, not add a subscription.
+            </h2>
+            <p className="m-0 max-w-[62ch] text-[1.1875rem] leading-[1.6] text-text-muted">
+              FGX Assist is tailored to your business, so we scope it to your setup. Most owners
+              start here.
+            </p>
+          </Reveal>
+
+          <div className="grid gap-5 lg:grid-cols-2">
+            {/* offer card */}
+            <Reveal className="flex flex-col gap-6 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(28px,3.5vw,44px)] shadow-fgx-md">
+              <div className="flex flex-col gap-3">
+                <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+                  FGX Assist
+                </span>
+                <div className="font-display text-text-strong">
+                  <span className="text-[clamp(2.2rem,4vw,3rem)] font-extrabold tracking-[-0.03em]">
+                    From $5,000
+                  </span>
+                  <span className="text-[1.1rem] text-text-muted"> setup</span>
+                  <span className="mx-2 text-[1.4rem] text-text-faint">+</span>
+                  <span className="text-[clamp(2.2rem,4vw,3rem)] font-extrabold tracking-[-0.03em]">
+                    $500
+                  </span>
+                  <span className="text-[1.1rem] text-text-muted"> / month</span>
+                </div>
+              </div>
+              <ul className="flex list-none flex-col gap-3 p-0">
+                {ASSIST_PRICE_INCLUDES.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-[1.0625rem] leading-[1.5] text-text-body">
+                    <span
+                      className="mt-[9px] h-[7px] w-[7px] shrink-0 rounded-full bg-brand"
+                      style={{ boxShadow: '0 0 8px var(--brand)' }}
+                      aria-hidden
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-col items-start gap-3">
+                <Link
+                  href="#assist"
+                  className="inline-flex items-center justify-center rounded-[14px] bg-brand px-[30px] py-[16px] text-[16px] font-semibold tracking-[-0.01em] text-[#06141D] transition-all duration-150 hover:bg-brand-hover hover:shadow-fgx-brand active:translate-y-px"
+                >
+                  Get my walkthrough
+                </Link>
+                <p className="m-0 font-mono text-[13px] text-text-faint">
+                  Custom scope and higher-volume plans priced by quote.
+                </p>
+              </div>
+            </Reveal>
+
+            {/* comparison card */}
+            <Reveal delay={80} className="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-hairline bg-bg-deep p-[clamp(28px,3.5vw,44px)] shadow-fgx-md">
+              <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+                Compared to hiring
+              </span>
+              <p className="m-0 font-display text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.2] tracking-[-0.02em] text-text-strong [text-wrap:balance]">
+                About <span className="text-brand">$77,000 less</span> than a full-time EA in year
+                one.
+              </p>
+              <div className="flex flex-col divide-y divide-hairline border-y border-hairline">
+                {COST_COMPARE.map((row) => (
+                  <div key={row.label} className="flex items-center justify-between gap-4 py-4">
+                    <span
+                      className={`text-[1rem] ${row.highlight ? 'font-semibold text-text-strong' : 'text-text-muted'}`}
+                    >
+                      {row.label}
+                    </span>
+                    <span
+                      className={`text-right font-mono text-[0.95rem] ${row.highlight ? 'text-brand' : 'text-text-muted'}`}
+                    >
+                      {row.cost}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p className="m-0 font-mono text-[12px] text-text-faint">
+                FGX Assist shown at the starting price. Salary figures are US benchmark estimates,
+                fully loaded.
+              </p>
+            </Reveal>
+          </div>
+
+          {/* voice metering */}
+          <Reveal className="mt-5 flex flex-col gap-4 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[clamp(28px,3.5vw,44px)] shadow-fgx-md">
+            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+              Voice, metered like a phone plan
+            </span>
+            <h3 className="m-0 font-display text-[clamp(1.4rem,2.2vw,1.9rem)] font-bold tracking-[-0.02em] text-text-strong">
+              Typing is unlimited. Voice has a per-minute cost.
+            </h3>
+            <p className="m-0 max-w-[80ch] text-[1.0625rem] leading-[1.6] text-text-muted">
+              Every minute of talking runs live AI behind the scenes, so voice is metered the way
+              phone minutes are. Your plan includes 25 hours of voice a month, about 50 minutes a
+              day. Beyond that it&apos;s 25 cents a minute, or you can move up a plan. Set a monthly
+              cap and voice simply pauses at your limit, so there are no surprise bills, and you can
+              see your usage any time in the app. Higher-volume plans are available.
+            </p>
+          </Reveal>
+
+          <p className="m-0 mt-6 text-center font-mono text-[13px] text-text-faint">
+            FGX Dash and custom builds are scoped by quote.
+          </p>
+        </div>
+      </section>
+
+      {/* ===== SECURITY ===== */}
+      <section id="security" className="scroll-mt-24 border-t border-hairline bg-bg-deep py-[clamp(72px,10vw,150px)]">
+        <div className="mx-auto max-w-container px-[var(--gutter)]">
+          <Reveal className="mb-[clamp(36px,5vw,60px)] flex flex-col gap-[14px]">
+            <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-brand">
+              Security
+            </span>
+            <h2 className="m-0 max-w-[24ch] font-display text-[clamp(2rem,3.4vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
+              Your data, on your server, with access you grant yourself.
+            </h2>
+            <p className="m-0 max-w-[62ch] text-[1.1875rem] leading-[1.6] text-text-muted">
+              This is built for owners handing an AI their inbox. Here is exactly how it stays
+              yours.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {SECURITY.map((s, i) => (
+              <Reveal
+                key={s.title}
+                delay={i * 70}
+                className="flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-hairline bg-surface-card p-[26px] shadow-fgx-md"
+              >
+                <h3 className="m-0 font-display text-[1.3rem] font-bold tracking-[-0.02em] text-text-strong">
+                  {s.title}
+                </h3>
+                <p className="m-0 text-[1rem] leading-[1.55] text-text-muted">{s.body}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <p className="m-0 mt-6 font-mono text-[13px] text-text-faint">
+            Connectors are private and token-protected, not open to the internet. Every action is
+            logged and reversible where possible.
+          </p>
+        </div>
+      </section>
+
       {/* ===== WHY FLOWGENIXAI ===== */}
       <section className="border-t border-hairline py-[clamp(72px,10vw,140px)]">
         <div className="mx-auto max-w-[1000px] px-[var(--gutter)]">
@@ -395,15 +586,22 @@ export default function ProductsPage() {
             </p>
             <p className="m-0 max-w-[68ch] text-[1.1875rem] leading-[1.6] text-text-muted">
               FGX Dash is the same build we deploy, private and branded, for the owners we work with.
-              FGX Assist is what is next. One studio, one standard: tools you would actually trust
-              with your morning.
+              FGX Assist is what&apos;s next, tools you&apos;d actually trust with your morning.
+            </p>
+            <p className="m-0 max-w-[68ch] text-[1.0625rem] leading-[1.6] text-text-muted">
+              Your accounts, your rules. Credentials are held server-side and never touch the
+              browser, the AI never acts on its own, and every action is logged and reversible where
+              possible. Dash runs self-hosted on infrastructure you control, and your data stays
+              yours.
             </p>
             <div className="mt-2 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[13px] text-text-faint">
               <span>Self-hosted</span>
               <span aria-hidden>·</span>
               <span>Nothing acts on its own</span>
               <span aria-hidden>·</span>
-              <span>Your keys never leave your infrastructure</span>
+              <span>Keys never touch the browser</span>
+              <span aria-hidden>·</span>
+              <span>Yours to export or delete</span>
             </div>
           </Reveal>
         </div>
@@ -438,11 +636,11 @@ export default function ProductsPage() {
         <div className="mx-auto max-w-container px-[var(--gutter)]">
           <Reveal className="flex flex-col items-center gap-7 text-center">
             <h2 className="m-0 max-w-[18ch] font-display text-[clamp(2.2rem,4vw,3.5rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-text-strong [text-wrap:balance]">
-              Have something like this in mind?
+              Ready to get your two hours a day back?
             </h2>
             <p className="m-0 max-w-[52ch] text-[1.1875rem] leading-[1.6] text-text-muted">
-              A 30 minute strategy call, no pitch deck. You will leave knowing exactly what is worth
-              automating first.
+              A 30 minute strategy call, no pitch deck. You&apos;ll leave knowing exactly what&apos;s
+              worth automating first.
             </p>
             <Link
               href="/contact"
